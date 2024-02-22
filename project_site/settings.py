@@ -35,7 +35,7 @@ LANGUAGE_CODE = "es-es"
 SECRET_KEY = "django-insecure-vb@_1o47y^b=oo2jp=dy64t#8##416vzvuqimr*^5h7rkyu*1t"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 DEBUG_PROPAGATE_EXCEPTIONS = DEBUG
 
 
