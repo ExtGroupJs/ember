@@ -1,0 +1,301 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-16 19:03+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: apps/common/models.py:11
+msgid "Deletion timestamp"
+msgstr ""
+
+#: apps/common/models.py:13
+msgid "deletion cause"
+msgstr "causa del borrado"
+
+#: apps/common/models.py:14
+msgid "Author"
+msgstr "Autor"
+
+#: apps/common/models.py:25
+msgid "Created timestamp"
+msgstr "Fecha de creación"
+
+#: apps/common/models.py:26
+msgid "Updated timestamp"
+msgstr "Fecha de modificación"
+
+#: apps/common/models.py:27
+msgid "NOT USED"
+msgstr "NO USADO"
+
+#: apps/products_app/models/classification.py:8
+#: apps/products_app/models/destination.py:6
+#: apps/products_app/models/entity.py:7 apps/products_app/models/format.py:10
+#: apps/products_app/models/packaging.py:12
+#: apps/products_app/models/packaging.py:39
+#: apps/products_app/models/packaging.py:96
+#: apps/products_app/models/product.py:9
+#: apps/products_app/models/production.py:12 apps/users_app/models.py:17
+#: apps/users_app/models.py:26
+msgid "name"
+msgstr "nombre"
+
+#: apps/products_app/models/classification.py:9
+#: apps/products_app/models/format.py:11
+#: apps/products_app/models/packaging.py:18
+#: apps/products_app/models/packaging.py:40
+#: apps/products_app/models/packaging.py:97
+#: apps/products_app/models/product.py:13
+#: apps/products_app/models/production.py:16 apps/users_app/models.py:18
+#: apps/users_app/models.py:27
+msgid "description"
+msgstr "descripción"
+
+#: apps/products_app/models/classification.py:15
+msgid "clasificación"
+msgstr ""
+
+#: apps/products_app/models/classification.py:16
+msgid "clasificaciones"
+msgstr ""
+
+#: apps/products_app/models/destination.py:7
+#: apps/products_app/models/entity.py:9
+msgid "enabled"
+msgstr "habilitado"
+
+#: apps/products_app/models/destination.py:10
+msgid "destino"
+msgstr "destino"
+
+#: apps/products_app/models/destination.py:11
+msgid "destinos"
+msgstr ""
+
+#: apps/products_app/models/entity.py:8
+msgid "email"
+msgstr "correo"
+
+#: apps/products_app/models/entity.py:11 apps/users_app/models.py:64
+msgid "phone number 1"
+msgstr "número de teléfono 1"
+
+#: apps/products_app/models/entity.py:20 apps/users_app/models.py:71
+msgid "phone number 2"
+msgstr "número de teléfono 2"
+
+#: apps/products_app/models/entity.py:30
+#: apps/products_app/models/production.py:49
+msgid "UEB"
+msgstr ""
+
+#: apps/products_app/models/entity.py:31
+msgid "UEBs"
+msgstr ""
+
+#: apps/products_app/models/format.py:14
+msgid "formato"
+msgstr ""
+
+#: apps/products_app/models/format.py:15
+msgid "formatos"
+msgstr ""
+
+#: apps/products_app/models/packaging.py:15
+msgid "symbol"
+msgstr "símbolo"
+
+#: apps/products_app/models/packaging.py:20
+msgid "mililiters"
+msgstr "milímetros"
+
+#: apps/products_app/models/packaging.py:24
+msgid "unidad de medida"
+msgstr ""
+
+#: apps/products_app/models/packaging.py:25
+msgid "unidades de medida"
+msgstr ""
+
+#: apps/products_app/models/packaging.py:36
+msgid "plástico"
+msgstr ""
+
+
+#: apps/products_app/models/packaging.py:42
+#: apps/products_app/models/packaging.py:99
+msgid "capacity"
+msgstr "capacidad"
+
+#: apps/products_app/models/packaging.py:50
+msgid "measurement unit"
+msgstr "unidad de medida"
+
+#: apps/products_app/models/packaging.py:53
+msgid "is grouping packaging"
+msgstr "es embase agrupador"
+
+#: apps/products_app/models/packaging.py:56
+msgid "Material"
+msgstr ""
+
+#: apps/products_app/models/packaging.py:63
+msgid "Tipo de embase"
+msgstr ""
+
+#: apps/products_app/models/packaging.py:64
+msgid "Tipos de embases"
+msgstr ""
+
+#: apps/products_app/models/packaging.py:104
+msgid "Individual packaging"
+msgstr "Tipo de embase"
+
+#: apps/products_app/models/packaging.py:110
+msgid "Embalaje"
+msgstr ""
+
+#: apps/products_app/models/packaging.py:111
+msgid "Embalajes"
+msgstr ""
+
+#: apps/products_app/models/product.py:17
+msgid "producto"
+msgstr ""
+
+#: apps/products_app/models/product.py:18
+msgid "productos"
+msgstr ""
+
+#: apps/products_app/models/production.py:14
+msgid "product"
+msgstr "producto"
+
+#: apps/products_app/models/production.py:21
+msgid "distribution format"
+msgstr "formato de distribución"
+
+#: apps/products_app/models/production.py:24
+msgid "amount"
+msgstr "cantidad"
+
+#: apps/products_app/models/production.py:26
+msgid "cost"
+msgstr "costo"
+
+#: apps/products_app/models/production.py:34
+msgid "wholesale price"
+msgstr "precio al pormayor"
+
+#: apps/products_app/models/production.py:39
+msgid "active"
+msgstr "activo"
+
+#: apps/products_app/models/production.py:43
+msgid "Destination"
+msgstr "Destino"
+
+#: apps/products_app/models/production.py:53
+msgid "production date"
+msgstr "fecha de producción"
+
+#: apps/products_app/models/production.py:59
+msgid "producción"
+msgstr ""
+
+#: apps/products_app/models/production.py:60
+msgid "producciones"
+msgstr ""
+
+#: apps/users_app/models.py:21
+msgid "area"
+msgstr "área"
+
+#: apps/users_app/models.py:22
+msgid "areas"
+msgstr "áreas"
+
+#: apps/users_app/models.py:30
+msgid "responsability"
+msgstr "responsabilidad"
+
+#: apps/users_app/models.py:31
+msgid "responsabilities"
+msgstr "responsabilidades"
+
+#: apps/users_app/models.py:45
+msgid "male"
+msgstr "hombre"
+
+#: apps/users_app/models.py:46
+msgid "female"
+msgstr "mujer"
+
+#: apps/users_app/models.py:49
+msgid "identification number"
+msgstr "número de identificación"
+
+#: apps/users_app/models.py:54
+msgid "photo"
+msgstr "foto"
+
+#: apps/users_app/models.py:58
+msgid "gender"
+msgstr "género"
+
+#: apps/users_app/models.py:59
+msgid "area or department"
+msgstr "área o departamento"
+
+#: apps/users_app/models.py:61
+msgid "responsability or main tasks"
+msgstr "responsabilidad o función principal"
+
+#: apps/users_app/models.py:79
+msgid "System user"
+msgstr "Usuario del sistema"
+
+#: apps/users_app/models.py:80
+msgid "System users"
+msgstr "Usuarios del sistema"
+
+#: apps/users_app/models.py:87
+msgid "topic"
+msgstr "asunto"
+
+#: apps/users_app/models.py:88
+msgid "text"
+msgstr "texto"
+
+#: apps/users_app/models.py:89
+msgid "attachment"
+msgstr "adjunto"
+
+#: apps/users_app/models.py:90
+msgid "date"
+msgstr "fecha"
+
+#: apps/users_app/models.py:91
+msgid "user"
+msgstr "usuario"
+
+#: apps/users_app/models.py:94
+msgid "System email"
+msgstr "Correo del sistema"
+
+#: apps/users_app/models.py:95
+msgid "System emails"
+msgstr "Correos del sistema"

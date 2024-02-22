@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EmberPROD</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{% static 'assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+
+  <link rel="stylesheet" href="{% static 'assets/plugins/toastr/toastr.min.css' %}">
+
+  <link rel="stylesheet" href="{% static 'assets/dist/css/adminlte.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css' %}">
+
+
+
+
+</head>
+
+<body class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="../../index2.html"><b>Ember</b>PROD</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Iniciar sesión</p>
+
+        <form id="login-form">
+          <div class="input-group mb-3">
+            <input type="text" id="input-username" class="form-control" placeholder="Usuario">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" id="input-password" class="form-control" placeholder="Contraseña">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <div class="icheck-primary">
+
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-4">
+              <button type="submit" id="bt-login" class="btn btn-primary btn-block">Iniciar</button>
+            </div>
+            <!-- /.col -->
+          </div>
+        </form>
+
+        <div class="social-auth-links text-center mb-3">
+
+        </div>
+        <!-- /.social-auth-links -->
+
+        <p class="mb-1">
+          <a href="forgot-password.html">Olvidé mi contraseña</a>
+        </p>
+
+      </div>
+      <!-- /.login-card-body -->
+    </div>
+  </div>
+  <!-- /.login-box -->
+
+
+  <!-- jQuery -->
+  <script src="{% static 'assets/plugins/jquery/jquery.min.js' %}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- AdminLTE App -->
+  <script src="{% static 'assets/dist/js/adminlte.min.js' %}"></script>
+
+  <script src="{% static 'assets/dist/js/axios.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/sweetalert2/sweetalert2.min.js' %}"></script>
+
+  <script src="{% static 'assets/plugins/toastr/toastr.min.js' %}"></script>
+
+  <script>
+    // variable para configurar las notificaciones
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+
+    // Método para acceder al endpoint del login
+    let form = document.getElementById('login-form');
+    form.addEventListener('submit', function (event) {
+      event.preventDefault()
+      let data = new FormData();
+      data.append("username", document.getElementById('input-username').value)
+      data.append("password", document.getElementById('input-password').value)
+      // Envio de datos con axios al endpoint
+      axios.post('user-gestion/users/login/', data)
+        .then(function (res) {
+          if (res.status == 202) {
+            localStorage.setItem("user", res.data.username);
+            localStorage.setItem("avatar", res.data.photo);
+            window.location = "{% url 'index' %}";
+          }
+        }).catch(function (err) {
+          document.getElementsByClassName("login-box-msg")[0].style.color = "red";
+          document.getElementById('input-password').value = "";
+          document.getElementById('input-password').classList.add("is-invalid");
+          document.getElementById('input-username').classList.add("is-invalid");
+          document.getElementById('input-password').focus();
+          Toast.fire({
+            icon: 'error',
+            title: 'Error de acceso revise sus credenciales, Usuario y Contraseña.'
+          })
+        })
+
+    })
+
+    window.onload = function () {
+      // esta función llama a un endpoint para desloguear al usuario o a cualquier otro antes de un nuevo login
+      axios.get('user-gestion/users/logout/')
+        .then().catch(
+      )
+
+    }
+
+  </script>
+
+
+
+
+
+
+
+
+</body>
+
+</html>
