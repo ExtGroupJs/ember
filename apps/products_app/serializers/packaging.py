@@ -22,7 +22,6 @@ class MeasurementUnitSerializer(serializers.ModelSerializer):
 
 
 class IndividualPackagingSerializer(BaseModelSerializer):
-    name = serializers.SerializerMethodField()
 
     class Meta(BaseModelSerializer.Meta):
         model = IndividualPackaging
@@ -35,16 +34,14 @@ class IndividualPackagingSerializer(BaseModelSerializer):
             "is_grouping_packaging",
         ]
 
-    def get_name(self, obj):
-        return str(obj)
-
-
 class IndividualPackagingReadSerializer(IndividualPackagingSerializer):
     measurement_unit = MeasurementUnitSerializer()
-
+    name = serializers.SerializerMethodField()
+    
     class Meta(IndividualPackagingSerializer.Meta):
         model = IndividualPackaging
-
+    def get_name(self, obj):
+        return str(obj)
 
 class GroupingPackagingSerializer(BaseModelSerializer):
     class Meta(BaseModelSerializer.Meta):
