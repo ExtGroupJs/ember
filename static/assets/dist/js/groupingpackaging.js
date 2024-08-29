@@ -73,7 +73,7 @@ $(document).ready(function () {
             },
             columns: [
 
-                { data: "name", "title": "Nombre" },
+                { data: "representation", "title": "Nombre" },
                 { data: "capacity", "title": "# de embases" },
                 { data: "individual_packaging.name", "title": "Tipo de embase" },
                 { data: "description", "title": "Descripción" },

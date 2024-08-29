@@ -74,7 +74,7 @@ $(document).ready(function () {
             },
             columns: [
 
-                { data: "name", "title": "Nombre" },
+                { data: "name_representation", "title": "Nombre" },
                 { data: "capacity", "title": "Capacidad" },
                 { data: "description", "title": "Descripción" },
                 { data: "measurement_unit.name", "title": "U/M" },
