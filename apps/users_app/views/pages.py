@@ -1,6 +1,5 @@
 from django.shortcuts import render
 
-from apps.users_app.serializers.user_and_login import LoginSerializer, UserSerializer
 
 # Create your views here.
 

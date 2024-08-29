@@ -1,5 +1,3 @@
-from rest_framework import serializers
-
 from apps.common.serializers import BaseModelSerializer
 from apps.products_app.models import Product
 from apps.products_app.serializers import ClassificationSerializer

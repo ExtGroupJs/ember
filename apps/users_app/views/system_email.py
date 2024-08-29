@@ -4,7 +4,6 @@ from rest_framework import permissions, viewsets
 from apps.common.views import CommonViewMixin
 from apps.users_app.models import SystemEmail
 from apps.users_app.serializers.system_email import SystemEmailSerializer
-from apps.users_app.serializers.user_and_login import LoginSerializer, UserSerializer
 
 # Create your views here.
 

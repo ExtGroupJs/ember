@@ -35,21 +35,38 @@ def create_clasifications(apps, schema_editor):
             Classification(name="Refresco Concentrado convertido", parent=soft_drink),
         ]
     )
-    soft_drink_cc, _ = Classification.objects.get_or_create(name="Refresco Concentrado convertido")
+    soft_drink_cc, _ = Classification.objects.get_or_create(
+        name="Refresco Concentrado convertido"
+    )
 
     Classification.objects.bulk_create(
         [
-            Classification(name="Refresco Concentrado convertido a granel", parent=soft_drink_cc),
-            Classification(name="Refresco Concentrado convertido envasado", parent=soft_drink_cc),
+            Classification(
+                name="Refresco Concentrado convertido a granel", parent=soft_drink_cc
+            ),
+            Classification(
+                name="Refresco Concentrado convertido envasado", parent=soft_drink_cc
+            ),
         ]
     )
-    soft_drink_cc_env, _ = Classification.objects.get_or_create(name="Refresco Concentrado convertido envasado")
+    soft_drink_cc_env, _ = Classification.objects.get_or_create(
+        name="Refresco Concentrado convertido envasado"
+    )
 
     Classification.objects.bulk_create(
         [
-            Classification(name="Refresco Concentrado convertido envasado en pomo", parent=soft_drink_cc_env),
-            Classification(name="Refresco Concentrado convertido envasado en vidrio", parent=soft_drink_cc_env),
-            Classification(name="Refresco Concentrado convertido envasado en dispensa", parent=soft_drink_cc_env),
+            Classification(
+                name="Refresco Concentrado convertido envasado en pomo",
+                parent=soft_drink_cc_env,
+            ),
+            Classification(
+                name="Refresco Concentrado convertido envasado en vidrio",
+                parent=soft_drink_cc_env,
+            ),
+            Classification(
+                name="Refresco Concentrado convertido envasado en dispensa",
+                parent=soft_drink_cc_env,
+            ),
         ]
     )
     vinager, _ = Classification.objects.get_or_create(name="Vinagre")
@@ -69,7 +86,9 @@ def create_clasifications(apps, schema_editor):
             Classification(name="Cerveza embotellada", parent=beer),
         ]
     )
-    alternative_productions, _ = Classification.objects.get_or_create(name="Producciones alternativas")
+    alternative_productions, _ = Classification.objects.get_or_create(
+        name="Producciones alternativas"
+    )
 
 
 def remove_clasifications(apps, schema_editor):

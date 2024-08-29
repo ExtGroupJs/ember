@@ -11,7 +11,9 @@ class HistoricalVault(models.Model):
         _("Deletion timestamp"),
     )
     deletion_cause = models.TextField(_("deletion cause"), null=True, blank=True)
-    author = models.ForeignKey(User, verbose_name=_("Author"), on_delete=models.SET_NULL, null=True, blank=True)
+    author = models.ForeignKey(
+        User, verbose_name=_("Author"), on_delete=models.SET_NULL, null=True, blank=True
+    )
 
     class Meta:
         verbose_name = "Historical Vault"
@@ -22,9 +24,18 @@ class HistoricalVault(models.Model):
 
 
 class BaseModel(models.Model):
-    created_timestamp = models.DateTimeField(verbose_name=_("Created timestamp"), auto_now_add=True)
-    updated_timestamp = models.DateTimeField(verbose_name=_("Updated timestamp"), auto_now=True, null=True)
-    historical_vault = models.ForeignKey(HistoricalVault, verbose_name=_("NOT USED"), on_delete=models.SET_NULL, null=True)
+    created_timestamp = models.DateTimeField(
+        verbose_name=_("Created timestamp"), auto_now_add=True
+    )
+    updated_timestamp = models.DateTimeField(
+        verbose_name=_("Updated timestamp"), auto_now=True, null=True
+    )
+    historical_vault = models.ForeignKey(
+        HistoricalVault,
+        verbose_name=_("NOT USED"),
+        on_delete=models.SET_NULL,
+        null=True,
+    )
 
     class Meta:
         abstract = True
@@ -32,15 +43,17 @@ class BaseModel(models.Model):
     def archive(self, *args, **kwargs):
         if not self.historical_vault:
             self.historical_vault = HistoricalVault.objects.create(
-                deletion_timestamp=timezone.now(), author=current_request().user if current_request() else None, **kwargs
+                deletion_timestamp=timezone.now(),
+                author=current_request().user if current_request() else None,
+                **kwargs,
             )
         if kwargs.get("deletion_cause") is not None:
             kwargs.pop("deletion_cause")
         super().save(*args, **kwargs)
-    
+
     def des_archive(self, *args, **kwargs):
         if self.historical_vault:
             self.historical_vault.delete()
-    
+
     def is_active(self, *args, **kwargs):
         return self.historical_vault is None

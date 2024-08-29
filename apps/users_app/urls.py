@@ -9,7 +9,9 @@ router = routers.DefaultRouter()
 router.register(r"users", UserViewSet, basename="users")
 router.register(r"system-email", SystemEmailViewSet, basename="system-email")
 router.register(r"employee-area", EmployeeAreaViewSet, basename="area")
-router.register(r"employee-responsability", EmployeeResponsabilityViewSet, basename="responsability")
+router.register(
+    r"employee-responsability", EmployeeResponsabilityViewSet, basename="responsability"
+)
 
 
 urlpatterns = []

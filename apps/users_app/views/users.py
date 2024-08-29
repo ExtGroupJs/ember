@@ -7,8 +7,7 @@ from apps.common.views import CommonViewMixin
 from apps.users_app.models import SystemUser
 from apps.users_app.serializers.user_and_login import LoginSerializer, UserSerializer
 
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
-from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema
 
 # Create your views here.
 

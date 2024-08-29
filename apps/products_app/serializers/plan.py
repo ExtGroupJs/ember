@@ -1,7 +1,7 @@
-from apps.common.serializers import BaseModelSerializer
-from apps.products_app.models import Plan
 from rest_framework import serializers
 
+from apps.common.serializers import BaseModelSerializer
+from apps.products_app.models import Plan
 from apps.products_app.serializers import (
     ClassificationSerializer,
     DestinationSerializer,
@@ -41,7 +41,7 @@ class PlanReadSerializer(PlanSerializer):
             "acumulated_quantity",
         ]
 
-    def get_month(self, obj):
+    def get_month(self, obj) -> str:
         return Plan.Months(obj.month).label
 
     def get_acumulated_quantity(self, obj) -> int:

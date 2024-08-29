@@ -22,7 +22,6 @@ class MeasurementUnitSerializer(serializers.ModelSerializer):
 
 
 class IndividualPackagingSerializer(BaseModelSerializer):
-
     class Meta(BaseModelSerializer.Meta):
         model = IndividualPackaging
         fields = BaseModelSerializer.Meta.fields + [
@@ -34,14 +33,18 @@ class IndividualPackagingSerializer(BaseModelSerializer):
             "is_grouping_packaging",
         ]
 
+
 class IndividualPackagingReadSerializer(IndividualPackagingSerializer):
     measurement_unit = MeasurementUnitSerializer()
-    name = serializers.SerializerMethodField()
-    
+    name_representation = serializers.SerializerMethodField()
+
     class Meta(IndividualPackagingSerializer.Meta):
         model = IndividualPackaging
-    def get_name(self, obj):
+        fields = IndividualPackagingSerializer.Meta.fields + ["name_representation"]
+
+    def get_name_representation(self, obj) -> str:
         return str(obj)
+
 
 class GroupingPackagingSerializer(BaseModelSerializer):
     class Meta(BaseModelSerializer.Meta):
@@ -53,18 +56,6 @@ class GroupingPackagingSerializer(BaseModelSerializer):
             "capacity",
             "individual_packaging",
         ]
-
-    def get_representation(self, obj):
-        return str(obj)
-
-    def get_total_mililiters(self, obj):
-        individual_packaging = obj.individual_packaging
-        brute_qty = (
-            individual_packaging.capacity
-            * obj.capacity
-            * individual_packaging.measurement_unit.mililiters
-        )
-        return brute_qty
 
 
 class GroupingPackagingReadSerializer(GroupingPackagingSerializer):
@@ -79,3 +70,15 @@ class GroupingPackagingReadSerializer(GroupingPackagingSerializer):
             "total_mililiters",
             "individual_packaging",
         ]
+
+    def get_representation(self, obj) -> str:
+        return str(obj)
+
+    def get_total_mililiters(self, obj) -> int:
+        individual_packaging = obj.individual_packaging
+        brute_qty = (
+            individual_packaging.capacity
+            * obj.capacity
+            * individual_packaging.measurement_unit.mililiters
+        )
+        return brute_qty
