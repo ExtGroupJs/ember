@@ -3,13 +3,13 @@
 # STEPS FOR CLONING 
 ```
 cd existing_folder
-git remote add origin https://gitlab.com/ealmeida.cu/ember.git
+git remote add origin https://github.com/ExtGroupJs/ember.git
 git branch -M main
 git push -uf origin main
 ```
 
 # STEPS FOR DEVELOPING
-1.  when the code is already cloned, create a python virtual enviroment:
+1.  when the code is already cloned, create a python virtual enviroment (currently using python 3.11):
 python -m venv venv
 
 2. Activate virtual enviroment:
@@ -30,5 +30,4 @@ python manage.py runserver
 
 6. interact with API, available on:
 http://127.0.0.1:8000/api/swagger/
-http://127.0.0.1:8000/api/swagger-redoc/
 

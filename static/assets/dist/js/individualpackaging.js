@@ -222,6 +222,7 @@ let edit_elemento = false;
 $('#modal-crear-elemento').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget) // Button that triggered the modal
     var modal = $(this)
+    // poblarListas();
     if (button.data('type') == "edit") {
         var dataName = button.data('name') // Extract info from data-* attributes
         selected_id = button.data('id') // Extract info from data-* attributes
@@ -232,12 +233,13 @@ $('#modal-crear-elemento').on('show.bs.modal', function (event) {
             .then(function (response) {
                 // Recibir la respuesta
                 const elemento = response.data;
+console.log('✌️elemento --->', elemento.measurement_unit);
                 // console.log(elemento);
-                // console.log(elemento.is_grouping_packaging);
+                //
                 // Llenar el formulario con los datos del usuario
                 form.elements.name.value = elemento.name;
                 form.elements.capacity.value = elemento.capacity;
-                form.elements.munit.value = elemento.measurement_unit;
+                form.elements.munit.value = elemento.measurement_unit.id;
                 form.elements.description.value = elemento.description;
                 form.elements.is_grouping_packaging.value = elemento.is_grouping_packaging;
                 ;
