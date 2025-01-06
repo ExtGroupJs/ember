@@ -272,77 +272,79 @@ form.addEventListener("submit", function (event) {
   event.preventDefault();
   var table = $("#tabla-de-Datos").DataTable();
   axios.defaults.headers.common["X-CSRFToken"] = csrfToken;
-  let data = new FormData();
-  data.append("name", document.getElementById("name").value);
-  data.append(
-    "classification",
-    document.getElementById("classification").value
-  );
-  data.append("description", document.getElementById("description").value);
+  if (form.checkValidity()) {
+    let data = new FormData();
+    data.append("name", document.getElementById("name").value);
+    data.append(
+      "classification",
+      document.getElementById("classification").value
+    );
+    data.append("description", document.getElementById("description").value);
 
-  if (edit_elemento) {
-    axios
-      .put(`${url}${selected_id}/`, data)
-      .then((response) => {
-        if (response.status === 200) {
+    if (edit_elemento) {
+      axios
+        .put(`${url}${selected_id}/`, data)
+        .then((response) => {
+          if (response.status === 200) {
+            Swal.fire({
+              icon: "success",
+              title: "Elemento creado con éxito",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+
+            table.ajax.reload();
+            $("#modal-crear-elemento").modal("hide");
+            edit_elemento = false;
+          }
+        })
+        .catch((error) => {
+          let dict = error.response.data;
+          let textError = "Revise los siguientes campos: ";
+          for (const key in dict) {
+            textError = textError + ", " + key;
+          }
+
           Swal.fire({
-            icon: "success",
-            title: "Elemento creado con éxito",
+            icon: "error",
+            title: "Error al crear Tipo de embase",
+            text: textError,
             showConfirmButton: false,
             timer: 1500,
           });
-
-          table.ajax.reload();
-          $("#modal-crear-elemento").modal("hide");
-          edit_elemento = false;
-        }
-      })
-      .catch((error) => {
-        let dict = error.response.data;
-        let textError = "Revise los siguientes campos: ";
-        for (const key in dict) {
-          textError = textError + ", " + key;
-        }
-
-        Swal.fire({
-          icon: "error",
-          title: "Error al crear Tipo de embase",
-          text: textError,
-          showConfirmButton: false,
-          timer: 1500,
         });
-      });
-  } else {
-    axios
-      .post(url, data)
-      .then((response) => {
-        if (response.status === 201) {
+    } else {
+      axios
+        .post(url, data)
+        .then((response) => {
+          if (response.status === 201) {
+            Swal.fire({
+              icon: "success",
+              title: "Elemento creado con éxito",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+
+            table.ajax.reload();
+            $("#modal-crear-elemento").modal("hide");
+          }
+        })
+        .catch((error) => {
+          let dict = error.response.data;
+          let textError = "Revise los siguientes campos: ";
+          for (const key in dict) {
+            textError = textError + ", " + key;
+          }
+
           Swal.fire({
-            icon: "success",
-            title: "Elemento creado con éxito",
+            icon: "error",
+            title: "Error al crear elemento",
+            text: textError,
             showConfirmButton: false,
             timer: 1500,
           });
-
-          table.ajax.reload();
-          $("#modal-crear-elemento").modal("hide");
-        }
-      })
-      .catch((error) => {
-        let dict = error.response.data;
-        let textError = "Revise los siguientes campos: ";
-        for (const key in dict) {
-          textError = textError + ", " + key;
-        }
-
-        Swal.fire({
-          icon: "error",
-          title: "Error al crear elemento",
-          text: textError,
-          showConfirmButton: false,
-          timer: 1500,
         });
-      });
+    }
   }
 });
 
