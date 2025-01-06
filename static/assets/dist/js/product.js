@@ -74,7 +74,6 @@ $(document).ready(function () {
         { data: "name", title: "Nombre" },
         { data: "classification.name", title: "Clasificación" },
         { data: "description", title: "Descripción" },
-
         {
           data: "",
           title: "Acciones",
