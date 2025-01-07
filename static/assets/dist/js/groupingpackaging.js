@@ -213,7 +213,7 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
           theme: "bootstrap4",
         });
         $("#individual_packaging")
-          .val(elemento.individual_packaging)
+          .val(elemento.individual_packaging.id)
           .trigger("change.select2");
         form.elements.name.value = elemento.name;
         form.elements.capacity.value = elemento.capacity;
@@ -279,6 +279,8 @@ form.addEventListener("submit", function (event) {
   event.preventDefault();
   var table = $("#tabla-de-Datos").DataTable();
   axios.defaults.headers.common["X-CSRFToken"] = csrfToken;
+  if (form.checkValidity()) {
+
   let data = new FormData();
   data.append("name", document.getElementById("name").value);
   data.append("capacity", document.getElementById("capacity").value);
@@ -351,6 +353,7 @@ form.addEventListener("submit", function (event) {
           timer: 1500,
         });
       });
+    }
   }
 });
 
