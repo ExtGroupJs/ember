@@ -249,16 +249,21 @@ $(function () {
       },
       capacity: {
         required: true,
+        digits: true,
+        min: 1 
       },
+    },
+    messages: {
+        capacity: {
+            required: "Por favor, ingresa la capacidad.",
+            digits: "Por favor, ingresa solo números enteros positivos.",
+            min: "La capacidad debe ser un número positivo."
+        },
+        name: {
+            required: "El nombre es requerido.",
+        }
     },
     submitHandler: function (form) {},
-
-    messages: {
-      email: {
-        required: "Por favor debe ingresar una dirección de correo",
-        email: "Por favor debe ingresar una dirección de correo válida",
-      },
-    },
     errorElement: "span",
     errorPlacement: function (error, element) {
       error.addClass("invalid-feedback");
