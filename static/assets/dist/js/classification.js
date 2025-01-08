@@ -184,7 +184,7 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
       })
       .catch(function (error) {});
   } else {
-    modal.find(".modal-title").text("Crear responsabilidad ");
+    modal.find(".modal-title").text("Crear nueva clasificación");
   }
 });
 
@@ -214,9 +214,8 @@ $(function () {
     submitHandler: function (form) {},
 
     messages: {
-      email: {
-        required: "Por favor debe ingresar una dirección de correo",
-        email: "Por favor debe ingresar una dirección de correo válida",
+      name: {
+        required: "Por favor debe proporcionar un nombre",
       },
     },
     errorElement: "span",
@@ -239,74 +238,76 @@ form.addEventListener("submit", function (event) {
   event.preventDefault();
   var table = $("#tabla-de-Datos").DataTable();
   axios.defaults.headers.common["X-CSRFToken"] = csrfToken;
-  let data = new FormData();
-  data.append("parent", document.getElementById("parent").value);
-  data.append("name", document.getElementById("name").value);
-  data.append("description", document.getElementById("description").value);
+  if (form.checkValidity()) {
+    let data = new FormData();
+    data.append("parent", document.getElementById("parent").value);
+    data.append("name", document.getElementById("name").value);
+    data.append("description", document.getElementById("description").value);
 
-  if (edit_elemento) {
-    axios
-      .put(`${url}${selected_id}/`, data)
-      .then((response) => {
-        if (response.status === 200) {
+    if (edit_elemento) {
+      axios
+        .put(`${url}${selected_id}/`, data)
+        .then((response) => {
+          if (response.status === 200) {
+            Swal.fire({
+              icon: "success",
+              title: "Clasificación actualizada con éxito",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+
+            table.ajax.reload();
+            $("#modal-crear-elemento").modal("hide");
+            edit_elemento = false;
+          }
+        })
+        .catch((error) => {
+          let dict = error.response.data;
+          let textError = "Revise los siguientes campos: ";
+          for (const key in dict) {
+            textError = textError + ", " + key;
+          }
+
           Swal.fire({
-            icon: "success",
-            title: "Clasificación actualizada con éxito",
+            icon: "error",
+            title: "Error al crear clasificación",
+            text: textError,
             showConfirmButton: false,
             timer: 1500,
           });
-
-          table.ajax.reload();
-          $("#modal-crear-elemento").modal("hide");
-          edit_elemento = false;
-        }
-      })
-      .catch((error) => {
-        let dict = error.response.data;
-        let textError = "Revise los siguientes campos: ";
-        for (const key in dict) {
-          textError = textError + ", " + key;
-        }
-
-        Swal.fire({
-          icon: "error",
-          title: "Error al crear usuario",
-          text: textError,
-          showConfirmButton: false,
-          timer: 1500,
         });
-      });
-  } else {
-    axios
-      .post(url, data)
-      .then((response) => {
-        if (response.status === 201) {
+    } else {
+      axios
+        .post(url, data)
+        .then((response) => {
+          if (response.status === 201) {
+            Swal.fire({
+              icon: "success",
+              title: "Clasificación creada con éxito",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+
+            table.ajax.reload();
+            $("#modal-crear-elemento").modal("hide");
+          }
+        })
+        .catch((error) => {
+          let dict = error.response.data;
+          let textError = "Revise los siguientes campos: ";
+          for (const key in dict) {
+            textError = textError + ", " + key;
+          }
+
           Swal.fire({
-            icon: "success",
-            title: "Clasificación creada con éxito",
+            icon: "error",
+            title: "Error al crear clasificación",
+            text: textError,
             showConfirmButton: false,
             timer: 1500,
           });
-
-          table.ajax.reload();
-          $("#modal-crear-elemento").modal("hide");
-        }
-      })
-      .catch((error) => {
-        let dict = error.response.data;
-        let textError = "Revise los siguientes campos: ";
-        for (const key in dict) {
-          textError = textError + ", " + key;
-        }
-
-        Swal.fire({
-          icon: "error",
-          title: "Error al crear elemento",
-          text: textError,
-          showConfirmButton: false,
-          timer: 1500,
         });
-      });
+    }
   }
 });
 
