@@ -211,14 +211,23 @@ $(function () {
       },
       mililiters: {
         required: true,
+        digits: true,
+        min: 1,
       },
     },
     submitHandler: function (form) {},
 
     messages: {
-      email: {
-        required: "Por favor debe ingresar una dirección de correo",
-        email: "Por favor debe ingresar una dirección de correo válida",
+      name: {
+        required: "El nombre es requerido",
+      },
+      symbol: {
+        required: "El símbolo es requerido",
+      },
+      mililiters: {
+        required: "La cantidad de mililitros equivalentes es requerida",
+        digits: "Solo se permiten números",
+        min: "La cantidad de mililitros equivalentes debe ser mayor a 0",
       },
     },
     errorElement: "span",
@@ -241,75 +250,77 @@ form.addEventListener("submit", function (event) {
   event.preventDefault();
   var table = $("#tabla-de-Datos").DataTable();
   axios.defaults.headers.common["X-CSRFToken"] = csrfToken;
-  let data = new FormData();
-  data.append("name", document.getElementById("name").value);
-  data.append("symbol", document.getElementById("symbol").value);
-  data.append("mililiters", document.getElementById("mililiters").value);
-  data.append("description", document.getElementById("description").value);
+  if (form.checkValidity()) {
+    let data = new FormData();
+    data.append("name", document.getElementById("name").value);
+    data.append("symbol", document.getElementById("symbol").value);
+    data.append("mililiters", document.getElementById("mililiters").value);
+    data.append("description", document.getElementById("description").value);
 
-  if (edit_elemento) {
-    axios
-      .put(`${url}${selected_id}/`, data)
-      .then((response) => {
-        if (response.status === 200) {
+    if (edit_elemento) {
+      axios
+        .put(`${url}${selected_id}/`, data)
+        .then((response) => {
+          if (response.status === 200) {
+            Swal.fire({
+              icon: "success",
+              title: "Unidad de medida editada con éxito",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+
+            table.ajax.reload();
+            $("#modal-crear-elemento").modal("hide");
+            edit_elemento = false;
+          }
+        })
+        .catch((error) => {
+          let dict = error.response.data;
+          let textError = "Revise los siguientes campos: ";
+          for (const key in dict) {
+            textError = textError + ", " + key;
+          }
+
           Swal.fire({
-            icon: "success",
-            title: "Unidad de medida editada con éxito",
+            icon: "error",
+            title: "Error al crear unidad de medida ",
+            text: textError,
             showConfirmButton: false,
             timer: 1500,
           });
-
-          table.ajax.reload();
-          $("#modal-crear-elemento").modal("hide");
-          edit_elemento = false;
-        }
-      })
-      .catch((error) => {
-        let dict = error.response.data;
-        let textError = "Revise los siguientes campos: ";
-        for (const key in dict) {
-          textError = textError + ", " + key;
-        }
-
-        Swal.fire({
-          icon: "error",
-          title: "Error al crear unidad de medida ",
-          text: textError,
-          showConfirmButton: false,
-          timer: 1500,
         });
-      });
-  } else {
-    axios
-      .post(url, data)
-      .then((response) => {
-        if (response.status === 201) {
+    } else {
+      axios
+        .post(url, data)
+        .then((response) => {
+          if (response.status === 201) {
+            Swal.fire({
+              icon: "success",
+              title: "Unidad de medida creada con éxito",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+
+            table.ajax.reload();
+            $("#modal-crear-elemento").modal("hide");
+          }
+        })
+        .catch((error) => {
+          let dict = error.response.data;
+          let textError = "Revise los siguientes campos: ";
+          for (const key in dict) {
+            textError = textError + ", " + key;
+          }
+
           Swal.fire({
-            icon: "success",
-            title: "Unidad de medida creada con éxito",
+            icon: "error",
+            title: "Error al crear elemento",
+            text: textError,
             showConfirmButton: false,
             timer: 1500,
           });
-
-          table.ajax.reload();
-          $("#modal-crear-elemento").modal("hide");
-        }
-      })
-      .catch((error) => {
-        let dict = error.response.data;
-        let textError = "Revise los siguientes campos: ";
-        for (const key in dict) {
-          textError = textError + ", " + key;
-        }
-
-        Swal.fire({
-          icon: "error",
-          title: "Error al crear elemento",
-          text: textError,
-          showConfirmButton: false,
-          timer: 1500,
         });
-      });
+    }
   }
 });
 
