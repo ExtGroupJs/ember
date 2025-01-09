@@ -322,7 +322,7 @@ form.addEventListener("submit", function (event) {
 
           Swal.fire({
             icon: "error",
-            title: "Error al crear Envase agrupador",
+            title: "Error al crear envase agrupador",
             text: textError,
             showConfirmButton: false,
             timer: 1500,
