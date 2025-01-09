@@ -307,7 +307,7 @@ form.addEventListener("submit", function (event) {
 
           Swal.fire({
             icon: "error",
-            title: "Error al crear Tipo de embase",
+            title: "Error al crear Tipo de envase",
             text: textError,
             showConfirmButton: false,
             timer: 1500,

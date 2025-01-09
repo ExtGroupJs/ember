@@ -241,7 +241,7 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
       })
       .catch(function (error) {});
   } else {
-    modal.find(".modal-title").text("Crear tipo de embase");
+    modal.find(".modal-title").text("Crear tipo de envase");
   }
 });
 

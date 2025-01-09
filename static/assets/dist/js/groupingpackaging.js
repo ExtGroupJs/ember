@@ -72,8 +72,8 @@ $(document).ready(function () {
       },
       columns: [
         { data: "representation", title: "Nombre" },
-        { data: "capacity", title: "# de embases" },
-        { data: "individual_packaging.name", title: "Tipo de embase" },
+        { data: "capacity", title: "# de Envases" },
+        { data: "individual_packaging.name", title: "Envase individual" },
         { data: "description", title: "Descripción" },
         { data: "total_mililiters", title: "Total de ml" },
 
@@ -146,14 +146,14 @@ function function_archivar(selected_id) {
     .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "El elemento se archivó correctamente",
+        title: "El Envase agrupador se archivó correctamente",
       });
       table.ajax.reload();
     })
     .catch((error) => {
       Toast.fire({
         icon: "error",
-        title: "El elemento no se archivó",
+        title: "El Envase agrupador no se archivó",
       });
     });
 }
@@ -168,14 +168,14 @@ function function_des_archivar(selected_id) {
     .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "El elemento se restauró correctamente",
+        title: "El Envase agrupador se restauró correctamente",
       });
       table.ajax.reload();
     })
     .catch((error) => {
       Toast.fire({
         icon: "error",
-        title: "El elemento no se restauró",
+        title: "El Envase agrupador no se restauró",
       });
     });
 }
@@ -222,7 +222,7 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
       })
       .catch(function (error) {});
   } else {
-    modal.find(".modal-title").text("Crear Embalaje");
+    modal.find(".modal-title").text("Crear Envase agrupador");
     $(".select2").select2({
       dropdownParent: $("#modal-crear-elemento"),
       theme: "bootstrap4",
@@ -301,7 +301,7 @@ form.addEventListener("submit", function (event) {
           if (response.status === 200) {
             Swal.fire({
               icon: "success",
-              title: "Elemento creado con éxito",
+              title: "Envase agrupador editado con éxito",
               showConfirmButton: false,
               timer: 1500,
             });
@@ -320,7 +320,7 @@ form.addEventListener("submit", function (event) {
 
           Swal.fire({
             icon: "error",
-            title: "Error al crear Tipo de embase",
+            title: "Error al crear Envase agrupador",
             text: textError,
             showConfirmButton: false,
             timer: 1500,
@@ -333,7 +333,7 @@ form.addEventListener("submit", function (event) {
           if (response.status === 201) {
             Swal.fire({
               icon: "success",
-              title: "Elemento creado con éxito",
+              title: "Envase agrupador creado con éxito",
               showConfirmButton: false,
               timer: 1500,
             });
