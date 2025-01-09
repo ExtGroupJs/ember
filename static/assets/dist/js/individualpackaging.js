@@ -163,14 +163,14 @@ function function_archivar(selected_id) {
     .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "El elemento se archivó correctamente",
+        title: "El tipo de envase se archivó correctamente",
       });
       table.ajax.reload();
     })
     .catch((error) => {
       Toast.fire({
         icon: "error",
-        title: "El elemento no se archivó",
+        title: "El tipo de envase no se archivó",
       });
     });
 }
@@ -185,14 +185,14 @@ function function_des_archivar(selected_id) {
     .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "El elemento se restauró correctamente",
+        title: "El tipo de envase se restauró correctamente",
       });
       table.ajax.reload();
     })
     .catch((error) => {
       Toast.fire({
         icon: "error",
-        title: "El elemento no se restauró",
+        title: "El tipo de envase no se restauró",
       });
     });
 }
@@ -264,14 +264,20 @@ $(function () {
       },
       capacity: {
         required: true,
+        digits: true,
+        min: 1,
       },
     },
     submitHandler: function (form) {},
 
     messages: {
-      email: {
-        required: "Por favor debe ingresar una dirección de correo",
-        email: "Por favor debe ingresar una dirección de correo válida",
+      capacity: {
+        required: "Por favor, ingresa la capacidad.",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      name: {
+        required: "El nombre es requerido.",
       },
     },
     errorElement: "span",
