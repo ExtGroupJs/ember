@@ -230,7 +230,7 @@ form.addEventListener("submit", function (event) {
           if (response.status === 200) {
             Swal.fire({
               icon: "success",
-              title: "Responsabilidad creada con éxito",
+              title: "Responsabilidad editada con éxito",
               showConfirmButton: false,
               timer: 1500,
             });

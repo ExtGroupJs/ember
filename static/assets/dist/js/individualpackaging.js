@@ -149,7 +149,9 @@ $("#modal-eliminar-elemento").on("show.bs.modal", function (event) {
   var dataName = button.data("name"); // Extract info from data-* attributes
   selected_id = button.data("id"); // Extract info from data-* attributes
   var modal = $(this);
-  modal.find(".mytext").text("¿Desea archivar a " + dataName + "?");
+  modal
+    .find(".mytext")
+    .text("¿Desea archivar el tipo de envase: " + dataName + "?");
 });
 
 // funcion para archivar
@@ -322,7 +324,7 @@ form.addEventListener("submit", function (event) {
           if (response.status === 200) {
             Swal.fire({
               icon: "success",
-              title: "Elemento creado con éxito",
+              title: "Tipo de envase editado con éxito",
               showConfirmButton: false,
               timer: 1500,
             });
@@ -341,7 +343,7 @@ form.addEventListener("submit", function (event) {
 
           Swal.fire({
             icon: "error",
-            title: "Error al crear usuario",
+            title: "Error al crear Tipo de envase ",
             text: textError,
             showConfirmButton: false,
             timer: 1500,
@@ -354,7 +356,7 @@ form.addEventListener("submit", function (event) {
           if (response.status === 201) {
             Swal.fire({
               icon: "success",
-              title: "Elemento creado con éxito",
+              title: "Tipo de envase creado con éxito",
               showConfirmButton: false,
               timer: 1500,
             });
@@ -420,7 +422,7 @@ formagrupador.addEventListener("submit", function (event) {
       if (response.status === 201) {
         Swal.fire({
           icon: "success",
-          title: "Elemento creado con éxito",
+          title: "Envase agrupador creado con éxito",
           showConfirmButton: false,
           timer: 1500,
         });

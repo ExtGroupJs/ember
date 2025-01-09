@@ -132,7 +132,9 @@ $("#modal-eliminar-elemento").on("show.bs.modal", function (event) {
   var dataName = button.data("name"); // Extract info from data-* attributes
   selected_id = button.data("id"); // Extract info from data-* attributes
   var modal = $(this);
-  modal.find(".mytext").text("¿Desea archivar a " + dataName + "?");
+  modal
+    .find(".mytext")
+    .text("¿Desea archivar el envase agrupador: " + dataName + "?");
 });
 
 // funcion para archivar

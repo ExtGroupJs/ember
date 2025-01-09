@@ -130,7 +130,7 @@ $("#modal-eliminar-elemento").on("show.bs.modal", function (event) {
   var dataName = button.data("name"); // Extract info from data-* attributes
   selected_id = button.data("id"); // Extract info from data-* attributes
   var modal = $(this);
-  modal.find(".mytext").text("¿Desea archivar a " + dataName + "?");
+  modal.find(".mytext").text("¿Desea archivar el producto: " + dataName + "?");
 });
 
 // funcion para archivar
@@ -144,14 +144,14 @@ function function_archivar(selected_id) {
     .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "El elemento se archivó correctamente",
+        title: "El producto se archivó correctamente",
       });
       table.ajax.reload();
     })
     .catch((error) => {
       Toast.fire({
         icon: "error",
-        title: "El elemento no se archivó",
+        title: "El producto no se archivó",
       });
     });
 }
@@ -166,14 +166,14 @@ function function_des_archivar(selected_id) {
     .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "El elemento se restauró correctamente",
+        title: "El producto se restauró correctamente",
       });
       table.ajax.reload();
     })
     .catch((error) => {
       Toast.fire({
         icon: "error",
-        title: "El elemento no se restauró",
+        title: "El producto no se restauró",
       });
     });
 }
@@ -288,7 +288,7 @@ form.addEventListener("submit", function (event) {
           if (response.status === 200) {
             Swal.fire({
               icon: "success",
-              title: "Elemento creado con éxito",
+              title: "Producto editado con éxito",
               showConfirmButton: false,
               timer: 1500,
             });
@@ -307,7 +307,7 @@ form.addEventListener("submit", function (event) {
 
           Swal.fire({
             icon: "error",
-            title: "Error al crear Tipo de envase",
+            title: "Error al crear producto",
             text: textError,
             showConfirmButton: false,
             timer: 1500,
@@ -320,7 +320,7 @@ form.addEventListener("submit", function (event) {
           if (response.status === 201) {
             Swal.fire({
               icon: "success",
-              title: "Elemento creado con éxito",
+              title: "Producto creado con éxito",
               showConfirmButton: false,
               timer: 1500,
             });
@@ -338,7 +338,7 @@ form.addEventListener("submit", function (event) {
 
           Swal.fire({
             icon: "error",
-            title: "Error al crear elemento",
+            title: "Error al crear producto",
             text: textError,
             showConfirmButton: false,
             timer: 1500,
