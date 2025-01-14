@@ -16,8 +16,8 @@ class Migration(migrations.Migration):
         migrations.AlterModelOptions(
             name="individualpackaging",
             options={
-                "verbose_name": "Tipo de embase",
-                "verbose_name_plural": "Tipos de embases",
+                "verbose_name": "Tipo de envase",
+                "verbose_name_plural": "Tipos de envases",
             },
         ),
     ]
