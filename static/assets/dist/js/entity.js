@@ -244,7 +244,7 @@ form.addEventListener("submit", function (event) {
             icon: "success",
             title: "Entidad editada con éxito",
             showConfirmButton: false,
-            timer: 50 * textError.length,
+            timer: 2000,
           });
 
           table.ajax.reload();
@@ -276,7 +276,7 @@ form.addEventListener("submit", function (event) {
             icon: "success",
             title: "Entidad creado con éxito",
             showConfirmButton: false,
-            timer: 50 * textError.length,
+            timer: 50 * 2000,
           });
 
           table.ajax.reload();

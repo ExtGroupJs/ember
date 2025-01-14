@@ -232,7 +232,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Responsabilidad editada con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
 
             table.ajax.reload();
@@ -264,7 +264,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Responsabilidad creada con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
 
             table.ajax.reload();

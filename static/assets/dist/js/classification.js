@@ -253,7 +253,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Clasificación actualizada con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
 
             table.ajax.reload();
@@ -285,7 +285,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Clasificación creada con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
 
             table.ajax.reload();

@@ -326,7 +326,7 @@ form.addEventListener("submit", function (event) {
             icon: "success",
             title: "Usuario actualizado con exito  ",
             showConfirmButton: false,
-            timer: 50 * textError.length,
+            timer: 2000,
           });
           table.ajax.reload();
 
@@ -357,7 +357,7 @@ form.addEventListener("submit", function (event) {
             icon: "success",
             title: "Usuario creado con exito",
             showConfirmButton: false,
-            timer: 50 * textError.length,
+            timer: 2000,
           });
           table.ajax.reload();
           $("#modal-crear-usuario").modal("hide");
