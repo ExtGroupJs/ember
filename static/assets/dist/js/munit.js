@@ -266,7 +266,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Unidad de medida editada con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
 
             table.ajax.reload();
@@ -298,7 +298,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Unidad de medida creada con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
 
             table.ajax.reload();
