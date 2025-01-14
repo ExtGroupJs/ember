@@ -237,10 +237,13 @@ $(function () {
       },
       date: {
         required: true,
+        dateFormat: true,
       },
 
       quantity: {
         required: true,
+        digits: true,
+        min: 1,
       },
       measurement_unit: {
         required: true,
@@ -251,6 +254,14 @@ $(function () {
     messages: {
       name: {
         required: "El nombre del plan es obligatorio",
+      },
+      date: {
+        required: "El plan debe responder a una fecha",
+      },
+      quantity: {
+        required: "Por favor, ingresa la cantidad planificada.",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
       },
     },
     errorElement: "span",
@@ -351,7 +362,7 @@ form.addEventListener("submit", function (event) {
           let dict = error.response.data;
           let textError = "Revise los siguientes campos: ";
           for (const key in dict) {
-            textError = textError + ", " + key;
+            textError = textError + ", " + key + ": " + dict[key];
           }
 
           Swal.fire({
@@ -359,7 +370,7 @@ form.addEventListener("submit", function (event) {
             title: "Error al crear plan",
             text: textError,
             showConfirmButton: true,
-            timer: 3000,
+            timer: 50 * textError.length,
           });
         });
     }
@@ -403,9 +414,9 @@ function poblarListas() {
 
 function convertMonthToNumber(month) {
   // Si el mes es un número, lo devolvemos.
-
-  if (validateNumber(month)) {
-    return month;
+  const processedMonth = validateNumber(month);
+  if (processedMonth) {
+    return processedMonth;
   }
 
   // Si el mes es una cadena, lo convertimos a número.
@@ -434,24 +445,13 @@ function convertMonthToNumber(month) {
 }
 
 function validateNumber(number) {
-  // Si el número es un número, lo devolvemos.
-  if (typeof number === "number") {
-    return validateNumber(number);
-  }
-
   // Si el número es una cadena, lo convertimos a número.
-  const numberAsNumber = parseInt(number);
+  const numberAsNumber = parseInt(number, 10);
 
   // Comprobamos que el número sea un número.
-  if (isNaN(numberAsNumber)) {
+  if (isNaN(numberAsNumber) || numberAsNumber < 1 || numberAsNumber > 11) {
     return false;
   }
-
-  // Comprobamos que el número esté entre 1 y 11.
-  if (numberAsNumber < 1 || numberAsNumber > 11) {
-    return false;
-  }
-
   // El número es válido.
-  return true;
+  return numberAsNumber;
 }
