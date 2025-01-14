@@ -149,7 +149,9 @@ $("#modal-eliminar-elemento").on("show.bs.modal", function (event) {
   var dataName = button.data("name"); // Extract info from data-* attributes
   selected_id = button.data("id"); // Extract info from data-* attributes
   var modal = $(this);
-  modal.find(".mytext").text("¿Desea archivar a " + dataName + "?");
+  modal
+    .find(".mytext")
+    .text("¿Desea archivar el tipo de envase: " + dataName + "?");
 });
 
 // funcion para archivar
@@ -163,14 +165,14 @@ function function_archivar(selected_id) {
     .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "El elemento se archivó correctamente",
+        title: "El tipo de envase se archivó correctamente",
       });
       table.ajax.reload();
     })
     .catch((error) => {
       Toast.fire({
         icon: "error",
-        title: "El elemento no se archivó",
+        title: "El tipo de envase no se archivó",
       });
     });
 }
@@ -185,14 +187,14 @@ function function_des_archivar(selected_id) {
     .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "El elemento se restauró correctamente",
+        title: "El tipo de envase se restauró correctamente",
       });
       table.ajax.reload();
     })
     .catch((error) => {
       Toast.fire({
         icon: "error",
-        title: "El elemento no se restauró",
+        title: "El tipo de envase no se restauró",
       });
     });
 }
@@ -241,7 +243,7 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
       })
       .catch(function (error) {});
   } else {
-    modal.find(".modal-title").text("Crear tipo de embase");
+    modal.find(".modal-title").text("Crear tipo de envase");
   }
 });
 
@@ -264,14 +266,20 @@ $(function () {
       },
       capacity: {
         required: true,
+        digits: true,
+        min: 1,
       },
     },
     submitHandler: function (form) {},
 
     messages: {
-      email: {
-        required: "Por favor debe ingresar una dirección de correo",
-        email: "Por favor debe ingresar una dirección de correo válida",
+      capacity: {
+        required: "Por favor, ingresa la capacidad.",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      name: {
+        required: "El nombre es requerido.",
       },
     },
     errorElement: "span",
@@ -316,9 +324,9 @@ form.addEventListener("submit", function (event) {
           if (response.status === 200) {
             Swal.fire({
               icon: "success",
-              title: "Elemento creado con éxito",
+              title: "Tipo de envase editado con éxito",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 50 * textError.length,
             });
 
             table.ajax.reload();
@@ -330,15 +338,15 @@ form.addEventListener("submit", function (event) {
           let dict = error.response.data;
           let textError = "Revise los siguientes campos: ";
           for (const key in dict) {
-            textError = textError + ", " + key;
+            textError = textError + ", " + key + ": " + dict[key];
           }
 
           Swal.fire({
             icon: "error",
-            title: "Error al crear usuario",
+            title: "Error al crear Tipo de envase ",
             text: textError,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
         });
     } else {
@@ -348,9 +356,9 @@ form.addEventListener("submit", function (event) {
           if (response.status === 201) {
             Swal.fire({
               icon: "success",
-              title: "Elemento creado con éxito",
+              title: "Tipo de envase creado con éxito",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 50 * textError.length,
             });
 
             table.ajax.reload();
@@ -361,7 +369,7 @@ form.addEventListener("submit", function (event) {
           let dict = error.response.data;
           let textError = "Revise los siguientes campos: ";
           for (const key in dict) {
-            textError = textError + ", " + key;
+            textError = textError + ", " + key + ": " + dict[key];
           }
 
           Swal.fire({
@@ -369,7 +377,7 @@ form.addEventListener("submit", function (event) {
             title: "Error al crear elemento",
             text: textError,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
         });
     }
@@ -414,9 +422,9 @@ formagrupador.addEventListener("submit", function (event) {
       if (response.status === 201) {
         Swal.fire({
           icon: "success",
-          title: "Elemento creado con éxito",
+          title: "Envase agrupador creado con éxito",
           showConfirmButton: false,
-          timer: 1500,
+          timer: 50 * textError.length,
         });
 
         // table.ajax.reload();
@@ -427,14 +435,14 @@ formagrupador.addEventListener("submit", function (event) {
       let dict = error.response.data;
       let textError = "Revise los siguientes campos: ";
       for (const key in dict) {
-        textError = textError + ", " + key;
+        textError = textError + ", " + key + ": " + dict[key];
       }
       Swal.fire({
         icon: "error",
         title: "Error al crear elemento",
         text: textError,
         showConfirmButton: false,
-        timer: 1500,
+        timer: 50 * textError.length,
       });
     });
 });

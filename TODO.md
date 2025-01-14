@@ -13,8 +13,8 @@ Para la fecha si pudieras encontrar un selector sería genial
 
 # FE
 - No dejar scroll en el menú
-- en la produccion, el listado de embase agrupador y en el listado (formato), no usar el nombre, sino la conformacion de cantidadXml-?????
-- En el adicionar y editar embases (empaques individuales) adicionar el campo Material (Vidrio o PEP)
+- en la produccion, el listado de envase agrupador y en el listado (formato), no usar el nombre, sino la conformacion de cantidadXml-?????
+- En el adicionar y editar envases (empaques individuales) adicionar el campo Material (Vidrio o PEP)
 - Cuando se van a crear empaques agrupadores desde el menú, comenzar desde 2, si es uno solo, se debe marcar desde el empaque individual.
 - Quitar los fields de "destination", "entity" del formulario de creación/edición de la producción.
 - Adicionar en el formulario de creación/edición de la producción la selección (obligatoria) del plan al que responde la producción

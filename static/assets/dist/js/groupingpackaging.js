@@ -72,8 +72,8 @@ $(document).ready(function () {
       },
       columns: [
         { data: "representation", title: "Nombre" },
-        { data: "capacity", title: "# de embases" },
-        { data: "individual_packaging.name", title: "Tipo de embase" },
+        { data: "capacity", title: "# de Envases" },
+        { data: "individual_packaging.name", title: "Envase individual" },
         { data: "description", title: "Descripción" },
         { data: "total_mililiters", title: "Total de ml" },
 
@@ -132,7 +132,9 @@ $("#modal-eliminar-elemento").on("show.bs.modal", function (event) {
   var dataName = button.data("name"); // Extract info from data-* attributes
   selected_id = button.data("id"); // Extract info from data-* attributes
   var modal = $(this);
-  modal.find(".mytext").text("¿Desea archivar a " + dataName + "?");
+  modal
+    .find(".mytext")
+    .text("¿Desea archivar el envase agrupador: " + dataName + "?");
 });
 
 // funcion para archivar
@@ -146,14 +148,14 @@ function function_archivar(selected_id) {
     .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "El elemento se archivó correctamente",
+        title: "El Envase agrupador se archivó correctamente",
       });
       table.ajax.reload();
     })
     .catch((error) => {
       Toast.fire({
         icon: "error",
-        title: "El elemento no se archivó",
+        title: "El Envase agrupador no se archivó",
       });
     });
 }
@@ -168,14 +170,14 @@ function function_des_archivar(selected_id) {
     .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "El elemento se restauró correctamente",
+        title: "El Envase agrupador se restauró correctamente",
       });
       table.ajax.reload();
     })
     .catch((error) => {
       Toast.fire({
         icon: "error",
-        title: "El elemento no se restauró",
+        title: "El Envase agrupador no se restauró",
       });
     });
 }
@@ -222,7 +224,7 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
       })
       .catch(function (error) {});
   } else {
-    modal.find(".modal-title").text("Crear Embalaje");
+    modal.find(".modal-title").text("Crear Envase agrupador");
     $(".select2").select2({
       dropdownParent: $("#modal-crear-elemento"),
       theme: "bootstrap4",
@@ -250,18 +252,18 @@ $(function () {
       capacity: {
         required: true,
         digits: true,
-        min: 1 
+        min: 1,
       },
     },
     messages: {
-        capacity: {
-            required: "Por favor, ingresa la capacidad.",
-            digits: "Por favor, ingresa solo números enteros positivos.",
-            min: "La capacidad debe ser un número positivo."
-        },
-        name: {
-            required: "El nombre es requerido.",
-        }
+      capacity: {
+        required: "Por favor, ingresa la capacidad.",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      name: {
+        required: "El nombre es requerido.",
+      },
     },
     submitHandler: function (form) {},
     errorElement: "span",
@@ -285,79 +287,78 @@ form.addEventListener("submit", function (event) {
   var table = $("#tabla-de-Datos").DataTable();
   axios.defaults.headers.common["X-CSRFToken"] = csrfToken;
   if (form.checkValidity()) {
+    let data = new FormData();
+    data.append("name", document.getElementById("name").value);
+    data.append("capacity", document.getElementById("capacity").value);
+    data.append(
+      "individual_packaging",
+      document.getElementById("individual_packaging").value
+    );
+    data.append("description", document.getElementById("description").value);
 
-  let data = new FormData();
-  data.append("name", document.getElementById("name").value);
-  data.append("capacity", document.getElementById("capacity").value);
-  data.append(
-    "individual_packaging",
-    document.getElementById("individual_packaging").value
-  );
-  data.append("description", document.getElementById("description").value);
+    if (edit_elemento) {
+      axios
+        .put(`${url}${selected_id}/`, data)
+        .then((response) => {
+          if (response.status === 200) {
+            Swal.fire({
+              icon: "success",
+              title: "Envase agrupador editado con éxito",
+              showConfirmButton: false,
+              timer: 50 * textError.length,
+            });
 
-  if (edit_elemento) {
-    axios
-      .put(`${url}${selected_id}/`, data)
-      .then((response) => {
-        if (response.status === 200) {
+            table.ajax.reload();
+            $("#modal-crear-elemento").modal("hide");
+            edit_elemento = false;
+          }
+        })
+        .catch((error) => {
+          let dict = error.response.data;
+          let textError = "Revise los siguientes campos: ";
+          for (const key in dict) {
+            textError = textError + ", " + key + ": " + dict[key];
+          }
+
           Swal.fire({
-            icon: "success",
-            title: "Elemento creado con éxito",
+            icon: "error",
+            title: "Error al crear envase agrupador",
+            text: textError,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
-
-          table.ajax.reload();
-          $("#modal-crear-elemento").modal("hide");
-          edit_elemento = false;
-        }
-      })
-      .catch((error) => {
-        let dict = error.response.data;
-        let textError = "Revise los siguientes campos: ";
-        for (const key in dict) {
-          textError = textError + ", " + key;
-        }
-
-        Swal.fire({
-          icon: "error",
-          title: "Error al crear Tipo de embase",
-          text: textError,
-          showConfirmButton: false,
-          timer: 1500,
         });
-      });
-  } else {
-    axios
-      .post(url, data)
-      .then((response) => {
-        if (response.status === 201) {
+    } else {
+      axios
+        .post(url, data)
+        .then((response) => {
+          if (response.status === 201) {
+            Swal.fire({
+              icon: "success",
+              title: "Envase agrupador creado con éxito",
+              showConfirmButton: false,
+              timer: 50 * textError.length,
+            });
+
+            table.ajax.reload();
+            $("#modal-crear-elemento").modal("hide");
+          }
+        })
+        .catch((error) => {
+          let dict = error.response.data;
+          let textError = "Revise los siguientes campos: ";
+          for (const key in dict) {
+            textError = textError + ", " + key + ": " + dict[key];
+          }
+
           Swal.fire({
-            icon: "success",
-            title: "Elemento creado con éxito",
+            icon: "error",
+            title: "Error al crear elemento",
+            text: textError,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
-
-          table.ajax.reload();
-          $("#modal-crear-elemento").modal("hide");
-        }
-      })
-      .catch((error) => {
-        let dict = error.response.data;
-        let textError = "Revise los siguientes campos: ";
-        for (const key in dict) {
-          textError = textError + ", " + key;
-        }
-
-        Swal.fire({
-          icon: "error",
-          title: "Error al crear elemento",
-          text: textError,
-          showConfirmButton: false,
-          timer: 1500,
         });
-      });
     }
   }
 });

@@ -39,8 +39,8 @@ class IndividualPackaging(BaseModel):
     )
 
     class Meta:
-        verbose_name = _("Tipo de embase")
-        verbose_name_plural = _("Tipos de embases")
+        verbose_name = _("Tipo de envase")
+        verbose_name_plural = _("Tipos de envases")
 
     def __str__(self) -> str:
         material = self.MATERIAL(self.material).label
