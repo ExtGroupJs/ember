@@ -236,7 +236,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Área editada con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
             table.ajax.reload();
             $("#modal-crear-elemento").modal("hide");
@@ -267,7 +267,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Nueva área creada con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
             table.ajax.reload();
             $("#modal-crear-elemento").modal("hide");

@@ -418,7 +418,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Producción editada con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
 
             table.ajax.reload();
@@ -450,7 +450,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Producción creada con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
 
             table.ajax.reload();
