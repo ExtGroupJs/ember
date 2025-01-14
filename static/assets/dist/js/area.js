@@ -236,7 +236,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Área editada con éxito",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 50 * textError.length,
             });
             table.ajax.reload();
             $("#modal-crear-elemento").modal("hide");
@@ -255,7 +255,7 @@ form.addEventListener("submit", function (event) {
             title: "Error al crear usuario",
             text: textError,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
         });
     } else {
@@ -267,7 +267,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Nueva área creada con éxito",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 50 * textError.length,
             });
             table.ajax.reload();
             $("#modal-crear-elemento").modal("hide");
@@ -285,7 +285,7 @@ form.addEventListener("submit", function (event) {
             title: "Error al crear área",
             text: textError,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
         });
     }

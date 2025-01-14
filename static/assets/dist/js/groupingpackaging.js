@@ -305,7 +305,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Envase agrupador editado con éxito",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 50 * textError.length,
             });
 
             table.ajax.reload();
@@ -325,7 +325,7 @@ form.addEventListener("submit", function (event) {
             title: "Error al crear envase agrupador",
             text: textError,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
         });
     } else {
@@ -337,7 +337,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Envase agrupador creado con éxito",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 50 * textError.length,
             });
 
             table.ajax.reload();
@@ -356,7 +356,7 @@ form.addEventListener("submit", function (event) {
             title: "Error al crear elemento",
             text: textError,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
         });
     }

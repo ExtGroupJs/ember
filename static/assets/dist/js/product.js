@@ -290,7 +290,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Producto editado con éxito",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 50 * textError.length,
             });
 
             table.ajax.reload();
@@ -310,7 +310,7 @@ form.addEventListener("submit", function (event) {
             title: "Error al crear producto",
             text: textError,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
         });
     } else {
@@ -322,7 +322,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Producto creado con éxito",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 50 * textError.length,
             });
 
             table.ajax.reload();
@@ -341,7 +341,7 @@ form.addEventListener("submit", function (event) {
             title: "Error al crear producto",
             text: textError,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
         });
     }

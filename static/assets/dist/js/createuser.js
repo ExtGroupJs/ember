@@ -326,7 +326,7 @@ form.addEventListener("submit", function (event) {
             icon: "success",
             title: "Usuario actualizado con exito  ",
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
           table.ajax.reload();
 
@@ -345,7 +345,7 @@ form.addEventListener("submit", function (event) {
           title: "Error al crear usuario",
           text: textError,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 50 * textError.length,
         });
       });
   } else {
@@ -357,7 +357,7 @@ form.addEventListener("submit", function (event) {
             icon: "success",
             title: "Usuario creado con exito",
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
           table.ajax.reload();
           $("#modal-crear-usuario").modal("hide");
@@ -375,7 +375,7 @@ form.addEventListener("submit", function (event) {
           title: "Error al crear usuario",
           text: textError,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 50 * textError.length,
         });
       });
   }

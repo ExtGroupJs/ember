@@ -253,7 +253,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Clasificación actualizada con éxito",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 50 * textError.length,
             });
 
             table.ajax.reload();
@@ -273,7 +273,7 @@ form.addEventListener("submit", function (event) {
             title: "Error al crear clasificación",
             text: textError,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
         });
     } else {
@@ -285,7 +285,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Clasificación creada con éxito",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 50 * textError.length,
             });
 
             table.ajax.reload();
@@ -304,7 +304,7 @@ form.addEventListener("submit", function (event) {
             title: "Error al crear clasificación",
             text: textError,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 50 * textError.length,
           });
         });
     }

@@ -313,7 +313,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Plan editado con éxito",
               showConfirmButton: false,
-              timer: 1500,
+              timer: 50 * textError.length,
             });
 
             table.ajax.reload();
