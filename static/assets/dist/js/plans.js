@@ -313,7 +313,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Plan editado con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
 
             table.ajax.reload();
@@ -339,7 +339,7 @@ form.addEventListener("submit", function (event) {
             title: "Error al crear plan",
             text: textError,
             showConfirmButton: false,
-            timer: 3000,
+            timer: 50 * textError.length,
           });
         });
     } else {

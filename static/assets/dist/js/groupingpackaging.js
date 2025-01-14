@@ -305,7 +305,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Envase agrupador editado con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
 
             table.ajax.reload();
@@ -337,7 +337,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Envase agrupador creado con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
 
             table.ajax.reload();

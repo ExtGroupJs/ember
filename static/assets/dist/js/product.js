@@ -290,7 +290,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Producto editado con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
 
             table.ajax.reload();
@@ -322,7 +322,7 @@ form.addEventListener("submit", function (event) {
               icon: "success",
               title: "Producto creado con éxito",
               showConfirmButton: false,
-              timer: 50 * textError.length,
+              timer: 2000,
             });
 
             table.ajax.reload();

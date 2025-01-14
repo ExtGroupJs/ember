@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
+import sentry_sdk
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +40,25 @@ DEBUG = True
 DEBUG_PROPAGATE_EXCEPTIONS = DEBUG
 
 
+sentry_sdk.init(
+    # dsn=env("SENTRY_DSN", default=None) if not DEBUG else None,
+    dsn="https://aee796618dac7985e6b608715f2c6ec2@o4504019226066944.ingest.us.sentry.io/4508644061609984",
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for tracing.
+    traces_sample_rate=1.0,
+    # traces_sample_rate=env.float("SENTRY_SAMPLE_RATE", default=0),
+    # Set profiles_sample_rate to 1.0 to profile 100%
+    # of sampled transactions.
+    # We recommend adjusting this value in production.
+    # profiles_sample_rate=env.float("SENTRY_SAMPLE_RATE", default=0),
+    profiles_sample_rate=0.5,
+    _experiments={
+        # Set continuous_profiling_auto_start to True
+        # to automatically start the profiler on when
+        # possible.
+        "continuous_profiling_auto_start": True,
+    },
+)
 ALLOWED_HOSTS = ["*"]
 
 

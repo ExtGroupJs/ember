@@ -1,7 +1,5 @@
-import datetime
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.core.validators import MinValueValidator
 
 
 from apps.common.models import BaseModel
@@ -58,15 +56,11 @@ class Plan(BaseModel):
         related_name="plans",
     )
     year = models.PositiveSmallIntegerField(
-        default=datetime.date.today().year,
         verbose_name=_("Año"),
-        validators=[MinValueValidator(limit_value=datetime.date.today().year)],
     )
     month = models.PositiveSmallIntegerField(
-        default=datetime.date.today().month,
         verbose_name=_("Mes"),
         choices=Months.choices,
-        validators=[MinValueValidator(limit_value=datetime.date.today().month)],
     )
     quantity = models.PositiveIntegerField(verbose_name=_("Cantidad"), default=0)
     measurement_unit = models.ForeignKey(
