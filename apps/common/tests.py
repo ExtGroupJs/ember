@@ -6,22 +6,27 @@ from model_bakery import baker
 from rest_framework import status
 
 from apps.common.models import HistoricalVault
-from apps.products_app.models import (GroupingPackaging, IndividualPackaging,
-                                      Production)
+from apps.products_app.models import GroupingPackaging, IndividualPackaging, Production
 
 
 @pytest.mark.django_db
 def test_archive_object_child_of_base_model_from_ep(client):
     individual_package = baker.make("products_app.IndividualPackaging")
     assert IndividualPackaging.objects.count() == 1
-    assert IndividualPackaging.objects.get(pk=individual_package.pk).historical_vault is None
+    assert (
+        IndividualPackaging.objects.get(pk=individual_package.pk).historical_vault
+        is None
+    )
 
     base_url = reverse("individual-packaging-archive", args=[individual_package.pk])
     client.login(username="admin", password="1qazxsw2")
     response = client.post(base_url)
     assert response.status_code == status.HTTP_200_OK
     assert IndividualPackaging.objects.count() == 1
-    assert IndividualPackaging.objects.get(pk=individual_package.pk).historical_vault is not None
+    assert (
+        IndividualPackaging.objects.get(pk=individual_package.pk).historical_vault
+        is not None
+    )
     assert HistoricalVault.objects.count() == 1
 
 
@@ -32,7 +37,10 @@ def test_archive_objects_childs_of_base_model(client):
     assert IndividualPackaging.objects.count() == quantity
     assert HistoricalVault.objects.count() == 0
 
-    assert IndividualPackaging.objects.filter(historical_vault__isnull=True).count() == quantity
+    assert (
+        IndividualPackaging.objects.filter(historical_vault__isnull=True).count()
+        == quantity
+    )
     individual_packagings = IndividualPackaging.objects.all()
     client.login(username="admin", password="1qazxsw2")
     for individual_package in individual_packagings:
@@ -41,7 +49,9 @@ def test_archive_objects_childs_of_base_model(client):
         assert response.status_code == status.HTTP_200_OK
 
     assert IndividualPackaging.objects.count() == quantity
-    assert IndividualPackaging.objects.filter(historical_vault__isnull=True).count() == 0
+    assert (
+        IndividualPackaging.objects.filter(historical_vault__isnull=True).count() == 0
+    )
     assert HistoricalVault.objects.count() == quantity
 
 
@@ -66,7 +76,10 @@ def test_archiving_with_comment_in_cascade(client):
     client.login(username="admin", password="1qazxsw2")
 
     data = {"deletion_cause": "test"}
-    base_url = reverse("individual-packaging-archive", args=[production.distribution_format.individual_packaging.pk])
+    base_url = reverse(
+        "individual-packaging-archive",
+        args=[production.distribution_format.individual_packaging.pk],
+    )
     response = client.post(base_url, data=data)
     assert response.status_code == status.HTTP_200_OK
     assert HistoricalVault.objects.count() == 3
@@ -91,7 +104,13 @@ def test_cascade_archiving(client):
         base_url = reverse("individual-packaging-archive", args=[individual_package.pk])
         response = client.post(base_url)
         assert response.status_code == status.HTTP_200_OK
-    assert IndividualPackaging.objects.filter(historical_vault__isnull=False).count() == quantity
-    assert GroupingPackaging.objects.filter(historical_vault__isnull=False).count() == quantity
+    assert (
+        IndividualPackaging.objects.filter(historical_vault__isnull=False).count()
+        == quantity
+    )
+    assert (
+        GroupingPackaging.objects.filter(historical_vault__isnull=False).count()
+        == quantity
+    )
     assert Production.objects.filter(historical_vault__isnull=False).count() == quantity
     assert HistoricalVault.objects.count() == 3 * quantity

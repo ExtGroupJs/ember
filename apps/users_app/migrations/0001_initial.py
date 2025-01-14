@@ -7,29 +7,56 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('auth', '0012_alter_user_first_name_max_length'),
+        ("auth", "0012_alter_user_first_name_max_length"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='SystemUser',
+            name="SystemUser",
             fields=[
-                ('user_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('ci', models.CharField(max_length=11, unique=True, verbose_name='identification number')),
-                ('photo', models.TextField(blank=True, null=True, unique=True, verbose_name='photo')),
-                ('gender', models.CharField(choices=[('M', 'male'), ('F', 'female')], default='M', max_length=1, verbose_name='gender')),
+                (
+                    "user_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "ci",
+                    models.CharField(
+                        max_length=11, unique=True, verbose_name="identification number"
+                    ),
+                ),
+                (
+                    "photo",
+                    models.TextField(
+                        blank=True, null=True, unique=True, verbose_name="photo"
+                    ),
+                ),
+                (
+                    "gender",
+                    models.CharField(
+                        choices=[("M", "male"), ("F", "female")],
+                        default="M",
+                        max_length=1,
+                        verbose_name="gender",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'user',
-                'verbose_name_plural': 'users',
+                "verbose_name": "user",
+                "verbose_name_plural": "users",
             },
-            bases=('auth.user',),
+            bases=("auth.user",),
             managers=[
-                ('objects', django.contrib.auth.models.UserManager()),
+                ("objects", django.contrib.auth.models.UserManager()),
             ],
         ),
     ]

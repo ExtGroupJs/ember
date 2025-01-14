@@ -15,7 +15,9 @@ from .classification import Classification
 from .destination import Destination
 from .entity import Entity
 from .format import Format
-from .packaging import GroupingPackaging, IndividualPackaging, MeasurementUnit
+from .grouping_packaging import GroupingPackaging
+from .individual_packaging import IndividualPackaging
+from .measurement_unit import MeasurementUnit
+from .plan import Plan
 from .product import Product
 from .production import Production
-from .plan import Plan

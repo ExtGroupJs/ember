@@ -3,37 +3,9 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from apps.common.models import BaseModel
+from apps.products_app.models import GroupingPackaging
 
 ARCHIVED_FOR_RELATED_OBJECT = "Archived due to related object "
-
-
-class MeasurementUnit(models.Model):
-    name = models.CharField(max_length=20, verbose_name=_("name"), unique=True)
-    symbol = models.CharField(
-        max_length=10,
-        verbose_name=_("symbol"),
-        unique=True,
-    )
-    description = models.TextField(
-        verbose_name=_("description"), blank=True, null=True, max_length=256
-    )
-    mililiters = models.PositiveIntegerField(
-        verbose_name=_("mililiters"),
-    )
-    used_for_planning = models.BooleanField(
-        default=False,
-        verbose_name=_("used for planning"),
-    )
-
-    class Meta:
-        verbose_name = _("unidad de medida")
-        verbose_name_plural = _("unidades de medida")
-
-    def __str__(self) -> str:
-        return f"{self.name} ({self.symbol})"
-
-    def convert_to(self, measurement_unit):
-        pass
 
 
 class IndividualPackaging(BaseModel):
@@ -52,7 +24,7 @@ class IndividualPackaging(BaseModel):
         validators=[MinValueValidator(0.00)],
     )
     measurement_unit = models.ForeignKey(
-        to=MeasurementUnit,
+        to="MeasurementUnit",
         on_delete=models.PROTECT,
         verbose_name=_("measurement unit"),
     )
@@ -67,8 +39,8 @@ class IndividualPackaging(BaseModel):
     )
 
     class Meta:
-        verbose_name = _("Tipo de embase")
-        verbose_name_plural = _("Tipos de embases")
+        verbose_name = _("Tipo de envase")
+        verbose_name_plural = _("Tipos de envases")
 
     def __str__(self) -> str:
         material = self.MATERIAL(self.material).label
@@ -99,41 +71,5 @@ class IndividualPackaging(BaseModel):
             package.archive(
                 deletion_cause=f"{ARCHIVED_FOR_RELATED_OBJECT} "
                 f"<IndividualPackaging: {self.id}>"
-            )
-        super().archive(*args, **kwargs)
-
-
-class GroupingPackaging(BaseModel):
-    name = models.CharField(max_length=30, verbose_name=_("name"), unique=True)
-    description = models.TextField(
-        verbose_name=_("description"), blank=True, null=True, max_length=256
-    )
-    capacity = models.PositiveSmallIntegerField(
-        verbose_name=_("capacity"),
-        validators=[MinValueValidator(1)],
-    )
-    individual_packaging = models.ForeignKey(
-        IndividualPackaging,
-        verbose_name=_("Individual packaging"),
-        on_delete=models.CASCADE,
-        related_name="grouping_packaging",
-    )
-
-    class Meta:
-        verbose_name = _("Embalaje")
-        verbose_name_plural = _("Embalajes")
-
-    def __str__(self) -> str:
-        return (
-            f"{self.capacity} x {self.individual_packaging.capacity} "
-            f"{self.individual_packaging.measurement_unit.symbol}"
-        )
-
-    def archive(self, *args, **kwargs):
-        productions = self.productions.all()
-        for production in productions:
-            production.archive(
-                deletion_cause=f"{ARCHIVED_FOR_RELATED_OBJECT} "
-                f"<GroupingPackaging> {self.id}>"
             )
         super().archive(*args, **kwargs)

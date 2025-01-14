@@ -146,23 +146,23 @@ msgstr "unidad de medida"
 
 #: apps/products_app/models/packaging.py:53
 msgid "is grouping packaging"
-msgstr "es embase agrupador"
+msgstr "es envase agrupador"
 
 #: apps/products_app/models/packaging.py:56
 msgid "Material"
 msgstr ""
 
 #: apps/products_app/models/packaging.py:63
-msgid "Tipo de embase"
+msgid "Tipo de envase"
 msgstr ""
 
 #: apps/products_app/models/packaging.py:64
-msgid "Tipos de embases"
+msgid "Tipos de envases"
 msgstr ""
 
 #: apps/products_app/models/packaging.py:104
 msgid "Individual packaging"
-msgstr "Tipo de embase"
+msgstr "Tipo de envase"
 
 #: apps/products_app/models/packaging.py:110
 msgid "Embalaje"

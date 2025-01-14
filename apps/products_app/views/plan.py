@@ -7,7 +7,7 @@ from apps.products_app.models.product import Product
 from apps.products_app.serializers import PlanReadSerializer
 from rest_framework.decorators import action
 
-from apps.products_app.serializers import PlanReadSerializer, PlanSerializer
+from apps.products_app.serializers import PlanSerializer
 from apps.products_app.serializers.product import ProductSerializer
 
 
