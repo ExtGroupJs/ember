@@ -265,7 +265,7 @@ form.addEventListener("submit", function (event) {
           let dict = error.response.data;
           let textError = "Revise los siguientes campos: ";
           for (const key in dict) {
-            textError = textError + ", " + key;
+            textError = textError + ", " + key + ": " + dict[key];
           }
 
           Swal.fire({
@@ -296,7 +296,7 @@ form.addEventListener("submit", function (event) {
           let dict = error.response.data;
           let textError = "Revise los siguientes campos: ";
           for (const key in dict) {
-            textError = textError + ", " + key;
+            textError = textError + ", " + key + ": " + dict[key];
           }
 
           Swal.fire({
