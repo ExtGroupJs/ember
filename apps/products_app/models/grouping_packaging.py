@@ -29,8 +29,9 @@ class GroupingPackaging(BaseModel):
 
     def __str__(self) -> str:
         return (
+            f"{self.name} ("
             f"{self.capacity} x {self.individual_packaging.capacity} "
-            f"{self.individual_packaging.measurement_unit.symbol}"
+            f"{self.individual_packaging.measurement_unit.symbol})"
         )
 
     def archive(self, *args, **kwargs):
