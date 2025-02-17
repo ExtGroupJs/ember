@@ -15,6 +15,7 @@ class PlanSerializer(BaseModelSerializer):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.date = datetime.date.today()
+
     class Meta(BaseModelSerializer.Meta):
         model = Plan
         fields = BaseModelSerializer.Meta.fields + [
@@ -28,17 +29,24 @@ class PlanSerializer(BaseModelSerializer):
             "quantity",
             "measurement_unit",
         ]
+
     def validate_year(self, value):
         if value < self.date.year:
-            raise serializers.ValidationError(f"El año no puede ser menor a {self.date.year}")
-        return value    
+            raise serializers.ValidationError(
+                f"El año no puede ser menor a {self.date.year}"
+            )
+        return value
+
     def validate(self, attrs):
         year = attrs["year"]
         if year == self.date.year:
             month = attrs["month"]
             if month < self.date.month:
-                raise serializers.ValidationError(f"El mes no puede ser menor al actual")
+                raise serializers.ValidationError(
+                    f"El mes no puede ser menor al actual"
+                )
         return attrs
+
 
 class PlanReadSerializer(PlanSerializer):
     acumulated_quantity = serializers.SerializerMethodField()

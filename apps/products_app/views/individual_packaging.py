@@ -1,5 +1,6 @@
 from rest_framework import permissions, viewsets
 
+from apps.common.enums_mixin import EnumsMixin
 from apps.common.views import ActionsForNonDeletableItemsViewMixin, CommonViewMixin
 from apps.products_app.models import IndividualPackaging
 from apps.products_app.serializers import IndividualPackagingSerializer
@@ -24,3 +25,6 @@ class IndividualPackagingViewSet(
             return IndividualPackagingReadSerializer
         return IndividualPackagingSerializer
 
+
+class IndividualPackagingMaterialEnumsViewSet(EnumsMixin):
+    items = (("individual_package_material", IndividualPackaging.MATERIAL),)
