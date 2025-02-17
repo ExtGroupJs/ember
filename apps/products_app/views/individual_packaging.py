@@ -27,4 +27,6 @@ class IndividualPackagingViewSet(
 
 
 class IndividualPackagingMaterialEnumsViewSet(EnumsMixin):
+    permission_classes = [permissions.AllowAny]
+
     items = (("individual_package_material", IndividualPackaging.MATERIAL),)
