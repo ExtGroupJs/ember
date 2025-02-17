@@ -234,7 +234,7 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
         form.elements.name.value = elemento.name;
         form.elements.capacity.value = elemento.capacity;
         form.elements.munit.value = elemento.measurement_unit.id;
-        form.elements.materials.value = elemento.material.id;
+        form.elements.materials.value = elemento.material;
         form.elements.description.value = elemento.description;
         form.elements.is_grouping_packaging.value =
           elemento.is_grouping_packaging;
