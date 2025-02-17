@@ -15,12 +15,15 @@ class IndividualPackagingSerializer(BaseModelSerializer):
             "capacity",
             "measurement_unit",
             "is_grouping_packaging",
+            "material",
         ]
 
 
 class IndividualPackagingReadSerializer(IndividualPackagingSerializer):
     measurement_unit = MeasurementUnitSerializer()
     name_representation = serializers.SerializerMethodField()
+    
+   
 
     class Meta(IndividualPackagingSerializer.Meta):
         model = IndividualPackaging
