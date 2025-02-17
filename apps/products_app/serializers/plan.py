@@ -42,9 +42,7 @@ class PlanSerializer(BaseModelSerializer):
         if year == self.date.year:
             month = attrs["month"]
             if month < self.date.month:
-                raise serializers.ValidationError(
-                    f"El mes no puede ser menor al actual"
-                )
+                raise serializers.ValidationError("El mes no puede ser menor al actual")
         return attrs
 
 
