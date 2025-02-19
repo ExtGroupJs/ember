@@ -13,7 +13,7 @@ class IndividualPackaging(BaseModel):
         PEP = "P", _("Plástico")
         VIDRIO = "V", _("Vidrio")
 
-    name = models.CharField(max_length=30, verbose_name=_("name"), unique=True)
+    name = models.CharField(max_length=30, verbose_name=_("name"))
     description = models.TextField(
         verbose_name=_("description"), blank=True, null=True, max_length=256
     )
