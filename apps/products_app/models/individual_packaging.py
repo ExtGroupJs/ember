@@ -17,11 +17,9 @@ class IndividualPackaging(BaseModel):
     description = models.TextField(
         verbose_name=_("description"), blank=True, null=True, max_length=256
     )
-    capacity = models.DecimalField(
+    capacity = models.PositiveSmallIntegerField(
         verbose_name=_("capacity"),
-        max_digits=8,
-        decimal_places=2,
-        validators=[MinValueValidator(0.00)],
+        validators=[MinValueValidator(1)],
     )
     measurement_unit = models.ForeignKey(
         to="MeasurementUnit",

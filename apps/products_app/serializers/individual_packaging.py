@@ -22,8 +22,6 @@ class IndividualPackagingSerializer(BaseModelSerializer):
 class IndividualPackagingReadSerializer(IndividualPackagingSerializer):
     measurement_unit = MeasurementUnitSerializer()
     name_representation = serializers.SerializerMethodField()
-    
-   
 
     class Meta(IndividualPackagingSerializer.Meta):
         model = IndividualPackaging
