@@ -14,9 +14,9 @@ class GroupingPackagingViewSet(
     CommonViewMixin,
     ActionsForNonDeletableItemsViewMixin,
 ):
-    queryset = GroupingPackaging.objects.filter(historical_vault__isnull=True).select_related(
-        "individual_packaging__measurement_unit"
-    )
+    queryset = GroupingPackaging.objects.filter(
+        historical_vault__isnull=True
+    ).select_related("individual_packaging__measurement_unit")
     serializer_class = GroupingPackagingSerializer
     filterset_class = GroupingPackagingFilter
     search_fields = ["name", "description"]

@@ -11,6 +11,9 @@ from apps.products_app.views import (
     ProductViewSet,
     PlanViewSet,
 )
+from apps.products_app.views.individual_packaging import (
+    IndividualPackagingMaterialEnumsViewSet,
+)
 
 router = routers.DefaultRouter()
 router.register(r"product", ProductViewSet, basename="product")
@@ -24,6 +27,11 @@ router.register(
 )
 router.register(
     r"individual-packaging", IndividualPackagingViewSet, basename="individual-packaging"
+)
+router.register(
+    r"individual-packaging-material",
+    IndividualPackagingMaterialEnumsViewSet,
+    basename="individual-packaging-material",
 )
 router.register(
     r"measurement-unit", MeasurementUnitViewSet, basename="measurement-unit"
