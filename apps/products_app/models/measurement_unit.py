@@ -31,4 +31,3 @@ class MeasurementUnit(models.Model):
 
     def convert_to(self, measurement_unit):
         pass
-

@@ -17,4 +17,3 @@ class MeasurementUnitViewSet(viewsets.ModelViewSet):
     ]
 
     permission_classes = [permissions.IsAuthenticated]
-

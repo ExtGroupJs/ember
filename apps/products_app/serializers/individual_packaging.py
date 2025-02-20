@@ -15,6 +15,7 @@ class IndividualPackagingSerializer(BaseModelSerializer):
             "capacity",
             "measurement_unit",
             "is_grouping_packaging",
+            "material",
         ]
 
 

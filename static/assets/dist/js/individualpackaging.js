@@ -234,6 +234,7 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
         form.elements.name.value = elemento.name;
         form.elements.capacity.value = elemento.capacity;
         form.elements.munit.value = elemento.measurement_unit.id;
+        form.elements.materials.value = elemento.material;
         form.elements.description.value = elemento.description;
         form.elements.is_grouping_packaging.value =
           elemento.is_grouping_packaging;
@@ -309,6 +310,7 @@ form.addEventListener("submit", function (event) {
     data.append("name", document.getElementById("name").value);
     data.append("capacity", document.getElementById("capacity").value);
     data.append("measurement_unit", document.getElementById("munit").value);
+    data.append("material", document.getElementById("materials").value);
     data.append("description", document.getElementById("description").value);
     if (document.getElementById("is_grouping_packaging").checked) {
       data.append("is_grouping_packaging", true);
@@ -454,11 +456,26 @@ function test() {
 }
 
 function poblarListas() {
+  populateMeasurementUnits();
+  getMaterials();
+}
+
+function populateMeasurementUnits() {
   var $responsability = document.getElementById("munit");
   axios.get("/product-gestion/measurement-unit/").then(function (response) {
     response.data.results.forEach(function (element) {
       var option = new Option(element.name, element.id);
       $responsability.add(option);
+    });
+  });
+}
+
+function getMaterials() {
+  var $materials = document.getElementById("materials");
+  axios.get("/product-gestion/individual-packaging-material/").then(function (response) {
+    response.data.individual_package_material.forEach(function (element) {
+      var option = new Option(element.name, element.id);
+      $materials.add(option);
     });
   });
 }
