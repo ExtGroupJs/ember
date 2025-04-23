@@ -73,7 +73,10 @@ $(document).ready(function () {
       columns: [
         { data: "representation", title: "Nombre" },
         { data: "capacity", title: "# de Envases" },
-        { data: "individual_packaging.name", title: "Envase individual" },
+        {
+          data: "individual_packaging.name_representation",
+          title: "Envase individual",
+        },
         { data: "description", title: "Descripción" },
         { data: "total_mililiters", title: "Total de ml" },
 
@@ -373,7 +376,7 @@ function poblarListas() {
   var $responsability = document.getElementById("individual_packaging");
   axios.get("/product-gestion/individual-packaging/").then(function (response) {
     response.data.results.forEach(function (element) {
-      var option = new Option(element.name, element.id);
+      var option = new Option(element.name_representation, element.id);
       $responsability.add(option);
     });
   });
