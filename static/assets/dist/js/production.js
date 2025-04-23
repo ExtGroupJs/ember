@@ -487,7 +487,7 @@ function poblarListas() {
   var $distribution_format = document.getElementById("distribution_format");
   axios.get("/product-gestion/grouping-packaging/").then(function (response) {
     response.data.results.forEach(function (element) {
-      var option = new Option(element.name, element.id);
+      var option = new Option(element.representation, element.id);
       $distribution_format.add(option);
     });
   });
