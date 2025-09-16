@@ -8,6 +8,7 @@ from apps.products_app.serializers import PlanReadSerializer
 from rest_framework.decorators import action
 
 from apps.products_app.serializers import PlanSerializer
+from apps.products_app.serializers.plan import YearPlanSerializer
 from apps.products_app.serializers.product import ProductSerializer
 
 
@@ -30,6 +31,12 @@ class PlanViewSet(
         return PlanSerializer
 
     # TODO add tests for this viewset
+    def get_serializer(self, *args, **kwargs):
+        serializer = super().get_serializer(*args, **kwargs)
+        if self.action in ["year_plan",]:
+            serializer = YearPlanSerializer
+        return serializer
+
     @action(
         detail=True,
         methods=["GET"],
@@ -80,7 +87,9 @@ class PlanViewSet(
         methods=["POST"],
         url_name="year-plan",
         url_path="year-plan",
+        serializer_class=YearPlanSerializer
     )
-    def year_plan(self, request, pk=None) -> Response:
-        
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    def year_plan(self, request) -> Response:
+        serializer = YearPlanSerializer(request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response("Plan creado satisfactoriamente", status=status.HTTP_201_CREATED)

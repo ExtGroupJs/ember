@@ -1,9 +1,14 @@
 import datetime
+from xml.dom import ValidationErr
 from attr import fields
 from rest_framework import serializers
 
 from apps.common.serializers import BaseModelSerializer
 from apps.products_app.models import Plan
+from apps.products_app.models.classification import Classification
+from apps.products_app.models.destination import Destination
+from apps.products_app.models.entity import Entity
+from apps.products_app.models.measurement_unit import MeasurementUnit
 from apps.products_app.serializers import (
     ClassificationSerializer,
     DestinationSerializer,
@@ -83,11 +88,22 @@ class PlanReadSerializer(PlanSerializer):
         #     f"miles de cajas: {acumulated_quantity_thousands_of_boxes}",
         # )
 
+class MonthPlanSerializer(serializers.Serializer):
+    month  = serializers.IntegerField(min_value=1, max_value=12)
+    quantity  = serializers.FloatField(min_value=0)
+    class Meta:
+        fields = ["month", "quantity"]
 class YearPlanSerializer(serializers.Serializer):
-    measurement_unit = MeasurementUnitSerializer()
-    ueb = EntitySerializer()
-    destiny = DestinationSerializer()
-    product_kind = ClassificationSerializer()
+    measurement_unit = serializers.PrimaryKeyRelatedField(queryset=MeasurementUnit.objects.all().only("id"))
+    ueb = serializers.PrimaryKeyRelatedField(queryset=Entity.objects.all().only("id"))
+    destiny = serializers.PrimaryKeyRelatedField(queryset=Destination.objects.all().only("id"))
+    product_kind = serializers.PrimaryKeyRelatedField(queryset=Classification.objects.all().only("id"))
+    year = serializers.IntegerField(min_value=2000, max_value=2050)
+    month_plans = MonthPlanSerializer(many=True)
     
     class Meta:
-        fields = ["measurement_unit", "ueb", "destiny", "product_kind"]
+        fields = ["measurement_unit", "ueb", "destiny", "product_kind", "year", "month_plans"]
+    def validate_month_plans(self, value):
+        if len(value) is not 12:
+            raise serializers.ValidationError ("Falta o sobra información relativa a los planes mensuales")
+        return value
