@@ -33,7 +33,9 @@ class PlanViewSet(
     # TODO add tests for this viewset
     def get_serializer(self, *args, **kwargs):
         serializer = super().get_serializer(*args, **kwargs)
-        if self.action in ["year_plan",]:
+        if self.action in [
+            "year_plan",
+        ]:
             serializer = YearPlanSerializer
         return serializer
 
@@ -87,9 +89,13 @@ class PlanViewSet(
         methods=["POST"],
         url_name="year-plan",
         url_path="year-plan",
-        serializer_class=YearPlanSerializer
+        serializer_class=YearPlanSerializer,
     )
     def year_plan(self, request) -> Response:
         serializer = YearPlanSerializer(request.data)
         serializer.is_valid(raise_exception=True)
-        return Response("Plan creado satisfactoriamente", status=status.HTTP_201_CREATED)
+        result = serializer.save()
+        return Response(
+            f"Plan creado satisfactoriamente. {result} elementos insertados.",
+            status=status.HTTP_201_CREATED,
+        )

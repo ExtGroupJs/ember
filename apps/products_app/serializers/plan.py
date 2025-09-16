@@ -1,6 +1,4 @@
 import datetime
-from xml.dom import ValidationErr
-from attr import fields
 from rest_framework import serializers
 
 from apps.common.serializers import BaseModelSerializer
@@ -88,22 +86,52 @@ class PlanReadSerializer(PlanSerializer):
         #     f"miles de cajas: {acumulated_quantity_thousands_of_boxes}",
         # )
 
+
 class MonthPlanSerializer(serializers.Serializer):
-    month  = serializers.IntegerField(min_value=1, max_value=12)
-    quantity  = serializers.FloatField(min_value=0)
-    class Meta:
-        fields = ["month", "quantity"]
+    month = serializers.IntegerField(min_value=1, max_value=12)
+    quantity = serializers.FloatField(min_value=0)
+
+
 class YearPlanSerializer(serializers.Serializer):
-    measurement_unit = serializers.PrimaryKeyRelatedField(queryset=MeasurementUnit.objects.all().only("id"))
+    measurement_unit = serializers.PrimaryKeyRelatedField(
+        queryset=MeasurementUnit.objects.all().only("id")
+    )
     ueb = serializers.PrimaryKeyRelatedField(queryset=Entity.objects.all().only("id"))
-    destiny = serializers.PrimaryKeyRelatedField(queryset=Destination.objects.all().only("id"))
-    product_kind = serializers.PrimaryKeyRelatedField(queryset=Classification.objects.all().only("id"))
+    destiny = serializers.PrimaryKeyRelatedField(
+        queryset=Destination.objects.all().only("id")
+    )
+    product_kind = serializers.PrimaryKeyRelatedField(
+        queryset=Classification.objects.all().only("id")
+    )
     year = serializers.IntegerField(min_value=2000, max_value=2050)
     month_plans = MonthPlanSerializer(many=True)
-    
-    class Meta:
-        fields = ["measurement_unit", "ueb", "destiny", "product_kind", "year", "month_plans"]
+
     def validate_month_plans(self, value):
-        if len(value) is not 12:
-            raise serializers.ValidationError ("Falta o sobra información relativa a los planes mensuales")
+        if len(value) != 12:
+            raise serializers.ValidationError(
+                "Falta o sobra información relativa a los planes mensuales"
+            )
         return value
+
+    def save(self):
+        measurement_unit = self.validated_data["measurement_unit"]
+        ueb = self.validated_data["ueb"]
+        destiny = self.validated_data["destiny"]
+        product_kind = self.validated_data["product_kind"]
+        year = self.validated_data["year"]
+        month_plans = self.validated_data["month_plans"]
+        plans_to_create = []
+        for month_plan in month_plans:
+            plans_to_create.append(
+                Plan(
+                    measurement_unit=measurement_unit,
+                    ueb=ueb,
+                    destiny=destiny,
+                    product_kind=product_kind,
+                    year=year,
+                    month=month_plan.month,
+                    quantity=month_plan.quantity,
+                )
+            )
+        Plan.objects.bulk_create(plans_to_create)
+        return len(plans_to_create)
