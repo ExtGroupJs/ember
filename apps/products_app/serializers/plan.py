@@ -93,6 +93,7 @@ class MonthPlanSerializer(serializers.Serializer):
 
 
 class YearPlanSerializer(serializers.Serializer):
+    name = serializers.CharField()
     measurement_unit = serializers.PrimaryKeyRelatedField(
         queryset=MeasurementUnit.objects.all().only("id")
     )
@@ -114,6 +115,7 @@ class YearPlanSerializer(serializers.Serializer):
         return value
 
     def save(self):
+        name = self.validated_data["name"]
         measurement_unit = self.validated_data["measurement_unit"]
         ueb = self.validated_data["ueb"]
         destiny = self.validated_data["destiny"]
@@ -124,13 +126,14 @@ class YearPlanSerializer(serializers.Serializer):
         for month_plan in month_plans:
             plans_to_create.append(
                 Plan(
+                    name=name,
                     measurement_unit=measurement_unit,
                     ueb=ueb,
                     destiny=destiny,
                     product_kind=product_kind,
                     year=year,
-                    month=month_plan.month,
-                    quantity=month_plan.quantity,
+                    month=month_plan['month'],
+                    quantity=month_plan['quantity'],
                 )
             )
         Plan.objects.bulk_create(plans_to_create)

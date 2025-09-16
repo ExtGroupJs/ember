@@ -92,7 +92,7 @@ class PlanViewSet(
         serializer_class=YearPlanSerializer,
     )
     def year_plan(self, request) -> Response:
-        serializer = YearPlanSerializer(request.data)
+        serializer = YearPlanSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         result = serializer.save()
         return Response(
