@@ -74,3 +74,13 @@ class PlanViewSet(
             )
         serializer = ProductSerializer(allowed_products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(
+        detail=False,
+        methods=["POST"],
+        url_name="year-plan",
+        url_path="year-plan",
+    )
+    def year_plan(self, request, pk=None) -> Response:
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)

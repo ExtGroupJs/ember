@@ -1,4 +1,5 @@
 import datetime
+from attr import fields
 from rest_framework import serializers
 
 from apps.common.serializers import BaseModelSerializer
@@ -81,3 +82,12 @@ class PlanReadSerializer(PlanSerializer):
         #     f"hetolitros: {acumulated_quantity_hectoliters}",
         #     f"miles de cajas: {acumulated_quantity_thousands_of_boxes}",
         # )
+
+class YearPlanSerializer(serializers.Serializer):
+    measurement_unit = MeasurementUnitSerializer()
+    ueb = EntitySerializer()
+    destiny = DestinationSerializer()
+    product_kind = ClassificationSerializer()
+    
+    class Meta:
+        fields = ["measurement_unit", "ueb", "destiny", "product_kind"]
