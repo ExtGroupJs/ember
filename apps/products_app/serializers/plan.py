@@ -124,17 +124,21 @@ class YearPlanSerializer(serializers.Serializer):
         month_plans = self.validated_data["month_plans"]
         plans_to_create = []
         for month_plan in month_plans:
+            month = month_plan['month']
             plans_to_create.append(
                 Plan(
-                    name=name,
+                    name=f"{name} <{ueb}> ({product_kind}) {Plan.Months(month).label} - {year}",
                     measurement_unit=measurement_unit,
                     ueb=ueb,
                     destiny=destiny,
                     product_kind=product_kind,
                     year=year,
-                    month=month_plan['month'],
+                    month=month,
                     quantity=month_plan['quantity'],
                 )
             )
-        Plan.objects.bulk_create(plans_to_create)
+        try:
+            Plan.objects.bulk_create(plans_to_create)
+        except Exception as e:
+            raise serializers.ValidationError(e)
         return len(plans_to_create)
