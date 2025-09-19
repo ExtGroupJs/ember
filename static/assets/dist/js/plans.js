@@ -8,6 +8,7 @@ const csrfToken = document.cookie
   ?.split("=")[1];
 // url del endpoint principal
 const url = "/product-gestion/plan/";
+const url_year_plan = "/product-gestion/plan/year-plan/";
 
 $(document).ready(function () {
   // var texto = prompt('Entra algo:');
@@ -76,9 +77,7 @@ $(document).ready(function () {
         { data: "ueb.name", title: "UEB" },
         { data: "destiny.name", title: "Destino" },
         { data: "product_kind.name", title: "Tipo de producto" },
-        { data: "year", title: "Año" },
-        { data: "month", title: "Mes" },
-        { data: "quantity", title: "Cantidad" },
+        { data: "year", title: "Año" },  
         { data: "measurement_unit.name", title: "Unidad de medida" },
         {
           data: null,
@@ -189,13 +188,20 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
         $("#classification")
           .val(element.product_kind.id)
           .trigger("change.select2");
-        form.elements.quantity.value = element.quantity;
+       
         $("#measurement_unit")
           .val(element.measurement_unit.id)
           .trigger("change.select2");
-        form.elements.date.value = element.month + "-" + element.year;
-        console.log("ver");
-        console.log(element.quantity);
+        form.elements.date.value = element.year;
+        // llenar los meses
+        for (let month = 1; month <= 12; month++) {
+          if (element.monthly_distribution && element.monthly_distribution[month]) {
+            form.elements[month].value = element.monthly_distribution[month];
+          } else {
+            form.elements[month].value = 0; // o cualquier valor por defecto que desees
+          }
+        }
+       
       })
       .catch(function (error) {});
   } else {
@@ -231,7 +237,6 @@ $(function () {
       destiny: {
         required: true,
       },
-
       product: {
         required: true,
       },
@@ -239,15 +244,48 @@ $(function () {
         required: true,
         dateFormat: true,
       },
-
-      quantity: {
-        required: true,
-        digits: true,
-        min: 1,
-      },
+         
       measurement_unit: {
         required: true,
       },
+      // Requerir todos los inputs con id de mes (1-12)
+      "1": { required: true,
+        digits: true,
+        min: 1,},
+      "2": { required: true,
+        digits: true,
+        min: 1,},
+      "3": { required: true,
+        digits: true,
+        min: 1,},
+      "4": { required: true,
+        digits: true,
+        min: 1,},
+      "5": { required: true,
+        digits: true,
+        min: 1,},
+      "6": { required: true,
+        digits: true,
+        min: 1,},
+      "7": { required: true,
+        digits: true,
+        min: 1,},
+      "8": { required: true,
+        digits: true,
+        min: 1,},
+      "9": { required: true,
+        digits: true,
+        min: 1,},
+      "10": { required: true,
+        digits: true,
+        min: 1,},
+      "11": { required: true,
+        digits: true,
+        min: 1,},
+      "12": { required: true,
+        digits: true,
+        min: 1,},
+      
     },
     submitHandler: function (form) {},
 
@@ -258,11 +296,32 @@ $(function () {
       date: {
         required: "El plan debe responder a una fecha",
       },
-      quantity: {
-        required: "Por favor, ingresa la cantidad planificada.",
-        digits: "Por favor, ingresa solo números enteros positivos.",
-        min: "La capacidad debe ser un número positivo.",
-      },
+   
+      // Mensajes para los meses
+      "1": { required: "El mes 1 es obligatorio" , digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo."},
+      "2": { required: "El mes 2 es obligatorio", digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo." },
+      "3": { required: "El mes 3 es obligatorio", digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo." },
+      "4": { required: "El mes 4 es obligatorio", digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo." },
+      "5": { required: "El mes 5 es obligatorio", digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo." },
+      "6": { required: "El mes 6 es obligatorio", digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo." },
+      "7": { required: "El mes 7 es obligatorio", digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo." },
+      "8": { required: "El mes 8 es obligatorio", digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo." },
+      "9": { required: "El mes 9 es obligatorio", digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo." },
+      "10": { required: "El mes 10 es obligatorio", digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo." },
+      "11": { required: "El mes 11 es obligatorio", digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo." },
+      "12": { required: "El mes 12 es obligatorio", digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo." },
     },
     errorElement: "span",
     errorPlacement: function (error, element) {
@@ -294,16 +353,21 @@ form.addEventListener("submit", function (event) {
       document.getElementById("classification").value
     );
     data.append("ueb", document.getElementById("entity").value);
-    data.append("quantity", document.getElementById("quantity").value);
+    
     data.append(
       "measurement_unit",
       document.getElementById("measurement_unit").value
     );
-    var date = document.getElementById("date").value;
-    var parts = date.split("-");
-    console.log(convertMonthToNumber(parts[0]));
-    data.append("month", convertMonthToNumber(parts[0]));
-    data.append("year", parts[1]);
+
+   
+    data.append("year",document.getElementById("date").value);
+    
+    let month_plans = [];
+    for (let i = 1; i <= 12; i++) {
+      const quantity = parseInt(document.getElementById(i.toString()).value, 10) || 0;
+      month_plans.push({ month: i, quantity });
+    }
+    data.append("month_plans", JSON.stringify(month_plans));
     if (edit_elemento) {
       axios
         .put(`${url}${selected_id}/`, data)
@@ -344,7 +408,7 @@ form.addEventListener("submit", function (event) {
         });
     } else {
       axios
-        .post(url, data)
+        .post(url_year_plan, data)
         .then((response) => {
           if (response.status === 201) {
             Swal.fire({
