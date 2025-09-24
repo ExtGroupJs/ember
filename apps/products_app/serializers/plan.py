@@ -42,15 +42,6 @@ class PlanSerializer(BaseModelSerializer):
             )
         return value
 
-    def validate(self, attrs):
-        year = attrs["year"]
-        if year == self.date.year:
-            month = attrs["month"]
-            if month < self.date.month:
-                raise serializers.ValidationError("El mes no puede ser menor al actual")
-        return attrs
-
-
 class PlanReadSerializer(PlanSerializer):
     acumulated_quantity = serializers.SerializerMethodField()
     measurement_unit = MeasurementUnitSerializer()
