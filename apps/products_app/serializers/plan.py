@@ -1,4 +1,5 @@
 import datetime
+import json
 from rest_framework import serializers
 
 from apps.common.serializers import BaseModelSerializer
@@ -88,7 +89,7 @@ class PlanReadSerializer(PlanSerializer):
 
 
 class MonthPlanSerializer(serializers.Serializer):
-    month = serializers.IntegerField(min_value=1, max_value=12)
+    month = serializers.IntegerField(min_value=Plan.Months.ENE, max_value=Plan.Months.DIC)
     quantity = serializers.FloatField(min_value=0)
 
 
@@ -101,17 +102,24 @@ class YearPlanSerializer(serializers.Serializer):
     destiny = serializers.PrimaryKeyRelatedField(
         queryset=Destination.objects.all().only("id")
     )
+    month_plans = serializers.CharField()
+
     product_kind = serializers.PrimaryKeyRelatedField(
         queryset=Classification.objects.all().only("id")
     )
     year = serializers.IntegerField(min_value=2000, max_value=2050)
-    month_plans = MonthPlanSerializer(many=True)
 
     def validate_month_plans(self, value):
+        try:
+            value = json.loads(value)
+        except Exception as e:
+            raise serializers.ValidationError(e) from None
+        serializer = MonthPlanSerializer(data=value, many = True)
+        serializer.is_valid(raise_exception=True)
         if len(value) != 12:
             raise serializers.ValidationError(
                 "Falta o sobra información relativa a los planes mensuales"
-            )
+            ) from None
         return value
 
     def save(self):
