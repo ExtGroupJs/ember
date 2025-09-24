@@ -32,7 +32,7 @@ class Plan(BaseModel):
         NOV = 11, _("Noviembre")
         DIC = 12, _("Diciembre")
 
-    name = models.CharField(max_length=30, verbose_name=_("Nombre"))
+    name = models.CharField(max_length=256, verbose_name=_("Nombre"))
     ueb = models.ForeignKey(
         to=Entity,
         on_delete=models.PROTECT,
