@@ -1,6 +1,6 @@
 // variable para gestionar los elementos seleccionados
 let selected_id;
-
+let monthNumber;
 // Variable con el token
 const csrfToken = document.cookie
   .split(";")
@@ -78,6 +78,8 @@ $(document).ready(function () {
         { data: "destiny.name", title: "Destino" },
         { data: "product_kind.name", title: "Tipo de producto" },
         { data: "year", title: "Año" },  
+        { data: "month", title: "Mes" },  
+        { data: "quantity", title: "Cantidad" },  
         { data: "measurement_unit.name", title: "Unidad de medida" },
         {
           data: null,
@@ -163,6 +165,16 @@ $("#modal-crear-elemento").on("hide.bs.modal", (event) => {
   const elements = [...form.elements];
   // A forEach loop is used to iterate through each element in the array.
   elements.forEach((elem) => elem.classList.remove("is-invalid"));
+  // Ocultar todos los inputs de meses
+      for (let i = 1; i <= 12; i++) {
+        $(`#${i}`).closest('.form-group').show();
+        // Restaurar las reglas de validación originales
+        $(`#${i}`).rules('add', {
+          required: true,
+          digits: true,
+          min: 1
+        });
+      }
 });
 
 // carga los datos para editar
@@ -193,15 +205,32 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
           .val(element.measurement_unit.id)
           .trigger("change.select2");
         form.elements.date.value = element.year;
-        // llenar los meses
-        for (let month = 1; month <= 12; month++) {
-          if (element.monthly_distribution && element.monthly_distribution[month]) {
-            form.elements[month].value = element.monthly_distribution[month];
-          } else {
-            form.elements[month].value = 0; // o cualquier valor por defecto que desees
-          }
+        
+        // Ocultar todos los inputs de meses y remover required
+        for(let i = 1; i <= 12; i++) {
+          $(`#${i}`).closest('.form-group').hide();
+          // Remover la regla required del validador
+          $(`#${i}`).rules('remove', 'required');
         }
-       
+        
+        // Mostrar y llenar solo el mes correspondiente
+        const monthNames = {
+          'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4, 
+          'Mayo': 5, 'Junio': 6, 'Julio': 7, 'Agosto': 8,
+          'Septiembre': 9, 'Octubre': 10, 'Noviembre': 11, 'Diciembre': 12
+        };
+        
+         monthNumber = monthNames[element.month];
+        if(monthNumber) {
+          $(`#${monthNumber}`).val(element.quantity);
+          $(`#${monthNumber}`).closest('.form-group').show();
+          // Agregar la regla required solo al mes visible
+          $(`#${monthNumber}`).rules('add', {
+            required: true,
+            digits: true,
+            min: 1
+          });
+        }
       })
       .catch(function (error) {});
   } else {
@@ -249,42 +278,43 @@ $(function () {
         required: true,
       },
       // Requerir todos los inputs con id de mes (1-12)
-      "1": { required: true,
-        digits: true,
-        min: 1,},
-      "2": { required: true,
-        digits: true,
-        min: 1,},
-      "3": { required: true,
-        digits: true,
-        min: 1,},
-      "4": { required: true,
-        digits: true,
-        min: 1,},
-      "5": { required: true,
-        digits: true,
-        min: 1,},
-      "6": { required: true,
-        digits: true,
-        min: 1,},
-      "7": { required: true,
-        digits: true,
-        min: 1,},
-      "8": { required: true,
-        digits: true,
-        min: 1,},
-      "9": { required: true,
-        digits: true,
-        min: 1,},
-      "10": { required: true,
-        digits: true,
-        min: 1,},
-      "11": { required: true,
-        digits: true,
-        min: 1,},
-      "12": { required: true,
-        digits: true,
-        min: 1,},
+      
+      // "1": { required: true,
+      //   digits: true,
+      //   min: 1,},
+      // "2": { required: true,
+      //   digits: true,
+      //   min: 1,},
+      // "3": { required: true,
+      //   digits: true,
+      //   min: 1,},
+      // "4": { required: true,
+      //   digits: true,
+      //   min: 1,},
+      // "5": { required: true,
+      //   digits: true,
+      //   min: 1,},
+      // "6": { required: true,
+      //   digits: true,
+      //   min: 1,},
+      // "7": { required: true,
+      //   digits: true,
+      //   min: 1,},
+      // "8": { required: true,
+      //   digits: true,
+      //   min: 1,},
+      // "9": { required: true,
+      //   digits: true,
+      //   min: 1,},
+      // "10": { required: true,
+      //   digits: true,
+      //   min: 1,},
+      // "11": { required: true,
+      //   digits: true,
+      //   min: 1,},
+      // "12": { required: true,
+      //   digits: true,
+      //   min: 1,},
       
     },
     submitHandler: function (form) {},
@@ -344,7 +374,7 @@ form.addEventListener("submit", function (event) {
   event.preventDefault();
   var table = $("#tabla-de-Datos").DataTable();
   axios.defaults.headers.common["X-CSRFToken"] = csrfToken;
-  if (form.checkValidity()) {
+  if (true) {
     let data = new FormData();
     data.append("name", document.getElementById("name").value);
     data.append("destiny", document.getElementById("destiny").value);
@@ -362,13 +392,12 @@ form.addEventListener("submit", function (event) {
    
     data.append("year",document.getElementById("date").value);
     
-    let month_plans = [];
-    for (let i = 1; i <= 12; i++) {
-      const quantity = parseInt(document.getElementById(i.toString()).value, 10) || 0;
-      month_plans.push({ month: i, quantity });
-    }
-    data.append("month_plans", JSON.stringify(month_plans));
+  
     if (edit_elemento) {
+      data.append("month", monthNumber);
+console.log('✌️monthNumber --->', monthNumber);
+      data.append("quantity",document.getElementById(monthNumber).value);
+
       axios
         .put(`${url}${selected_id}/`, data)
         .then((response) => {
@@ -407,6 +436,13 @@ form.addEventListener("submit", function (event) {
           });
         });
     } else {
+       let month_plans = [];
+       for (let i = 1; i <= 12; i++) {
+         const quantity = parseInt(document.getElementById(i.toString()).value, 10) || 0;
+         month_plans.push({ month: i, quantity });
+       }   
+       data.append("month_plans", JSON.stringify(month_plans));
+      
       axios
         .post(url_year_plan, data)
         .then((response) => {
