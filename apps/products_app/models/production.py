@@ -9,19 +9,22 @@ from apps.common.models import BaseModel
 
 
 class Production(BaseModel):
-    name = models.CharField(max_length=30, verbose_name=_("name"))
+    name = models.CharField(max_length=30, verbose_name=_("Nombre"))
     product = models.ForeignKey(
-        to="products_app.Product", on_delete=models.CASCADE, verbose_name=_("product")
+        to="products_app.Product",
+        on_delete=models.CASCADE,
+        verbose_name=_("Producciones"),
+        related_name="productions",
     )
-    description = models.TextField(
-        verbose_name=_("description"), blank=True, null=True, max_length=256
+    extra_info = models.TextField(
+        verbose_name=_("Información Extra"), blank=True, null=True, max_length=256
     )
 
     plan = models.ForeignKey(
         to="products_app.Plan",
         on_delete=models.CASCADE,
         verbose_name=_("plan"),
-        related_name="production",
+        related_name="productions",
         null=True,
         default=None,
     )
@@ -29,12 +32,12 @@ class Production(BaseModel):
     distribution_format = models.ForeignKey(
         to="products_app.GroupingPackaging",
         on_delete=models.PROTECT,
-        verbose_name=_("distribution format"),
+        verbose_name=_("Formato de distribución"),
         related_name="productions",
     )
-    quantity = models.PositiveIntegerField(verbose_name=_("amount"))
+    quantity = models.PositiveIntegerField(verbose_name=_("Cantidad"))
     cost = models.DecimalField(
-        verbose_name=_("cost"),
+        verbose_name=_("Costo"),
         max_digits=6,
         decimal_places=2,
         validators=[MinValueValidator(0.00)],
@@ -42,21 +45,21 @@ class Production(BaseModel):
         blank=True,
     )
     wholesale_price = models.DecimalField(
-        verbose_name=_("wholesale price"),
+        verbose_name=_("Precio al por mayor"),
         max_digits=6,
         decimal_places=2,
         validators=[MinValueValidator(0.00)],
     )
-    active = models.BooleanField(verbose_name=_("active"), default=True)
+    active = models.BooleanField(verbose_name=_("Activo"), default=True)
     production_date = models.DateField(
-        verbose_name=_("production date"),
+        verbose_name=_("Fecha de producción"),
         null=True,
         blank=True,
     )
 
     class Meta:
-        verbose_name = _("producción")
-        verbose_name_plural = _("producciones")
+        verbose_name = _("Producción")
+        verbose_name_plural = _("Producciones")
         constraints = [
             models.constraints.UniqueConstraint(
                 fields=["product", "distribution_format", "wholesale_price"],

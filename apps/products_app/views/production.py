@@ -13,7 +13,7 @@ class ProductionViewSet(
     viewsets.ModelViewSet, CommonViewMixin, ActionsForNonDeletableItemsViewMixin
 ):
     queryset = Production.objects.all()
-    serializer_class = ProductionReadSerializer
+    serializer_class = ProductionSerializer
     filterset_class = ProductionFilter
     ordering_fields = [field.name for field in queryset.model._meta.fields] + [
         "entity__name"
