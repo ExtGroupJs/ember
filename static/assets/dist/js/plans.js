@@ -151,6 +151,7 @@ $(document).ready(function () {
         { data: "ueb.name", title: "UEB" },
         { data: "destiny.name", title: "Destino" },
         { data: "product_kind.name", title: "Tipo de producto" },
+        { data: "measurement_unit.symbol", title: "UM" },
         { data: "year", title: "Año" },
         { data: "total", title: "Total" },
 
