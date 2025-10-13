@@ -25,7 +25,7 @@ class ProductionSerializer(BaseModelSerializer):
             "wholesale_price",
             "quantity",
             "cost",
-            "description",
+            "extra_info",
             "active",
             "production_date",
         ]
