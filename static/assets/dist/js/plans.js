@@ -312,7 +312,7 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
         Object.keys(monthNames).forEach((elementMes) => {
           const monthNumber = monthNames[elementMes];
           if (monthNumber) {
-            $(`#${monthNumber}`).val(element[elementMes]);
+            $(`#mes${monthNumber}`).val(element[elementMes]);
           }
         });
       })
@@ -483,7 +483,7 @@ form.addEventListener("submit", function (event) {
 
         // Agregar cada mes con su valor correspondiente
       for (let i = 1; i <= 12; i++) {
-        const quantity = parseInt(document.getElementById(i.toString()).value, 10) || 0;
+        const quantity = parseInt(document.getElementById(`mes${i}`).value, 10) || 0;
         data.append(monthMap[i], quantity);
       }
 
