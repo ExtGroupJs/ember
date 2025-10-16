@@ -12,10 +12,6 @@ from apps.products_app.serializers import (
 
 
 class PlanSerializer(BaseModelSerializer):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.date = datetime.date.today()
-
     total = serializers.FloatField(read_only=True)
 
     class Meta(BaseModelSerializer.Meta):
@@ -44,9 +40,9 @@ class PlanSerializer(BaseModelSerializer):
         ]
 
     def validate_year(self, value):
-        if value < self.date.year:
+        if value < datetime.date.today().year:
             raise serializers.ValidationError(
-                f"El año no puede ser menor a {self.date.year}"
+                f"El año no puede ser menor a {datetime.date.today().year}"
             )
         return value
 
