@@ -18,8 +18,6 @@ En la producción, como ahora los planes son de productos específicos, en la pr
 
 Revisar con calma: En los planes, solo poner clasificaciones hijas, es decir, de productos finales, NO clasificaciones con hijos.
 
-Quitar restricción de unique al nombre del plan. Para todos los meses el valor por default es 0.
-poner un flag `extra_plan` que se setea en true si el total es 0
 
 ## Sobre informes
 Hacerlos por los PDF de ejemplo, con filtros de todo...

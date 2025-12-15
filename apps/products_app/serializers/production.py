@@ -4,7 +4,6 @@ from apps.common.serializers import BaseModelSerializer
 from apps.products_app.models import Production, Product
 from django.utils.translation import gettext_lazy as _
 
-from apps.products_app.models.plan import Plan
 from apps.products_app.serializers import (
     GroupingPackagingReadSerializer,
     ProductReadSerializer,
@@ -14,6 +13,11 @@ from apps.products_app.serializers.plan import PlanReadSerializer
 
 
 class ProductionSerializer(BaseModelSerializer):
+    default_error_messages = {
+        "no_plan_provided": _("No plan provided"),
+        "no_product_provided": _("No product provided"),
+    }
+
     class Meta(BaseModelSerializer.Meta):
         model = Production
         fields = BaseModelSerializer.Meta.fields + [
@@ -30,15 +34,11 @@ class ProductionSerializer(BaseModelSerializer):
             "production_date",
         ]
 
-    def validate_plan(self, value):
-        if not value or not Plan.objects.filter(id=value).exists():
-            raise serializers.ValidationError("A valid plan most be provided")
-        return value
-
-    def validate(self, data):
-        plan = data["plan"]
-        product = data["product"]
-
+    def validate(self, attrs):
+        product = (
+            attrs["product"] if "product" in attrs else self.fail("no_product_provided")
+        )
+        plan = attrs["plan"] if "plan" in attrs else self.fail("no_plan_provided")
         allowed_product_kinds = plan.product_kind.get_all_children_recursively()
 
         allowed_product = Product.objects.filter(
@@ -50,7 +50,7 @@ class ProductionSerializer(BaseModelSerializer):
             raise serializers.ValidationError(
                 _("This product is not allowed for this plan")
             )
-        return data
+        return attrs
 
 
 class ProductionReadSerializer(ProductionSerializer):
