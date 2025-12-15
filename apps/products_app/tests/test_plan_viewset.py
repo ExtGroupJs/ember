@@ -75,7 +75,6 @@ class TestPlanViewSet:
         product_kind = baker.make(Classification)
         measurement_unit = baker.make(MeasurementUnit)
         year = datetime.today().year
-        month = datetime.today().month
         data = {
             "name": "Plan 1",
             "ueb": ueb.id,
@@ -101,7 +100,6 @@ class TestPlanViewSet:
         data["year"] = year
         response = client.post(reverse("plan-list"), data=data)
         assert response.status_code == status.HTTP_201_CREATED
-
 
     # # Attempting to create a plan with a duplicate product, year, and month should return a 400 error
     # def test_create_duplicate_plan(self, client):

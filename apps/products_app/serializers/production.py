@@ -4,7 +4,6 @@ from apps.common.serializers import BaseModelSerializer
 from apps.products_app.models import Production, Product
 from django.utils.translation import gettext_lazy as _
 
-from apps.products_app.models.plan import Plan
 from apps.products_app.serializers import (
     GroupingPackagingReadSerializer,
     ProductReadSerializer,
@@ -18,6 +17,7 @@ class ProductionSerializer(BaseModelSerializer):
         "no_plan_provided": _("No plan provided"),
         "no_product_provided": _("No product provided"),
     }
+
     class Meta(BaseModelSerializer.Meta):
         model = Production
         fields = BaseModelSerializer.Meta.fields + [
@@ -34,11 +34,11 @@ class ProductionSerializer(BaseModelSerializer):
             "production_date",
         ]
 
-
-
     def validate(self, attrs):
-        product = attrs["product"] if "product" in attrs else self.fail("no_product_provided")
-        plan = attrs["plan"] if "plan" in attrs else self.fail("no_plan_provided") 
+        product = (
+            attrs["product"] if "product" in attrs else self.fail("no_product_provided")
+        )
+        plan = attrs["plan"] if "plan" in attrs else self.fail("no_plan_provided")
         allowed_product_kinds = plan.product_kind.get_all_children_recursively()
 
         allowed_product = Product.objects.filter(

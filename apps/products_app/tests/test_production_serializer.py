@@ -26,7 +26,6 @@ class TestProductionSerializer:
             production_date=datetime.date.today(),
         )
 
-
         # Serialize the Production object
         serializer = ProductionSerializer(production)
         serialized_data = serializer.data

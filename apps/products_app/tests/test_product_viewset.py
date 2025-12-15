@@ -38,7 +38,11 @@ class TestProductionViewSet:
     def test_create_new_production(self, client):
         client.login(username="admin", password="1qazxsw2")
 
-        plan = baker.make(Plan, product_kind=baker.make(Classification, name="Root"), ueb = baker.make(Entity, name="UEB"))
+        plan = baker.make(
+            Plan,
+            product_kind=baker.make(Classification, name="Root"),
+            ueb=baker.make(Entity, name="UEB"),
+        )
         data = {
             "name": "Test Production",
             "product": baker.make(Product, classification_id=plan.product_kind_id).id,
