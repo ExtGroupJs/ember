@@ -10,6 +10,8 @@ from apps.products_app.models import Product
 from apps.products_app.models.grouping_packaging import GroupingPackaging
 from apps.products_app.models.plan import Plan
 from apps.products_app.models.production import Production
+from apps.products_app.models.classification import Classification
+from apps.products_app.models.entity import Entity
 
 
 @pytest.mark.django_db
@@ -36,7 +38,7 @@ class TestProductionViewSet:
     def test_create_new_production(self, client):
         client.login(username="admin", password="1qazxsw2")
 
-        plan = baker.make(Plan)
+        plan = baker.make(Plan, product_kind=baker.make(Classification, name="Root"), ueb = baker.make(Entity, name="UEB"))
         data = {
             "name": "Test Production",
             "product": baker.make(Product, classification_id=plan.product_kind_id).id,
@@ -45,13 +47,13 @@ class TestProductionViewSet:
             "wholesale_price": 10.00,
             "quantity": 100,
             "cost": 50.00,
-            "description": "Test description",
+            "extra_info": "Test description",
             "active": True,
             "production_date": "2022-01-01",
         }
         response = client.post(reverse("production-list"), data=data)
         assert response.status_code == status.HTTP_201_CREATED
-        assert Production.objects.filter(name="Test Production").exists()
+        assert Production.objects.filter(name=data["name"]).exists()
 
     # attempting to create a production with an invalid product should return a validation error
 

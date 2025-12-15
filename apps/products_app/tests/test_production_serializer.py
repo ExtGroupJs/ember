@@ -16,7 +16,7 @@ class TestProductionSerializer:
         production = Production(
             name="Test Production",
             product=baker.make(Product, name="Test Product"),
-            description="Test Description",
+            extra_info="Test Description",
             plan=baker.make(Plan, name="Test Plan"),
             distribution_format=baker.make(GroupingPackaging, name="Test Format"),
             quantity=10,
@@ -26,6 +26,7 @@ class TestProductionSerializer:
             production_date=datetime.date.today(),
         )
 
+
         # Serialize the Production object
         serializer = ProductionSerializer(production)
         serialized_data = serializer.data
@@ -33,7 +34,7 @@ class TestProductionSerializer:
         # Assert that all fields are serialized correctly
         assert serialized_data["name"] == "Test Production"
         assert Product.objects.get(id=serialized_data["product"]).name == "Test Product"
-        assert serialized_data["description"] == "Test Description"
+        assert serialized_data["extra_info"] == "Test Description"
         assert Plan.objects.get(id=serialized_data["plan"]).name == "Test Plan"
         assert (
             GroupingPackaging.objects.get(
@@ -53,7 +54,7 @@ class TestProductionSerializer:
         production = Production(
             name="Test Production",
             product=baker.make(Product, name="test product"),
-            description=None,
+            extra_info=None,
             plan=None,
             distribution_format=baker.make(GroupingPackaging, name="test format"),
             quantity=10,
@@ -68,7 +69,7 @@ class TestProductionSerializer:
         serialized_data = serializer.data
 
         # Assert that null or blank optional fields are serialized correctly
-        assert serialized_data["description"] is None
+        assert serialized_data["extra_info"] is None
         assert serialized_data["plan"] is None
         assert serialized_data["cost"] is None
 
@@ -102,7 +103,7 @@ class TestProductionSerializer:
         production = Production(
             name="Test Production",
             product=baker.make(Product, name="test product"),
-            description="Test Description",
+            extra_info="Test Description",
             plan=baker.make(Plan, name="Invalid Plan"),
             distribution_format=baker.make(GroupingPackaging, name="test format"),
             quantity=10,
@@ -123,7 +124,7 @@ class TestProductionSerializer:
         production = Production(
             name="Test Production",
             product=baker.make(Product, name="test product"),
-            description="Test Description",
+            extra_info="Test Description",
             plan=baker.make(Plan, name="test plan"),
             distribution_format=baker.make(GroupingPackaging, name="test format"),
             quantity=10,
@@ -147,7 +148,7 @@ class TestProductionSerializer:
         production = Production(
             name="Test Production",
             product=baker.make(Product, name="Invalid Product"),
-            description="Test Description",
+            extra_info="Test Description",
             plan=baker.make(Plan, name="test plan"),
             distribution_format=baker.make(GroupingPackaging, name="test format"),
             quantity=10,
@@ -168,7 +169,7 @@ class TestProductionSerializer:
         production = Production(
             name="Test Production",
             product=baker.make(Product, name="test product"),
-            description="Test Description",
+            extra_info="Test Description",
             plan=baker.make(Plan, name="test plan"),
             distribution_format=baker.make(GroupingPackaging, name="test format"),
             quantity=10,
@@ -197,7 +198,7 @@ class TestProductionSerializer:
         production = Production(
             name="Test Production",
             product=baker.make(Product, name="test product"),
-            description="Test Description",
+            extra_info="Test Description",
             plan=baker.make(Plan, name="test plan"),
             distribution_format=baker.make(GroupingPackaging, name="test format"),
             quantity=-10,
