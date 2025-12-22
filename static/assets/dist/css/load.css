@@ -1,0 +1,78 @@
+ /* --- Estilos del Overlay (La capa de fondo) --- */
+        .loading-overlay {
+            /* Por defecto, está oculto */
+            display: flex; 
+            
+            /* Se posiciona fijo para cubrir toda la ventana del navegador */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            
+            /* Fondo semitransparente */
+            background-color: rgba(0, 0, 0, 0.7);
+            
+            /* Asegura que esté por encima de todo lo demás */
+            z-index: 9999;
+            
+            /* Centra el contenido (el loader) tanto vertical como horizontalmente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+       
+
+        /* --- Estilos del Loader (Tu código original con mejoras) --- */
+        .loader {
+            position: relative;
+            width: 75px;
+            height: 100px;
+        }
+
+        .loader__bar {
+            position: absolute;
+            bottom: 0;
+            width: 10px;
+            height: 30px;
+            background: #3498db; /* Color de las barras */
+            border-radius: 5px;
+            animation: bar-scale 1.2s infinite ease-in-out;
+        }
+
+        .loader__bar:nth-child(1) { left: 0px; animation-delay: 0s; }
+        .loader__bar:nth-child(2) { left: 15px; animation-delay: 0.1s; }
+        .loader__bar:nth-child(3) { left: 30px; animation-delay: 0.2s; }
+        .loader__bar:nth-child(4) { left: 45px; animation-delay: 0.3s; }
+        .loader__bar:nth-child(5) { left: 60px; animation-delay: 0.4s; }
+
+        .loader__ball {
+            position: absolute;
+            bottom: 10px; /* Un poco arriba del suelo */
+            left: 0;
+            width: 10px;
+            height: 10px;
+            background: #e74c3c; /* Color de la pelota */
+            border-radius: 50%;
+            animation: ball-move 1.2s infinite ease-in-out;
+        }
+
+        /* --- Animaciones --- */
+        @keyframes bar-scale {
+            0%, 40%, 100% {
+                transform: scaleY(0.4);
+            }
+            20% {
+                transform: scaleY(1);
+            }
+        }
+
+        @keyframes ball-move {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(60px);
+            }
+        }

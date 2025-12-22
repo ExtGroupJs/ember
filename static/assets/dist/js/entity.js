@@ -225,6 +225,11 @@ $(function () {
 // crear usuario
 let form = document.getElementById("form-create-elemento");
 form.addEventListener("submit", function (event) {
+  if (!$("#form-create-elemento").valid()) return;
+
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Cargando...';
   event.preventDefault();
   var table = $("#tabla-de-Datos").DataTable();
   axios.defaults.headers.common["X-CSRFToken"] = csrfToken;
