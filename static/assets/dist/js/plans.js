@@ -11,6 +11,7 @@ const url = "/product-gestion/plan/";
 const url_year_plan = "/product-gestion/plan/year-plan/";
 
 $(document).ready(function () {
+
   function format(d) {
     // `d` es el objeto de datos original para la fila
     return (
@@ -151,7 +152,7 @@ $(document).ready(function () {
         { data: "ueb.name", title: "UEB" },
         { data: "destiny.name", title: "Destino" },
         { data: "product_kind.name", title: "Tipo de producto" },
-        { data: "measurement_unit.symbol", title: "UM" },
+        { data: "measurement_unit.name", title: "UM" },
         { data: "year", title: "Año" },
         { data: "total", title: "Total" },
 
@@ -177,8 +178,8 @@ $(document).ready(function () {
             if (data == null || data == "") {
               return (data = "Sin Datos");
             } else {
-              return type === "display" && data.length > 20
-                ? data.substr(0, 20) + "…"
+              return type === "display" && data.length > 80
+                ? data.substr(0, 80) + "…"
                 : data;
             }
           },
@@ -189,8 +190,8 @@ $(document).ready(function () {
             if (data == null || data == "") {
               return (data = "Sin Datos");
             } else {
-              return type === "display" && data.length > 20
-                ? data.substr(0, 20) + "…"
+              return type === "display" && data.length > 80
+                ? data.substr(0, 80) + "…"
                 : data;
             }
           },
@@ -329,6 +330,29 @@ $(function () {
   });
   bsCustomFileInput.init();
   poblarListas();
+  
+  // Función para calcular y actualizar el total de distribución por mes
+  function updateTotalDistribution() {
+    let total = 0;
+    for (let i = 1; i <= 12; i++) {
+      const value = parseInt(document.getElementById(`mes${i}`).value) || 0;
+      total += value;
+    }
+    document.getElementById("total-distribucion").textContent = total;
+  }
+  
+  // Agregar event listeners a todos los inputs de meses
+  for (let i = 1; i <= 12; i++) {
+    const input = document.getElementById(`mes${i}`);
+    if (input) {
+      input.addEventListener("input", updateTotalDistribution);
+    }
+  }
+  
+  // Actualizar total cuando se carga el modal con datos
+  $("#modal-crear-elemento").on("shown.bs.modal", function () {
+    updateTotalDistribution();
+  });
 });
 
 // form validator
@@ -453,6 +477,8 @@ $(function () {
 
 let form = document.getElementById("form-create-elemento");
 form.addEventListener("submit", function (event) {
+  const submitButton = form.querySelector('button[type="submit"]');
+
   event.preventDefault();
   var table = $("#tabla-de-Datos").DataTable();
   axios.defaults.headers.common["X-CSRFToken"] = csrfToken;
@@ -488,6 +514,7 @@ form.addEventListener("submit", function (event) {
       }
 
     if (edit_elemento) {
+      loadingOverlay.hidden = false;
        axios
         .put(`${url}${selected_id}/`, data)
         .then((response) => {
@@ -502,9 +529,11 @@ form.addEventListener("submit", function (event) {
             table.ajax.reload();
             $("#modal-crear-elemento").modal("hide");
             edit_elemento = false;
+            loadingOverlay.hidden = true;
           }
         })
         .catch((error) => {
+          loadingOverlay.hidden = true;
           let dict = error.response.data;
           console.log(dict);
           let textError = "Revise los siguientes campos: ";
@@ -527,7 +556,7 @@ form.addEventListener("submit", function (event) {
         });
     } else {
 
-
+loadingOverlay.hidden = false;
       axios
         .post(url, data)
         .then((response) => {
@@ -544,6 +573,7 @@ form.addEventListener("submit", function (event) {
           }
         })
         .catch((error) => {
+          loadingOverlay.hidden = true;
           let dict = error.response.data;
           let textError = "Revise los siguientes campos: ";
           for (const key in dict) {

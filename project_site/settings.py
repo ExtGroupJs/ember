@@ -79,8 +79,8 @@ INSTALLED_APPS = [
     "apps.common",
     "debug_toolbar",
     "apps.products_app",
-    "django_browser_reload",
-     "django_watchfiles",
+    # "django_browser_reload",
+    #  "django_watchfiles",
 ]
 
 MIDDLEWARE = [
