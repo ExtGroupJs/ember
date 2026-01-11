@@ -33,6 +33,7 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     # YOUR PATTERNS
+    path("__reload__/", include("django_browser_reload.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
     path(

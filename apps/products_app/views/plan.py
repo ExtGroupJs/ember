@@ -8,17 +8,35 @@ from apps.products_app.serializers import PlanReadSerializer
 from rest_framework.decorators import action
 
 from apps.products_app.serializers import PlanSerializer
+
+# from apps.products_app.serializers.plan import YearPlanSerializer
 from apps.products_app.serializers.product import ProductSerializer
 
 
 # from apps.products_app.filters import PlanFilter
+from django.db.models import F
 
 
 class PlanViewSet(
     viewsets.ModelViewSet, CommonViewMixin, ActionsForNonDeletableItemsViewMixin
 ):
-    queryset = Plan.objects.all()
-    serializer_class = PlanReadSerializer
+    queryset = Plan.objects.annotate(
+        total=(
+            F("jan_quantity")
+            + F("feb_quantity")
+            + F("mar_quantity")
+            + F("apr_quantity")
+            + F("may_quantity")
+            + F("jun_quantity")
+            + F("jul_quantity")
+            + F("aug_quantity")
+            + F("sep_quantity")
+            + F("oct_quantity")
+            + F("nov_quantity")
+            + F("dec_quantity")
+        )
+    )
+    serializer_class = PlanSerializer
     search_fields = ["name"]
     # filterset_class = PlanFilter
 
@@ -29,31 +47,30 @@ class PlanViewSet(
             return PlanReadSerializer
         return PlanSerializer
 
-    # TODO add tests for this viewset
-    @action(
-        detail=True,
-        methods=["GET"],
-        url_name="acumulated-quantity",
-        url_path="acumulated-quantity",
-    )
-    def acumulated_quantity(self, request, pk=None) -> int:
-        obj = self.get_object()
-        acumulated = Plan.objects.filter(
-            product=obj.product, year=obj.year, month__lte=obj.month
-        )
-        acumulated_quantity_hectoliters = 0
-        acumulated_quantity_thousands_of_boxes = 0
-        for plan in acumulated:
-            if plan.measurement_unit == "H":
-                acumulated_quantity_hectoliters += plan.quantity
-            elif plan.measurement_unit == "M":
-                acumulated_quantity_thousands_of_boxes += plan.quantity
-        response_data = {
-            "hetolitros": acumulated_quantity_hectoliters,
-            "miles_de_cajas": acumulated_quantity_thousands_of_boxes,
-        }
+    # @action( TODO Evaluar si es necesario
+    #     detail=True,
+    #     methods=["GET"],
+    #     url_name="acumulated-quantity",
+    #     url_path="acumulated-quantity",
+    # )
+    # def acumulated_quantity(self, request, pk=None) -> int:
+    #     obj = self.get_object()
+    #     acumulated = Plan.objects.filter(
+    #         product=obj.product, year=obj.year, month__lte=obj.month
+    #     )
+    #     acumulated_quantity_hectoliters = 0
+    #     acumulated_quantity_thousands_of_boxes = 0
+    #     for plan in acumulated:
+    #         if plan.measurement_unit == "H":
+    #             acumulated_quantity_hectoliters += plan.quantity
+    #         elif plan.measurement_unit == "M":
+    #             acumulated_quantity_thousands_of_boxes += plan.quantity
+    #     response_data = {
+    #         "hetolitros": acumulated_quantity_hectoliters,
+    #         "miles_de_cajas": acumulated_quantity_thousands_of_boxes,
+    #     }
 
-        return Response(response_data, status=status.HTTP_200_OK)
+    #     return Response(response_data, status=status.HTTP_200_OK)
 
     @action(
         detail=True,
@@ -74,3 +91,19 @@ class PlanViewSet(
             )
         serializer = ProductSerializer(allowed_products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # @action( TODO VALORAR SI ES NECESARIO
+    #     detail=False,
+    #     methods=["POST"],
+    #     url_name="year-plan",
+    #     url_path="year-plan",
+    #     serializer_class=YearPlanSerializer,
+    # )
+    # def year_plan(self, request) -> Response:
+    #     serializer = YearPlanSerializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     result = serializer.save()
+    #     return Response(
+    #         f"Plan creado satisfactoriamente. {result} elementos insertados.",
+    #         status=status.HTTP_201_CREATED,
+    #     )

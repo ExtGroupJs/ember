@@ -135,9 +135,7 @@ $("#modal-eliminar-elemento").on("show.bs.modal", function (event) {
   var dataName = button.data("name"); // Extract info from data-* attributes
   selected_id = button.data("id"); // Extract info from data-* attributes
   var modal = $(this);
-  modal
-    .find(".mytext")
-    .text("¿Desea archivar el envase agrupador: " + dataName + "?");
+  modal.find(".mytext").text("¿Desea archivar el Formato: " + dataName + "?");
 });
 
 // funcion para archivar
@@ -151,14 +149,14 @@ function function_archivar(selected_id) {
     .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "El Envase agrupador se archivó correctamente",
+        title: "El Formato se archivó correctamente",
       });
       table.ajax.reload();
     })
     .catch((error) => {
       Toast.fire({
         icon: "error",
-        title: "El Envase agrupador no se archivó",
+        title: "El Formato no se archivó",
       });
     });
 }
@@ -173,14 +171,14 @@ function function_des_archivar(selected_id) {
     .then((response) => {
       Toast.fire({
         icon: "success",
-        title: "El Envase agrupador se restauró correctamente",
+        title: "El Formato se restauró correctamente",
       });
       table.ajax.reload();
     })
     .catch((error) => {
       Toast.fire({
         icon: "error",
-        title: "El Envase agrupador no se restauró",
+        title: "El Formato no se restauró",
       });
     });
 }
@@ -227,7 +225,7 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
       })
       .catch(function (error) {});
   } else {
-    modal.find(".modal-title").text("Crear Envase agrupador");
+    modal.find(".modal-title").text("Crear Formato");
     $(".select2").select2({
       dropdownParent: $("#modal-crear-elemento"),
       theme: "bootstrap4",
@@ -306,7 +304,7 @@ form.addEventListener("submit", function (event) {
           if (response.status === 200) {
             Swal.fire({
               icon: "success",
-              title: "Envase agrupador editado con éxito",
+              title: "Formato editado con éxito",
               showConfirmButton: false,
               timer: 2000,
             });
@@ -325,7 +323,7 @@ form.addEventListener("submit", function (event) {
 
           Swal.fire({
             icon: "error",
-            title: "Error al crear envase agrupador",
+            title: "Error al crear Formato",
             text: textError,
             showConfirmButton: false,
             timer: 50 * textError.length,
@@ -338,7 +336,7 @@ form.addEventListener("submit", function (event) {
           if (response.status === 201) {
             Swal.fire({
               icon: "success",
-              title: "Envase agrupador creado con éxito",
+              title: "Formato creado con éxito",
               showConfirmButton: false,
               timer: 2000,
             });

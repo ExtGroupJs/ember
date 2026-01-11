@@ -79,6 +79,8 @@ INSTALLED_APPS = [
     "apps.common",
     "debug_toolbar",
     "apps.products_app",
+    # "django_browser_reload",
+    #  "django_watchfiles",
 ]
 
 MIDDLEWARE = [
@@ -91,6 +93,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "apps.common.get_username.RequestMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "project_site.urls"

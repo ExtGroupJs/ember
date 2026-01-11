@@ -76,6 +76,17 @@ $(document).ready(function () {
         { data: "mililiters", title: "Mililitros" },
         { data: "description", title: "Descripción" },
         {
+          data: "used_for_planning",
+          title: "Para plan",
+          render: (data, type, row) => {
+            if (row.used_for_planning) {
+              return `<span title="Activo" class="badge badge-success"><i class="nav-icon fas fa-toggle-on"></i></span> `;
+            } else {
+              return `<span title="Inactivo" class="badge badge-danger"><i class="nav-icon fas fa-toggle-off"></i></span> `;
+            }
+          },
+        },
+        {
           data: "",
           title: "Acciones",
           render: (data, type, row) => {
@@ -182,6 +193,7 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
         form.elements.symbol.value = elemento.symbol;
         form.elements.mililiters.value = elemento.mililiters;
         form.elements.description.value = elemento.description;
+        form.elements.used_for_planning.checked = elemento.used_for_planning;
       })
       .catch(function (error) {});
   } else {
@@ -256,6 +268,7 @@ form.addEventListener("submit", function (event) {
     data.append("symbol", document.getElementById("symbol").value);
     data.append("mililiters", document.getElementById("mililiters").value);
     data.append("description", document.getElementById("description").value);
+    data.append("used_for_planning", document.getElementById("used_for_planning").checked);
 
     if (edit_elemento) {
       axios
@@ -323,6 +336,7 @@ form.addEventListener("submit", function (event) {
     }
   }
 });
+  form.elements.used_for_planning.checked = !!elemento.used_for_planning;
 
 function test() {
   axios.get(url).then(function (response) {

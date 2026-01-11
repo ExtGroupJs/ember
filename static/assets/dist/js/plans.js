@@ -1,6 +1,6 @@
 // variable para gestionar los elementos seleccionados
 let selected_id;
-
+let monthNumber;
 // Variable con el token
 const csrfToken = document.cookie
   .split(";")
@@ -8,11 +8,80 @@ const csrfToken = document.cookie
   ?.split("=")[1];
 // url del endpoint principal
 const url = "/product-gestion/plan/";
+const url_year_plan = "/product-gestion/plan/year-plan/";
 
 $(document).ready(function () {
-  // var texto = prompt('Entra algo:');
-  // test();
-  $("table")
+
+  function format(d) {
+    // `d` es el objeto de datos original para la fila
+    return (
+      '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; width: 100%; max-width: 900px; font-size: 0.9em; margin: 0 auto;">' +
+      // Fila 1: Enero a Junio (6 pares de etiqueta/valor, 12 celdas en total)
+      "<tr>" +
+      '<td style="font-weight: bold; width: 8.33%;">Ene:</td>' +
+      '<td style="width: 8.33%;">' +
+      d.jan_quantity +
+      "</td>" +
+      '<td style="font-weight: bold; width: 8.33%;">Feb:</td>' +
+      '<td style="width: 8.33%;">' +
+      d.feb_quantity +
+      "</td>" +
+      '<td style="font-weight: bold; width: 8.33%;">Mar:</td>' +
+      '<td style="width: 8.33%;">' +
+      d.mar_quantity +
+      "</td>" +
+      '<td style="font-weight: bold; width: 8.33%;">Abr:</td>' +
+      '<td style="width: 8.33%;">' +
+      d.apr_quantity +
+      "</td>" +
+      '<td style="font-weight: bold; width: 8.33%;">May:</td>' +
+      '<td style="width: 8.33%;">' +
+      d.may_quantity +
+      "</td>" +
+      '<td style="font-weight: bold; width: 8.33%;">Jun:</td>' +
+      '<td style="width: 8.33%;">' +
+      d.jun_quantity +
+      "</td>" +
+      "</tr>" +
+      // Fila 2: Julio a Diciembre (6 pares de etiqueta/valor, 12 celdas en total)
+      "<tr>" +
+      '<td style="font-weight: bold;">Jul:</td>' +
+      "<td>" +
+      d.jul_quantity +
+      "</td>" +
+      '<td style="font-weight: bold;">Ago:</td>' +
+      "<td>" +
+      d.aug_quantity +
+      "</td>" +
+      '<td style="font-weight: bold;">Sep:</td>' +
+      "<td>" +
+      d.sep_quantity +
+      "</td>" +
+      '<td style="font-weight: bold;">Oct:</td>' +
+      "<td>" +
+      d.oct_quantity +
+      "</td>" +
+      '<td style="font-weight: bold;">Nov:</td>' +
+      "<td>" +
+      d.nov_quantity +
+      "</td>" +
+      '<td style="font-weight: bold;">Dic:</td>' +
+      "<td>" +
+      d.dec_quantity +
+      "</td>" +
+      "</tr>" +
+      // Fila 3: Total (usando colspan para centrar o alinear al final)
+      "<tr>" +
+      '<td colspan="10" style="text-align: right; font-weight: bold; border-top: 1px solid #ccc;">Total del Plan:</td>' +
+      '<td colspan="2" style="font-weight: bold; border-top: 1px solid #ccc;">' +
+      d.total +
+      "</td>" +
+      "</tr>" +
+      "</table>"
+    );
+  }
+
+  var table = $("table")
     .addClass("table table-hover")
     .DataTable({
       responsive: true,
@@ -72,14 +141,21 @@ $(document).ready(function () {
         console.log(data);
       },
       columns: [
+        {
+          className: "dt-control",
+          orderable: false,
+          data: null,
+          defaultContent: "",
+          title: "Mostrar"
+        },
         { data: "name", title: "Nombre" },
         { data: "ueb.name", title: "UEB" },
         { data: "destiny.name", title: "Destino" },
         { data: "product_kind.name", title: "Tipo de producto" },
+        { data: "measurement_unit.name", title: "UM" },
         { data: "year", title: "Año" },
-        { data: "month", title: "Mes" },
-        { data: "quantity", title: "Cantidad" },
-        { data: "measurement_unit.name", title: "Unidad de medida" },
+        { data: "total", title: "Total" },
+
         {
           data: null,
           title: "Acciones",
@@ -102,8 +178,8 @@ $(document).ready(function () {
             if (data == null || data == "") {
               return (data = "Sin Datos");
             } else {
-              return type === "display" && data.length > 20
-                ? data.substr(0, 20) + "…"
+              return type === "display" && data.length > 80
+                ? data.substr(0, 80) + "…"
                 : data;
             }
           },
@@ -114,14 +190,28 @@ $(document).ready(function () {
             if (data == null || data == "") {
               return (data = "Sin Datos");
             } else {
-              return type === "display" && data.length > 20
-                ? data.substr(0, 20) + "…"
+              return type === "display" && data.length > 80
+                ? data.substr(0, 80) + "…"
                 : data;
             }
           },
         },
       ],
     });
+
+  $("#tabla-de-Datos").on("click", "tbody td.dt-control", function () {
+    var tr = $(this).closest("tr");
+    var row = table.row(tr);
+
+    if (row.child.isShown()) {
+      // This row is already open - close it
+      row.child.hide();
+    } else {
+      // Open this row
+      row.child(format(row.data())).show();
+    }
+  });
+ 
 });
 
 $("#modal-eliminar-elemento").on("show.bs.modal", function (event) {
@@ -164,6 +254,16 @@ $("#modal-crear-elemento").on("hide.bs.modal", (event) => {
   const elements = [...form.elements];
   // A forEach loop is used to iterate through each element in the array.
   elements.forEach((elem) => elem.classList.remove("is-invalid"));
+  // Ocultar todos los inputs de meses
+  for (let i = 1; i <= 12; i++) {
+    $(`#${i}`).closest(".form-group").show();
+    // Restaurar las reglas de validación originales
+    $(`#${i}`).rules("add", {
+      required: true,
+      digits: true,
+      min: 1,
+    });
+  }
 });
 
 // carga los datos para editar
@@ -189,13 +289,33 @@ $("#modal-crear-elemento").on("show.bs.modal", function (event) {
         $("#classification")
           .val(element.product_kind.id)
           .trigger("change.select2");
-        form.elements.quantity.value = element.quantity;
+
         $("#measurement_unit")
           .val(element.measurement_unit.id)
           .trigger("change.select2");
-        form.elements.date.value = element.month + "-" + element.year;
-        console.log("ver");
-        console.log(element.quantity);
+        form.elements.date.value = element.year;
+        console.log("✌️element --->", element);
+        // Mostrar y llenar solo el mes correspondiente
+        const monthNames = {
+          jan_quantity: 1,
+          feb_quantity: 2,
+          mar_quantity: 3,
+          apr_quantity: 4,
+          may_quantity: 5,
+          jun_quantity: 6,
+          jul_quantity: 7,
+          aug_quantity: 8,
+          sep_quantity: 9,
+          oct_quantity: 10,
+          nov_quantity: 11,
+          dec_quantity: 12,
+        };
+        Object.keys(monthNames).forEach((elementMes) => {
+          const monthNumber = monthNames[elementMes];
+          if (monthNumber) {
+            $(`#mes${monthNumber}`).val(element[elementMes]);
+          }
+        });
       })
       .catch(function (error) {});
   } else {
@@ -210,6 +330,29 @@ $(function () {
   });
   bsCustomFileInput.init();
   poblarListas();
+  
+  // Función para calcular y actualizar el total de distribución por mes
+  function updateTotalDistribution() {
+    let total = 0;
+    for (let i = 1; i <= 12; i++) {
+      const value = parseInt(document.getElementById(`mes${i}`).value) || 0;
+      total += value;
+    }
+    document.getElementById("total-distribucion").textContent = total;
+  }
+  
+  // Agregar event listeners a todos los inputs de meses
+  for (let i = 1; i <= 12; i++) {
+    const input = document.getElementById(`mes${i}`);
+    if (input) {
+      input.addEventListener("input", updateTotalDistribution);
+    }
+  }
+  
+  // Actualizar total cuando se carga el modal con datos
+  $("#modal-crear-elemento").on("shown.bs.modal", function () {
+    updateTotalDistribution();
+  });
 });
 
 // form validator
@@ -231,7 +374,6 @@ $(function () {
       destiny: {
         required: true,
       },
-
       product: {
         required: true,
       },
@@ -240,14 +382,10 @@ $(function () {
         dateFormat: true,
       },
 
-      quantity: {
-        required: true,
-        digits: true,
-        min: 1,
-      },
       measurement_unit: {
         required: true,
       },
+     
     },
     submitHandler: function (form) {},
 
@@ -258,8 +396,65 @@ $(function () {
       date: {
         required: "El plan debe responder a una fecha",
       },
-      quantity: {
-        required: "Por favor, ingresa la cantidad planificada.",
+
+      // Mensajes para los meses
+      1: {
+        required: "El mes 1 es obligatorio",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      2: {
+        required: "El mes 2 es obligatorio",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      3: {
+        required: "El mes 3 es obligatorio",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      4: {
+        required: "El mes 4 es obligatorio",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      5: {
+        required: "El mes 5 es obligatorio",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      6: {
+        required: "El mes 6 es obligatorio",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      7: {
+        required: "El mes 7 es obligatorio",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      8: {
+        required: "El mes 8 es obligatorio",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      9: {
+        required: "El mes 9 es obligatorio",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      10: {
+        required: "El mes 10 es obligatorio",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      11: {
+        required: "El mes 11 es obligatorio",
+        digits: "Por favor, ingresa solo números enteros positivos.",
+        min: "La capacidad debe ser un número positivo.",
+      },
+      12: {
+        required: "El mes 12 es obligatorio",
         digits: "Por favor, ingresa solo números enteros positivos.",
         min: "La capacidad debe ser un número positivo.",
       },
@@ -282,10 +477,12 @@ $(function () {
 
 let form = document.getElementById("form-create-elemento");
 form.addEventListener("submit", function (event) {
+  const submitButton = form.querySelector('button[type="submit"]');
+
   event.preventDefault();
   var table = $("#tabla-de-Datos").DataTable();
   axios.defaults.headers.common["X-CSRFToken"] = csrfToken;
-  if (form.checkValidity()) {
+  if (true) {
     let data = new FormData();
     data.append("name", document.getElementById("name").value);
     data.append("destiny", document.getElementById("destiny").value);
@@ -294,18 +491,31 @@ form.addEventListener("submit", function (event) {
       document.getElementById("classification").value
     );
     data.append("ueb", document.getElementById("entity").value);
-    data.append("quantity", document.getElementById("quantity").value);
+
     data.append(
       "measurement_unit",
       document.getElementById("measurement_unit").value
     );
-    var date = document.getElementById("date").value;
-    var parts = date.split("-");
-    console.log(convertMonthToNumber(parts[0]));
-    data.append("month", convertMonthToNumber(parts[0]));
-    data.append("year", parts[1]);
+
+    data.append("year", document.getElementById("date").value);
+
+    // Agregar los valores de cada mes directamente
+      const monthMap = {
+        1: 'jan_quantity', 2: 'feb_quantity', 3: 'mar_quantity',
+        4: 'apr_quantity', 5: 'may_quantity', 6: 'jun_quantity',
+        7: 'jul_quantity', 8: 'aug_quantity', 9: 'sep_quantity',
+        10: 'oct_quantity', 11: 'nov_quantity', 12: 'dec_quantity'
+      };
+
+        // Agregar cada mes con su valor correspondiente
+      for (let i = 1; i <= 12; i++) {
+        const quantity = parseInt(document.getElementById(`mes${i}`).value, 10) || 0;
+        data.append(monthMap[i], quantity);
+      }
+
     if (edit_elemento) {
-      axios
+      loadingOverlay.hidden = false;
+       axios
         .put(`${url}${selected_id}/`, data)
         .then((response) => {
           if (response.status === 200) {
@@ -319,9 +529,11 @@ form.addEventListener("submit", function (event) {
             table.ajax.reload();
             $("#modal-crear-elemento").modal("hide");
             edit_elemento = false;
+            loadingOverlay.hidden = true;
           }
         })
         .catch((error) => {
+          loadingOverlay.hidden = true;
           let dict = error.response.data;
           console.log(dict);
           let textError = "Revise los siguientes campos: ";
@@ -343,6 +555,8 @@ form.addEventListener("submit", function (event) {
           });
         });
     } else {
+
+loadingOverlay.hidden = false;
       axios
         .post(url, data)
         .then((response) => {
@@ -359,6 +573,7 @@ form.addEventListener("submit", function (event) {
           }
         })
         .catch((error) => {
+          loadingOverlay.hidden = true;
           let dict = error.response.data;
           let textError = "Revise los siguientes campos: ";
           for (const key in dict) {

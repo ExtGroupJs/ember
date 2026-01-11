@@ -121,6 +121,11 @@
             <label for="description ">Descripción</label>
             <textarea type="text" class="form-control" id="description" placeholder="Entre la descripción "></textarea>
           </div>
+          <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+            <input type="checkbox" class="custom-control-input" id="used_for_planning" name="used_for_planning"
+              onclick="changeCheckboxValue('used_for_planning')" checked>
+            <label class="custom-control-label" for="used_for_planning">Usar para plan</label>
+          </div>
 
         </div>
         <!-- /.card-body -->

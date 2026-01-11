@@ -13,6 +13,11 @@ from apps.products_app.serializers.plan import PlanReadSerializer
 
 
 class ProductionSerializer(BaseModelSerializer):
+    default_error_messages = {
+        "no_plan_provided": _("No plan provided"),
+        "no_product_provided": _("No product provided"),
+    }
+
     class Meta(BaseModelSerializer.Meta):
         model = Production
         fields = BaseModelSerializer.Meta.fields + [
@@ -24,25 +29,28 @@ class ProductionSerializer(BaseModelSerializer):
             "wholesale_price",
             "quantity",
             "cost",
-            "description",
+            "extra_info",
             "active",
             "production_date",
         ]
 
-    def validate(self, data):
-        plan = data["plan"]
-
+    def validate(self, attrs):
+        product = (
+            attrs["product"] if "product" in attrs else self.fail("no_product_provided")
+        )
+        plan = attrs["plan"] if "plan" in attrs else self.fail("no_plan_provided")
         allowed_product_kinds = plan.product_kind.get_all_children_recursively()
 
-        allowed_products = Product.objects.filter(
-            classification__in=allowed_product_kinds, historical_vault__isnull=True
-        ).values_list("id", flat=True)
-        product = data["product"]
-        if product.id not in allowed_products:
+        allowed_product = Product.objects.filter(
+            classification__in=allowed_product_kinds,
+            historical_vault__isnull=True,
+            id=product.id,
+        ).exists()
+        if not allowed_product:
             raise serializers.ValidationError(
                 _("This product is not allowed for this plan")
             )
-        return data
+        return attrs
 
 
 class ProductionReadSerializer(ProductionSerializer):
@@ -52,11 +60,6 @@ class ProductionReadSerializer(ProductionSerializer):
     format = FormatSerializer(read_only=True)
 
     class Meta(ProductionSerializer.Meta):
-        model = Production
         fields = ProductionSerializer.Meta.fields + [
-            "plan",
-            "name",
-            "product",
-            "distribution_format",
             "format",
         ]

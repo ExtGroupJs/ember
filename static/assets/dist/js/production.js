@@ -338,6 +338,9 @@ $(function () {
     loadProduct(optionSelected);
   });
 
+  // Cargar productos del primer plan cuando se termine de cargar la lista
+  
+
   bsCustomFileInput.init();
 });
 
@@ -484,13 +487,22 @@ function poblarListas() {
       $plans.add(option);
     });
   });
+  
   var $distribution_format = document.getElementById("distribution_format");
   axios.get("/product-gestion/grouping-packaging/").then(function (response) {
+    
+
     response.data.results.forEach(function (element) {
       var option = new Option(element.representation, element.id);
       $distribution_format.add(option);
     });
   });
+
+  // var firstPlan = $("#plans").find("option:eq(1)").val();
+
+  //   if (firstPlan) {
+  //     loadProduct(firstPlan);
+  //   }
 }
 
 function loadProduct(id) {

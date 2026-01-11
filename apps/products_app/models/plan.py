@@ -32,7 +32,7 @@ class Plan(BaseModel):
         NOV = 11, _("Noviembre")
         DIC = 12, _("Diciembre")
 
-    name = models.CharField(max_length=30, verbose_name=_("Nombre"), unique=True)
+    name = models.CharField(max_length=256, verbose_name=_("Nombre"))
     ueb = models.ForeignKey(
         to=Entity,
         on_delete=models.PROTECT,
@@ -58,28 +58,59 @@ class Plan(BaseModel):
     year = models.PositiveSmallIntegerField(
         verbose_name=_("Año"),
     )
-    month = models.PositiveSmallIntegerField(
-        verbose_name=_("Mes"),
-        choices=Months.choices,
-    )
-    quantity = models.PositiveIntegerField(verbose_name=_("Cantidad"), default=0)
+    jan_quantity = models.FloatField(verbose_name=_("Plan enero"), default=0)
+    feb_quantity = models.FloatField(verbose_name=_("Plan febrero"), default=0)
+    mar_quantity = models.FloatField(verbose_name=_("Plan marzo"), default=0)
+    apr_quantity = models.FloatField(verbose_name=_("Plan abril"), default=0)
+    may_quantity = models.FloatField(verbose_name=_("Plan mayo"), default=0)
+    jun_quantity = models.FloatField(verbose_name=_("Plan junio"), default=0)
+    jul_quantity = models.FloatField(verbose_name=_("Plan julio"), default=0)
+    aug_quantity = models.FloatField(verbose_name=_("Plan agosto"), default=0)
+    sep_quantity = models.FloatField(verbose_name=_("Plan septiembre"), default=0)
+    oct_quantity = models.FloatField(verbose_name=_("Plan octubre"), default=0)
+    nov_quantity = models.FloatField(verbose_name=_("Plan noviembre"), default=0)
+    dec_quantity = models.FloatField(verbose_name=_("Plan diciembre"), default=0)
+
     measurement_unit = models.ForeignKey(
         to=MeasurementUnit,
         verbose_name=_("Unidad de medida"),
         on_delete=models.PROTECT,
         related_name="plans",
     )
+    extra_plan = models.BooleanField(
+        verbose_name=_("Plan extra"),
+        default=False,
+    )
 
     class Meta:
         verbose_name = _("plan")
         verbose_name_plural = _("planes")
-        constraints = [
-            models.constraints.UniqueConstraint(
-                fields=["product_kind", "year", "month"],
-                name="unique_product_year_month_in_plan",
-            ),
-        ]
+        # constraints = [
+        #     models.constraints.UniqueConstraint(
+        #         fields=["product_kind", "year"],
+        #         name="unique_product_year_in_plan",
+        #     ),
+        # ]
+
+    def save(self, *args, **kwargs):
+        self.extra_plan = any(
+            [
+                self.jan_quantity,
+                self.feb_quantity,
+                self.mar_quantity,
+                self.apr_quantity,
+                self.may_quantity,
+                self.jun_quantity,
+                self.jul_quantity,
+                self.aug_quantity,
+                self.sep_quantity,
+                self.oct_quantity,
+                self.nov_quantity,
+                self.dec_quantity,
+            ]
+        )
+        super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         # TODO cual será realmenteel formato de salida.
-        return f"{self.name} {self.year}-{self.month} ({self.product_kind.name})"
+        return f"{self.name} {self.year} ({self.product_kind.name}) - {self.ueb.name}"

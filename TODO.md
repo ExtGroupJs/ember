@@ -1,33 +1,23 @@
-En el editar de unidades de medida, permitir que sirvan para el plan
-En el plan c'omo se pone la fecha
-Para la fecha si pudieras encontrar un selector sería genial
-{
-    "production_date": [
-        "Date has wrong format. Use one of these formats instead: YYYY-MM-DD."
-    ]
-}
+# TODO
+
+Las producciones pueden ser de cualquier subclasificación del plan.
+
+Adicionar sistema de logs para visualizar acciones en el sistema, solo visualizar por admins. No editable.
 
 
 
 
+Nombres en listado mostrarlos completo, sin chunk. Alternativamente mostrar el nombre completo como tooltip. ok
 
-# FE
-- No dejar scroll en el menú
-- en la produccion, el listado de envase agrupador y en el listado (formato), no usar el nombre, sino la conformacion de cantidadXml-?????
-- En el adicionar y editar envases (empaques individuales) adicionar el campo Material (Vidrio o PEP)
-- Cuando se van a crear empaques agrupadores desde el menú, comenzar desde 2, si es uno solo, se debe marcar desde el empaque individual.
-- Quitar los fields de "destination", "entity" del formulario de creación/edición de la producción.
-- Adicionar en el formulario de creación/edición de la producción la selección (obligatoria) del plan al que responde la producción
-- Adicionar un selector de productos en el formulario de creación/edición de la producción, dicho producto se debe halar de /product-gestion/plan/{id}/allowed-products/ donde el id es el del plan seleccionado previamente.
-- Hacer formulario para creación del plan, es muy similar al de producción actual, pero además lleva año y mes, además en vez de "producto" se debe seleccionar una "clasificación", este código se puede robar de donde se hace algo similar en "productos"
-- En el formulario de creación/edición de las unidades de medida, adicionar un campo "usar en planificación" que se corresponde con el field "used_for_planning"
-- Cuando se elabora o modifica un plan, y se quiera setear la unidad de medida del plan, se debe halar de /product-gestion/measurement-unit/ como hasta ahora, pero con el filtro del used_for_planning seteado a true, sería así: /product-gestion/measurement-unit/?used_for_planning=true
+En los planes poner la suma anates de guardar. ok
+En  la unidad de medidas no poner la sigla, sino el nombre de la unidad completo. ok
+Deshabilitar formularios hasta recibir respuesta en operaciones de crear o editar. ok
+Revisar ordenar por UEB en planes
+revisar precios minoristas y mayoristas en producción, ahora mismo admiten números negativos ok
+En la producción, como ahora los planes son de productos específicos, en la producción solo escoger el plan (revisar en el modelo la asociación de la producción, que debe ser solo al plan, no debe haber referencia directa al producto)
+
+Revisar con calma: En los planes, solo poner clasificaciones hijas, es decir, de productos finales, NO clasificaciones con hijos.
 
 
-
-# BE
-1. Revisar subida de fotos (png).
-
-despues que este todo terminado, el tiene que generar
-el mensual (es la suma de todos los anteriores)
-el acumulado hasta el mes deseado.
+## Sobre informes
+Hacerlos por los PDF de ejemplo, con filtros de todo...
