@@ -10,6 +10,91 @@ const csrfToken = document.cookie
 const url = "/product-gestion/plan/";
 const url_year_plan = "/product-gestion/plan/year-plan/";
 
+const pageLoader =
+  typeof loadingOverlay !== "undefined"
+    ? loadingOverlay
+    : document.getElementById("loadingOverlay");
+let pendingBackendRequests = 0;
+let loaderHideTimeoutId;
+
+function usesAdminLtePreloader() {
+  return pageLoader && pageLoader.classList.contains("preloader");
+}
+
+function showPageLoader() {
+  pendingBackendRequests += 1;
+
+  if (!pageLoader) {
+    return;
+  }
+
+  if (loaderHideTimeoutId) {
+    clearTimeout(loaderHideTimeoutId);
+    loaderHideTimeoutId = null;
+  }
+
+  pageLoader.hidden = false;
+
+  if (usesAdminLtePreloader()) {
+    pageLoader.style.height = "100vh";
+    Array.from(pageLoader.children).forEach((child) => {
+      child.style.display = "";
+    });
+  }
+}
+
+function hidePageLoader() {
+  pendingBackendRequests = Math.max(0, pendingBackendRequests - 1);
+
+  if (!pageLoader || pendingBackendRequests > 0) {
+    return;
+  }
+
+  if (usesAdminLtePreloader()) {
+    pageLoader.style.height = "0";
+    loaderHideTimeoutId = window.setTimeout(() => {
+      if (pendingBackendRequests === 0) {
+        Array.from(pageLoader.children).forEach((child) => {
+          child.style.display = "none";
+        });
+        pageLoader.hidden = true;
+      }
+    }, 200);
+    return;
+  }
+
+  pageLoader.hidden = true;
+}
+
+if (typeof axios !== "undefined" && !axios.__plansLoaderInterceptorsRegistered) {
+  axios.__plansLoaderInterceptorsRegistered = true;
+
+  axios.interceptors.request.use(
+    (config) => {
+      if (!config.skipPageLoader) {
+        showPageLoader();
+      }
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
+
+  axios.interceptors.response.use(
+    (response) => {
+      if (!response.config.skipPageLoader) {
+        hidePageLoader();
+      }
+      return response;
+    },
+    (error) => {
+      if (!error.config || !error.config.skipPageLoader) {
+        hidePageLoader();
+      }
+      return Promise.reject(error);
+    }
+  );
+}
+
 $(document).ready(function () {
 
   function format(d) {
@@ -514,7 +599,6 @@ form.addEventListener("submit", function (event) {
       }
 
     if (edit_elemento) {
-      loadingOverlay.hidden = false;
        axios
         .put(`${url}${selected_id}/`, data)
         .then((response) => {
@@ -529,11 +613,9 @@ form.addEventListener("submit", function (event) {
             table.ajax.reload();
             $("#modal-crear-elemento").modal("hide");
             edit_elemento = false;
-            loadingOverlay.hidden = true;
           }
         })
         .catch((error) => {
-          loadingOverlay.hidden = true;
           let dict = error.response.data;
           console.log(dict);
           let textError = "Revise los siguientes campos: ";
@@ -555,8 +637,6 @@ form.addEventListener("submit", function (event) {
           });
         });
     } else {
-
-loadingOverlay.hidden = false;
       axios
         .post(url, data)
         .then((response) => {
@@ -573,7 +653,6 @@ loadingOverlay.hidden = false;
           }
         })
         .catch((error) => {
-          loadingOverlay.hidden = true;
           let dict = error.response.data;
           let textError = "Revise los siguientes campos: ";
           for (const key in dict) {
