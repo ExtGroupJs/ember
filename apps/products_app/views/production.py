@@ -180,9 +180,7 @@ class ProductionViewSet(
             # Para un mes específico, solo consideramos ese mes del plan
             month_field = self._get_month_field_name(month)
 
-        plan_data = defaultdict(
-            lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(float)))
-        )
+        plan_data = defaultdict(lambda: defaultdict(lambda: defaultdict(float)))
 
         for plan in plans:
             if not plan.ueb:
