@@ -19,6 +19,15 @@ class ProductionFilter(CommonFilter):
     production_date_before = django_filters.DateTimeFilter(
         field_name="production_date", lookup_expr="date__lte"
     )
+    production_year = django_filters.NumberFilter(
+        field_name="production_date", lookup_expr="year"
+    )
+    production_month = django_filters.NumberFilter(
+        field_name="production_date", lookup_expr="month"
+    )
+    plan_year = django_filters.NumberFilter(
+        field_name="plan__year", lookup_expr="exact"
+    )
 
     class Meta:
         model = Production
@@ -28,4 +37,5 @@ class ProductionFilter(CommonFilter):
             "plan__ueb",
             "plan__destiny",
             "plan",
+            "product__classification",
         ]
