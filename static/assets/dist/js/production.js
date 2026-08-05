@@ -79,7 +79,7 @@ $(document).ready(function () {
         { data: "quantity", title: "Cantidad" },
         { data: "cost", title: "Costo" },
         {
-          data: "description",
+          data: null,
           title: "Estado",
           render: (data, type, row) => {
             if (row.active) {
@@ -91,7 +91,7 @@ $(document).ready(function () {
         },
 
         {
-          data: "description",
+          data: null,
           title: "Acciones",
           className: "text-center",
           render: (data, type, row) => {

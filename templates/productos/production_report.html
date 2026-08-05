@@ -1,0 +1,119 @@
+{% extends "index.html" %}
+{% load static %}
+{% block head-extra %}
+<link rel="stylesheet" href="{% static 'assets/dist/css/adminlte.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/plugins/select2/css/select2.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1> Informe de Producción </h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Producción</li>
+            <li class="breadcrumb-item active">Informe</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+
+          <!-- Filtros -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Filtros del reporte</h3>
+            </div>
+            <div class="card-body">
+              <form id="form-reporte">
+                <div class="row">
+                  <div class="form-group col-md-2">
+                    <label for="year">Año</label>
+                    <input type="number" class="form-control" id="year" min="2000" max="2100" required>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="month">Mes</label>
+                    <select class="form-control select2" id="month" style="width: 100%;">
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="ueb">UEB</label>
+                    <select class="form-control select2" id="ueb" style="width: 100%;">
+                      <option value="">Todas</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="classification">Clasificación</label>
+                    <select class="form-control select2" id="classification" style="width: 100%;">
+                      <option value="">Todas</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="product">Producto</label>
+                    <select class="form-control select2" id="product" style="width: 100%;">
+                      <option value="">Todos</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary float-right">
+                      <i class="fas fa-chart-bar"></i> Generar reporte
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Cumplimiento de la Producción: </h3>
+              <h3 class="card-title" id="reporte-titulo"></h3>
+            </div>
+            <div class="card-body">
+              <table id="tabla-reporte" class="table table-bordered table-striped" style="width: 100%;">
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
+{% block script %}
+<script src="{% static 'assets/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'assets/plugins/jszip/jszip.min.js' %}"></script>
+<script src="{% static 'assets/plugins/pdfmake/pdfmake.min.js' %}"></script>
+<script src="{% static 'assets/plugins/pdfmake/vfs_fonts.js' %}"></script>
+<script src="{% static 'assets/plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'assets/plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+<script src="{% static 'assets/plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+<script src="{% static 'assets/plugins/select2/js/select2.full.min.js' %}"></script>
+<script src="{% static 'assets/dist/js/axios.min.js' %}"></script>
+<script src="{% static 'assets/dist/js/production_report.js' %}"></script>
+{% endblock %}
