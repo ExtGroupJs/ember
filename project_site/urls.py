@@ -96,6 +96,11 @@ urlpatterns = [
         login_required(pages_products.production),
         name="production",
     ),
+    path(
+        "production-report/",
+        login_required(pages_products.production_report),
+        name="production-report",
+    ),
     path("", pages.first_login, name="first_login"),
     path("__debug__/", include("debug_toolbar.urls")),
 ]
