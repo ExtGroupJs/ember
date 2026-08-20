@@ -54,6 +54,7 @@ class ProductionSerializer(BaseModelSerializer):
 
 
 class ProductionReadSerializer(ProductionSerializer):
+    name = serializers.CharField(source="__str__", read_only=True)
     product = ProductReadSerializer(read_only=True)
     distribution_format = GroupingPackagingReadSerializer(read_only=True)
     plan = PlanReadSerializer(read_only=True)
