@@ -40,18 +40,22 @@ DEBUG = True
 DEBUG_PROPAGATE_EXCEPTIONS = DEBUG
 
 
+# Sentry is configured from the environment so the DSN never lands in the
+# repository. Set SENTRY_DSN in the deployment environment; the values below
+# are only fallbacks for local development.
+SENTRY_DSN = os.environ.get("SENTRY_DSN")
+SENTRY_TRACES_SAMPLE_RATE = float(os.environ.get("SENTRY_TRACES_SAMPLE_RATE", 1.0))
+SENTRY_PROFILES_SAMPLE_RATE = float(os.environ.get("SENTRY_PROFILES_SAMPLE_RATE", 0.5))
+
 sentry_sdk.init(
-    # dsn=env("SENTRY_DSN", default=None) if not DEBUG else None,
-    dsn="https://aee796618dac7985e6b608715f2c6ec2@o4504019226066944.ingest.us.sentry.io/4508644061609984",
+    dsn=SENTRY_DSN,
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for tracing.
-    traces_sample_rate=1.0,
-    # traces_sample_rate=env.float("SENTRY_SAMPLE_RATE", default=0),
+    traces_sample_rate=SENTRY_TRACES_SAMPLE_RATE,
     # Set profiles_sample_rate to 1.0 to profile 100%
     # of sampled transactions.
     # We recommend adjusting this value in production.
-    # profiles_sample_rate=env.float("SENTRY_SAMPLE_RATE", default=0),
-    profiles_sample_rate=0.5,
+    profiles_sample_rate=SENTRY_PROFILES_SAMPLE_RATE,
     _experiments={
         # Set continuous_profiling_auto_start to True
         # to automatically start the profiler on when
