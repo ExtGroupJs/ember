@@ -37,7 +37,11 @@ class PlanSerializer(BaseModelSerializer):
             "dec_quantity",
             "measurement_unit",
             "total",
+            "extra_plan",
         ]
+        extra_kwargs = {
+            "extra_plan": {"read_only": True},
+        }
 
     def validate_year(self, value):
         if value < datetime.date.today().year:

@@ -38,3 +38,7 @@ def product(request):
 
 def production(request):
     return render(request, "productos/production.html")
+
+
+def production_report(request):
+    return render(request, "productos/production_report.html")

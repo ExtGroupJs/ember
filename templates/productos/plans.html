@@ -45,10 +45,8 @@
             </div>
             <!-- /.card-header -->
             <div class="modal-body">
-
               <!-- </div>style="overflow: hidden;"> -->
               <table id="tabla-de-Datos" class="table table-bordered table-striped" style="width: 100%;">
-
               </table>
             </div>
             <!-- /.card-body -->
@@ -92,8 +90,8 @@
 
 <!-- ------------------------------------------------------------------------------------------------------------------------- -->
 <!-- modal para crear unidad de medida -->
-<div class="modal fade" id="modal-crear-elemento" data-backdrop="static" tabindex="-1" role="dialog"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modal-crear-elemento" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -141,8 +139,6 @@
                   </div>
                   <!-- /.input group -->
                 </div>
-        
-       
     </div>
      <div class="row">
           <div class="form-group col-md-3">
@@ -199,6 +195,13 @@
           </div>
           
           </div>
+          <div class="row">
+            <div class="form-group col-md-12">
+              <div class="alert alert-info" role="alert">
+                <h5><strong>Total General:</strong> <span id="total-distribucion">0</span></h5>
+              </div>
+            </div>
+          </div>
 </div>
         <!-- /.card-body -->
         <div class="modal-footer justify-content-between">
@@ -240,6 +243,7 @@
 <script src="{% static 'assets/dist/js/plans.js' %}"></script>
 <script src="{% static 'assets/plugins/select2/js/select2.full.min.js' %}"></script>
 <script src="{% static 'assets/plugins/dropzone/min/dropzone.min.js' %}"></script>
+
 
 <!-- Page specific script -->
 

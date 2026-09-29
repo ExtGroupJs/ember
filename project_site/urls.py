@@ -33,6 +33,7 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     # YOUR PATTERNS
+    path("__reload__/", include("django_browser_reload.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
     path(
@@ -94,6 +95,11 @@ urlpatterns = [
         "production/",
         login_required(pages_products.production),
         name="production",
+    ),
+    path(
+        "production-report/",
+        login_required(pages_products.production_report),
+        name="production-report",
     ),
     path("", pages.first_login, name="first_login"),
     path("__debug__/", include("debug_toolbar.urls")),

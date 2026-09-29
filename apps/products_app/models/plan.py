@@ -77,6 +77,10 @@ class Plan(BaseModel):
         on_delete=models.PROTECT,
         related_name="plans",
     )
+    extra_plan = models.BooleanField(
+        verbose_name=_("Plan extra"),
+        default=False,
+    )
 
     class Meta:
         verbose_name = _("plan")
@@ -87,6 +91,25 @@ class Plan(BaseModel):
         #         name="unique_product_year_in_plan",
         #     ),
         # ]
+
+    def save(self, *args, **kwargs):
+        self.extra_plan = any(
+            [
+                self.jan_quantity,
+                self.feb_quantity,
+                self.mar_quantity,
+                self.apr_quantity,
+                self.may_quantity,
+                self.jun_quantity,
+                self.jul_quantity,
+                self.aug_quantity,
+                self.sep_quantity,
+                self.oct_quantity,
+                self.nov_quantity,
+                self.dec_quantity,
+            ]
+        )
+        super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         # TODO cual será realmenteel formato de salida.

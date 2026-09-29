@@ -1,0 +1,4927 @@
+openapi: 3.0.3
+info:
+  title: EMBER API
+  version: 1.0.0
+  description: EMbBER project description
+paths:
+  /product-gestion/classification/:
+    get:
+      operationId: product_gestion_classification_list
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: parent__isnull
+        schema:
+          type: boolean
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedClassificationList'
+          description: ''
+    post:
+      operationId: product_gestion_classification_create
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Classification'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Classification'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Classification'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classification'
+          description: ''
+  /product-gestion/classification/{id}/:
+    get:
+      operationId: product_gestion_classification_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this clasificación.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classification'
+          description: ''
+    put:
+      operationId: product_gestion_classification_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this clasificación.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Classification'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Classification'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Classification'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classification'
+          description: ''
+    patch:
+      operationId: product_gestion_classification_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this clasificación.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedClassification'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedClassification'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedClassification'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classification'
+          description: ''
+    delete:
+      operationId: product_gestion_classification_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this clasificación.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /product-gestion/destination/:
+    get:
+      operationId: product_gestion_destination_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDestinationList'
+          description: ''
+    post:
+      operationId: product_gestion_destination_create
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Destination'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Destination'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Destination'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Destination'
+          description: ''
+  /product-gestion/destination/{id}/:
+    get:
+      operationId: product_gestion_destination_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this destino.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Destination'
+          description: ''
+    put:
+      operationId: product_gestion_destination_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this destino.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Destination'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Destination'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Destination'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Destination'
+          description: ''
+    patch:
+      operationId: product_gestion_destination_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this destino.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDestination'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedDestination'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDestination'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Destination'
+          description: ''
+    delete:
+      operationId: product_gestion_destination_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this destino.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /product-gestion/entity/:
+    get:
+      operationId: product_gestion_entity_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEntityList'
+          description: ''
+    post:
+      operationId: product_gestion_entity_create
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Entity'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Entity'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Entity'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity'
+          description: ''
+  /product-gestion/entity/{id}/:
+    get:
+      operationId: product_gestion_entity_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this UEB.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity'
+          description: ''
+    put:
+      operationId: product_gestion_entity_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this UEB.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Entity'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Entity'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Entity'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity'
+          description: ''
+    patch:
+      operationId: product_gestion_entity_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this UEB.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEntity'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEntity'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEntity'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity'
+          description: ''
+    delete:
+      operationId: product_gestion_entity_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this UEB.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /product-gestion/grouping-packaging/:
+    get:
+      operationId: product_gestion_grouping_packaging_list
+      parameters:
+      - in: query
+        name: capacity_less_than
+        schema:
+          type: integer
+      - in: query
+        name: capacity_more_than
+        schema:
+          type: integer
+      - in: query
+        name: created_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: created_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_by
+        schema:
+          type: string
+      - in: query
+        name: deletion_cause
+        schema:
+          type: string
+      - in: query
+        name: individual_packaging
+        schema:
+          type: integer
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: updated_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: updated_before
+        schema:
+          type: string
+          format: date-time
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedGroupingPackagingReadList'
+          description: ''
+    post:
+      operationId: product_gestion_grouping_packaging_create
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupingPackaging'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GroupingPackaging'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GroupingPackaging'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupingPackaging'
+          description: ''
+  /product-gestion/grouping-packaging/{id}/:
+    get:
+      operationId: product_gestion_grouping_packaging_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Embalaje.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupingPackagingRead'
+          description: ''
+    put:
+      operationId: product_gestion_grouping_packaging_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Embalaje.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupingPackaging'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GroupingPackaging'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GroupingPackaging'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupingPackaging'
+          description: ''
+    patch:
+      operationId: product_gestion_grouping_packaging_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Embalaje.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedGroupingPackaging'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedGroupingPackaging'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedGroupingPackaging'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupingPackaging'
+          description: ''
+    delete:
+      operationId: product_gestion_grouping_packaging_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Embalaje.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /product-gestion/grouping-packaging/{id}/archive/:
+    post:
+      operationId: product_gestion_grouping_packaging_archive_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Embalaje.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchiveItems'
+          description: ''
+  /product-gestion/grouping-packaging/{id}/des_archive/:
+    post:
+      operationId: product_gestion_grouping_packaging_des_archive_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Embalaje.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupingPackaging'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GroupingPackaging'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GroupingPackaging'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupingPackaging'
+          description: ''
+  /product-gestion/individual-packaging/:
+    get:
+      operationId: product_gestion_individual_packaging_list
+      parameters:
+      - in: query
+        name: created_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: created_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_by
+        schema:
+          type: string
+      - in: query
+        name: deletion_cause
+        schema:
+          type: string
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: updated_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: updated_before
+        schema:
+          type: string
+          format: date-time
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedIndividualPackagingReadList'
+          description: ''
+    post:
+      operationId: product_gestion_individual_packaging_create
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IndividualPackaging'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IndividualPackaging'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IndividualPackaging'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndividualPackaging'
+          description: ''
+  /product-gestion/individual-packaging-material/:
+    get:
+      operationId: product_gestion_individual_packaging_material_retrieve
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /product-gestion/individual-packaging/{id}/:
+    get:
+      operationId: product_gestion_individual_packaging_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tipo de envase.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndividualPackagingRead'
+          description: ''
+    put:
+      operationId: product_gestion_individual_packaging_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tipo de envase.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IndividualPackaging'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IndividualPackaging'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IndividualPackaging'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndividualPackaging'
+          description: ''
+    patch:
+      operationId: product_gestion_individual_packaging_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tipo de envase.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedIndividualPackaging'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedIndividualPackaging'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedIndividualPackaging'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndividualPackaging'
+          description: ''
+    delete:
+      operationId: product_gestion_individual_packaging_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tipo de envase.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /product-gestion/individual-packaging/{id}/archive/:
+    post:
+      operationId: product_gestion_individual_packaging_archive_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tipo de envase.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchiveItems'
+          description: ''
+  /product-gestion/individual-packaging/{id}/des_archive/:
+    post:
+      operationId: product_gestion_individual_packaging_des_archive_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Tipo de envase.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IndividualPackaging'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IndividualPackaging'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IndividualPackaging'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IndividualPackaging'
+          description: ''
+  /product-gestion/measurement-unit/:
+    get:
+      operationId: product_gestion_measurement_unit_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: used_for_planning
+        schema:
+          type: boolean
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMeasurementUnitList'
+          description: ''
+    post:
+      operationId: product_gestion_measurement_unit_create
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementUnit'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MeasurementUnit'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MeasurementUnit'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementUnit'
+          description: ''
+  /product-gestion/measurement-unit/{id}/:
+    get:
+      operationId: product_gestion_measurement_unit_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this unidad de medida.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementUnit'
+          description: ''
+    put:
+      operationId: product_gestion_measurement_unit_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this unidad de medida.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MeasurementUnit'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MeasurementUnit'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MeasurementUnit'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementUnit'
+          description: ''
+    patch:
+      operationId: product_gestion_measurement_unit_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this unidad de medida.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMeasurementUnit'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMeasurementUnit'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMeasurementUnit'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MeasurementUnit'
+          description: ''
+    delete:
+      operationId: product_gestion_measurement_unit_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this unidad de medida.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /product-gestion/plan/:
+    get:
+      operationId: product_gestion_plan_list
+      parameters:
+      - in: query
+        name: created_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: created_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_by
+        schema:
+          type: string
+      - in: query
+        name: deletion_cause
+        schema:
+          type: string
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: updated_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: updated_before
+        schema:
+          type: string
+          format: date-time
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPlanReadList'
+          description: ''
+    post:
+      operationId: product_gestion_plan_create
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plan'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Plan'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Plan'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+          description: ''
+  /product-gestion/plan/{id}/:
+    get:
+      operationId: product_gestion_plan_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this plan.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanRead'
+          description: ''
+    put:
+      operationId: product_gestion_plan_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this plan.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plan'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Plan'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Plan'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+          description: ''
+    patch:
+      operationId: product_gestion_plan_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this plan.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPlan'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPlan'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPlan'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+          description: ''
+    delete:
+      operationId: product_gestion_plan_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this plan.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /product-gestion/plan/{id}/allowed-products/:
+    get:
+      operationId: product_gestion_plan_allowed_products_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this plan.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlanRead'
+          description: ''
+  /product-gestion/plan/{id}/archive/:
+    post:
+      operationId: product_gestion_plan_archive_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this plan.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchiveItems'
+          description: ''
+  /product-gestion/plan/{id}/des_archive/:
+    post:
+      operationId: product_gestion_plan_des_archive_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this plan.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Plan'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Plan'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Plan'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plan'
+          description: ''
+  /product-gestion/product/:
+    get:
+      operationId: product_gestion_product_list
+      parameters:
+      - in: query
+        name: classification
+        schema:
+          type: integer
+      - in: query
+        name: created_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: created_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_by
+        schema:
+          type: string
+      - in: query
+        name: deletion_cause
+        schema:
+          type: string
+      - in: query
+        name: format
+        schema:
+          type: integer
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: updated_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: updated_before
+        schema:
+          type: string
+          format: date-time
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductReadList'
+          description: ''
+    post:
+      operationId: product_gestion_product_create
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+  /product-gestion/product/{id}/:
+    get:
+      operationId: product_gestion_product_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this producto.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductRead'
+          description: ''
+    put:
+      operationId: product_gestion_product_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this producto.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+    patch:
+      operationId: product_gestion_product_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this producto.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProduct'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProduct'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProduct'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+    delete:
+      operationId: product_gestion_product_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this producto.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /product-gestion/product/{id}/archive/:
+    post:
+      operationId: product_gestion_product_archive_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this producto.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchiveItems'
+          description: ''
+  /product-gestion/product/{id}/des_archive/:
+    post:
+      operationId: product_gestion_product_des_archive_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this producto.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+  /product-gestion/production/:
+    get:
+      operationId: product_gestion_production_list
+      parameters:
+      - in: query
+        name: cost_less_than
+        schema:
+          type: number
+      - in: query
+        name: cost_more_than
+        schema:
+          type: number
+      - in: query
+        name: created_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: created_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_by
+        schema:
+          type: string
+      - in: query
+        name: deletion_cause
+        schema:
+          type: string
+      - in: query
+        name: distribution_format
+        schema:
+          type: integer
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - in: query
+        name: plan
+        schema:
+          type: integer
+      - in: query
+        name: plan__destiny
+        schema:
+          type: integer
+      - in: query
+        name: plan__ueb
+        schema:
+          type: integer
+      - in: query
+        name: plan_year
+        schema:
+          type: integer
+      - in: query
+        name: product
+        schema:
+          type: integer
+      - in: query
+        name: product__classification
+        schema:
+          type: integer
+      - in: query
+        name: production_date_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: production_date_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: production_month
+        schema:
+          type: number
+      - in: query
+        name: production_year
+        schema:
+          type: number
+      - in: query
+        name: quantity_less_than
+        schema:
+          type: integer
+      - in: query
+        name: quantity_more_than
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: updated_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: updated_before
+        schema:
+          type: string
+          format: date-time
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductionReadList'
+          description: ''
+    post:
+      operationId: product_gestion_production_create
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Production'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Production'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Production'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Production'
+          description: ''
+  /product-gestion/production/{id}/:
+    get:
+      operationId: product_gestion_production_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Producción.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductionRead'
+          description: ''
+    put:
+      operationId: product_gestion_production_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Producción.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Production'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Production'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Production'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Production'
+          description: ''
+    patch:
+      operationId: product_gestion_production_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Producción.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProduction'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProduction'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProduction'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Production'
+          description: ''
+    delete:
+      operationId: product_gestion_production_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Producción.
+        required: true
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /product-gestion/production/{id}/archive/:
+    post:
+      operationId: product_gestion_production_archive_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Producción.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ArchiveItems'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArchiveItems'
+          description: ''
+  /product-gestion/production/{id}/des_archive/:
+    post:
+      operationId: product_gestion_production_des_archive_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this Producción.
+        required: true
+      tags:
+      - product-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Production'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Production'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Production'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Production'
+          description: ''
+  /product-gestion/production/month-cumulative-report/:
+    get:
+      operationId: product_gestion_production_month_cumulative_report_retrieve
+      description: |-
+        Genera un reporte mensual acumulado de producción por producto,
+        respetando la jerarquía de clasificaciones y separado por UEB.
+
+        Parámetros de query:
+        - year: Año del reporte (obligatorio)
+        - month: Mes específico (opcional, si no se indica muestra todo el año)
+        - plan__ueb: Filtrar por UEB específica
+        - product: Filtrar por producto específico
+        - product__classification: Filtrar por clasificación
+      tags:
+      - product-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductionRead'
+          description: ''
+  /user-gestion/employee-area/:
+    get:
+      operationId: user_gestion_employee_area_list
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: query
+        name: created_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: created_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_by
+        schema:
+          type: string
+      - in: query
+        name: deletion_cause
+        schema:
+          type: string
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: updated_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: updated_before
+        schema:
+          type: string
+          format: date-time
+      tags:
+      - user-gestion
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEmployeeAreaList'
+          description: ''
+    post:
+      operationId: user_gestion_employee_area_create
+      description: API endpoint that allows users to be viewed or edited.
+      tags:
+      - user-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeArea'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EmployeeArea'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EmployeeArea'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeArea'
+          description: ''
+  /user-gestion/employee-area/{id}/:
+    get:
+      operationId: user_gestion_employee_area_retrieve
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this area.
+        required: true
+      tags:
+      - user-gestion
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeArea'
+          description: ''
+    put:
+      operationId: user_gestion_employee_area_update
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this area.
+        required: true
+      tags:
+      - user-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeArea'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EmployeeArea'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EmployeeArea'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeArea'
+          description: ''
+    patch:
+      operationId: user_gestion_employee_area_partial_update
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this area.
+        required: true
+      tags:
+      - user-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployeeArea'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployeeArea'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployeeArea'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeArea'
+          description: ''
+    delete:
+      operationId: user_gestion_employee_area_destroy
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this area.
+        required: true
+      tags:
+      - user-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /user-gestion/employee-responsability/:
+    get:
+      operationId: user_gestion_employee_responsability_list
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: query
+        name: created_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: created_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_by
+        schema:
+          type: string
+      - in: query
+        name: deletion_cause
+        schema:
+          type: string
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: updated_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: updated_before
+        schema:
+          type: string
+          format: date-time
+      tags:
+      - user-gestion
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEmployeeResponsabilityList'
+          description: ''
+    post:
+      operationId: user_gestion_employee_responsability_create
+      description: API endpoint that allows users to be viewed or edited.
+      tags:
+      - user-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeResponsability'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EmployeeResponsability'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EmployeeResponsability'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponsability'
+          description: ''
+  /user-gestion/employee-responsability/{id}/:
+    get:
+      operationId: user_gestion_employee_responsability_retrieve
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this responsability.
+        required: true
+      tags:
+      - user-gestion
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponsability'
+          description: ''
+    put:
+      operationId: user_gestion_employee_responsability_update
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this responsability.
+        required: true
+      tags:
+      - user-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeResponsability'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EmployeeResponsability'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/EmployeeResponsability'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponsability'
+          description: ''
+    patch:
+      operationId: user_gestion_employee_responsability_partial_update
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this responsability.
+        required: true
+      tags:
+      - user-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployeeResponsability'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployeeResponsability'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEmployeeResponsability'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponsability'
+          description: ''
+    delete:
+      operationId: user_gestion_employee_responsability_destroy
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this responsability.
+        required: true
+      tags:
+      - user-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /user-gestion/system-email/:
+    get:
+      operationId: user_gestion_system_email_list
+      description: API endpoint that allows SystemEmail to be viewed or edited.
+      parameters:
+      - in: query
+        name: created_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: created_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_by
+        schema:
+          type: string
+      - in: query
+        name: deletion_cause
+        schema:
+          type: string
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: updated_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: updated_before
+        schema:
+          type: string
+          format: date-time
+      tags:
+      - user-gestion
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSystemEmailList'
+          description: ''
+    post:
+      operationId: user_gestion_system_email_create
+      description: API endpoint that allows SystemEmail to be viewed or edited.
+      tags:
+      - user-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SystemEmail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SystemEmail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SystemEmail'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemEmail'
+          description: ''
+  /user-gestion/system-email/{id}/:
+    get:
+      operationId: user_gestion_system_email_retrieve
+      description: API endpoint that allows SystemEmail to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this System email.
+        required: true
+      tags:
+      - user-gestion
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemEmail'
+          description: ''
+    put:
+      operationId: user_gestion_system_email_update
+      description: API endpoint that allows SystemEmail to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this System email.
+        required: true
+      tags:
+      - user-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SystemEmail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SystemEmail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SystemEmail'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemEmail'
+          description: ''
+    patch:
+      operationId: user_gestion_system_email_partial_update
+      description: API endpoint that allows SystemEmail to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this System email.
+        required: true
+      tags:
+      - user-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSystemEmail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSystemEmail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSystemEmail'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemEmail'
+          description: ''
+    delete:
+      operationId: user_gestion_system_email_destroy
+      description: API endpoint that allows SystemEmail to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this System email.
+        required: true
+      tags:
+      - user-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /user-gestion/users/:
+    get:
+      operationId: user_gestion_users_list
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: query
+        name: created_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: created_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_before
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: deleted_by
+        schema:
+          type: string
+      - in: query
+        name: deletion_cause
+        schema:
+          type: string
+      - in: query
+        name: is_active
+        schema:
+          type: boolean
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
+      - in: query
+        name: updated_after
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: updated_before
+        schema:
+          type: string
+          format: date-time
+      tags:
+      - user-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedUserList'
+          description: ''
+    post:
+      operationId: user_gestion_users_create
+      description: API endpoint that allows users to be viewed or edited.
+      tags:
+      - user-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /user-gestion/users/{id}/:
+    get:
+      operationId: user_gestion_users_retrieve
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this System user.
+        required: true
+      tags:
+      - user-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: user_gestion_users_update
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this System user.
+        required: true
+      tags:
+      - user-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: user_gestion_users_partial_update
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this System user.
+        required: true
+      tags:
+      - user-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    delete:
+      operationId: user_gestion_users_destroy
+      description: API endpoint that allows users to be viewed or edited.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this System user.
+        required: true
+      tags:
+      - user-gestion
+      security:
+      - cookieAuth: []
+      responses:
+        '204':
+          description: No response body
+  /user-gestion/users/login/:
+    post:
+      operationId: user_gestion_users_login_create
+      description: API endpoint that allows users to be viewed or edited.
+      tags:
+      - user-gestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /user-gestion/users/logout/:
+    get:
+      operationId: user_gestion_users_logout_retrieve
+      description: API endpoint that allows users to be viewed or edited.
+      tags:
+      - user-gestion
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+components:
+  schemas:
+    ArchiveItems:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        deletion_cause:
+          type: string
+          nullable: true
+      required:
+      - id
+    Classification:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+        parent:
+          type: integer
+          nullable: true
+        full_hierarchy:
+          type: string
+          readOnly: true
+      required:
+      - full_hierarchy
+      - id
+      - name
+      - parent
+    Destination:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        enabled:
+          type: boolean
+      required:
+      - id
+      - name
+    EmployeeArea:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        description:
+          type: string
+          maxLength: 256
+      required:
+      - description
+      - id
+      - name
+    EmployeeResponsability:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        description:
+          type: string
+          maxLength: 256
+      required:
+      - description
+      - id
+      - name
+    Entity:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        enabled:
+          type: boolean
+        phone_1:
+          type: string
+          nullable: true
+          title: Phone number 1
+          pattern: ^\+?\d+$
+          maxLength: 11
+        phone_2:
+          type: string
+          nullable: true
+          title: Phone number 2
+          pattern: ^\+?\d+$
+          maxLength: 11
+      required:
+      - email
+      - id
+      - name
+    Format:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+      required:
+      - id
+      - name
+    GenderEnum:
+      enum:
+      - M
+      - F
+      type: string
+      description: |-
+        * `M` - male
+        * `F` - female
+    GroupingPackaging:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+        capacity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        individual_packaging:
+          type: integer
+      required:
+      - capacity
+      - created_timestamp
+      - deleted_by
+      - deletion_cause
+      - deletion_timestamp
+      - historical_vault
+      - id
+      - individual_packaging
+      - name
+      - updated_timestamp
+    GroupingPackagingRead:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+        capacity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        individual_packaging:
+          $ref: '#/components/schemas/IndividualPackagingRead'
+        representation:
+          type: string
+          readOnly: true
+        total_mililiters:
+          type: integer
+          readOnly: true
+      required:
+      - capacity
+      - created_timestamp
+      - deleted_by
+      - deletion_cause
+      - deletion_timestamp
+      - historical_vault
+      - id
+      - individual_packaging
+      - name
+      - representation
+      - total_mililiters
+      - updated_timestamp
+    IndividualPackaging:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+        capacity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        measurement_unit:
+          type: integer
+        is_grouping_packaging:
+          type: boolean
+        material:
+          $ref: '#/components/schemas/MaterialEnum'
+      required:
+      - capacity
+      - created_timestamp
+      - deleted_by
+      - deletion_cause
+      - deletion_timestamp
+      - historical_vault
+      - id
+      - measurement_unit
+      - name
+      - updated_timestamp
+    IndividualPackagingRead:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+        capacity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        measurement_unit:
+          $ref: '#/components/schemas/MeasurementUnit'
+        is_grouping_packaging:
+          type: boolean
+        material:
+          $ref: '#/components/schemas/MaterialEnum'
+        name_representation:
+          type: string
+          readOnly: true
+      required:
+      - capacity
+      - created_timestamp
+      - deleted_by
+      - deletion_cause
+      - deletion_timestamp
+      - historical_vault
+      - id
+      - measurement_unit
+      - name
+      - name_representation
+      - updated_timestamp
+    MaterialEnum:
+      enum:
+      - P
+      - V
+      type: string
+      description: |-
+        * `P` - Plástico
+        * `V` - Vidrio
+    MeasurementUnit:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 20
+        symbol:
+          type: string
+          maxLength: 10
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+        mililiters:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        used_for_planning:
+          type: boolean
+      required:
+      - id
+      - mililiters
+      - name
+      - symbol
+    PaginatedClassificationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Classification'
+    PaginatedDestinationList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Destination'
+    PaginatedEmployeeAreaList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeArea'
+    PaginatedEmployeeResponsabilityList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/EmployeeResponsability'
+    PaginatedEntityList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Entity'
+    PaginatedGroupingPackagingReadList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/GroupingPackagingRead'
+    PaginatedIndividualPackagingReadList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndividualPackagingRead'
+    PaginatedMeasurementUnitList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/MeasurementUnit'
+    PaginatedPlanReadList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlanRead'
+    PaginatedProductReadList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductRead'
+    PaginatedProductionReadList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductionRead'
+    PaginatedSystemEmailList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SystemEmail'
+    PaginatedUserList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    PatchedClassification:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+        parent:
+          type: integer
+          nullable: true
+        full_hierarchy:
+          type: string
+          readOnly: true
+    PatchedDestination:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        enabled:
+          type: boolean
+    PatchedEmployeeArea:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        description:
+          type: string
+          maxLength: 256
+    PatchedEmployeeResponsability:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        description:
+          type: string
+          maxLength: 256
+    PatchedEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        enabled:
+          type: boolean
+        phone_1:
+          type: string
+          nullable: true
+          title: Phone number 1
+          pattern: ^\+?\d+$
+          maxLength: 11
+        phone_2:
+          type: string
+          nullable: true
+          title: Phone number 2
+          pattern: ^\+?\d+$
+          maxLength: 11
+    PatchedGroupingPackaging:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+        capacity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        individual_packaging:
+          type: integer
+    PatchedIndividualPackaging:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+        capacity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 1
+          format: int64
+        measurement_unit:
+          type: integer
+        is_grouping_packaging:
+          type: boolean
+        material:
+          $ref: '#/components/schemas/MaterialEnum'
+    PatchedMeasurementUnit:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 20
+        symbol:
+          type: string
+          maxLength: 10
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+        mililiters:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        used_for_planning:
+          type: boolean
+    PatchedPlan:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          title: Nombre
+          maxLength: 256
+        ueb:
+          type: integer
+          nullable: true
+        destiny:
+          type: integer
+          nullable: true
+        product_kind:
+          type: integer
+          title: Tipo de producto
+        year:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Año
+        jan_quantity:
+          type: number
+          format: double
+          title: Plan enero
+        feb_quantity:
+          type: number
+          format: double
+          title: Plan febrero
+        mar_quantity:
+          type: number
+          format: double
+          title: Plan marzo
+        apr_quantity:
+          type: number
+          format: double
+          title: Plan abril
+        may_quantity:
+          type: number
+          format: double
+          title: Plan mayo
+        jun_quantity:
+          type: number
+          format: double
+          title: Plan junio
+        jul_quantity:
+          type: number
+          format: double
+          title: Plan julio
+        aug_quantity:
+          type: number
+          format: double
+          title: Plan agosto
+        sep_quantity:
+          type: number
+          format: double
+          title: Plan septiembre
+        oct_quantity:
+          type: number
+          format: double
+          title: Plan octubre
+        nov_quantity:
+          type: number
+          format: double
+          title: Plan noviembre
+        dec_quantity:
+          type: number
+          format: double
+          title: Plan diciembre
+        measurement_unit:
+          type: integer
+          title: Unidad de medida
+        total:
+          type: number
+          format: double
+          readOnly: true
+        extra_plan:
+          type: boolean
+          readOnly: true
+          title: Plan extra
+    PatchedProduct:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        classification:
+          type: integer
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+        format:
+          type: integer
+          readOnly: true
+          nullable: true
+    PatchedProduction:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        plan:
+          type: integer
+          nullable: true
+        name:
+          type: string
+          title: Nombre
+          maxLength: 30
+        product:
+          type: integer
+          title: Producciones
+        distribution_format:
+          type: integer
+          title: Formato de distribución
+        wholesale_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+          title: Precio al por mayor
+        quantity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Cantidad
+        cost:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+          nullable: true
+          title: Costo
+        extra_info:
+          type: string
+          nullable: true
+          title: Información Extra
+          maxLength: 256
+        active:
+          type: boolean
+          title: Activo
+        production_date:
+          type: string
+          format: date
+          nullable: true
+          title: Fecha de producción
+    PatchedSystemEmail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        user:
+          type: integer
+        topic:
+          type: string
+          maxLength: 30
+        text:
+          type: string
+          nullable: true
+        sent_date:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date
+        attachment:
+          type: string
+          format: uri
+          nullable: true
+    PatchedUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        get_full_name:
+          type: string
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        is_staff:
+          type: boolean
+          writeOnly: true
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        ci:
+          type: string
+          title: Identification number
+          maxLength: 11
+        photo:
+          type: string
+          format: uri
+          nullable: true
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+        area:
+          type: integer
+          nullable: true
+          title: Area or department
+        responsability:
+          type: integer
+          nullable: true
+          title: Responsability or main tasks
+    Plan:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          title: Nombre
+          maxLength: 256
+        ueb:
+          type: integer
+          nullable: true
+        destiny:
+          type: integer
+          nullable: true
+        product_kind:
+          type: integer
+          title: Tipo de producto
+        year:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Año
+        jan_quantity:
+          type: number
+          format: double
+          title: Plan enero
+        feb_quantity:
+          type: number
+          format: double
+          title: Plan febrero
+        mar_quantity:
+          type: number
+          format: double
+          title: Plan marzo
+        apr_quantity:
+          type: number
+          format: double
+          title: Plan abril
+        may_quantity:
+          type: number
+          format: double
+          title: Plan mayo
+        jun_quantity:
+          type: number
+          format: double
+          title: Plan junio
+        jul_quantity:
+          type: number
+          format: double
+          title: Plan julio
+        aug_quantity:
+          type: number
+          format: double
+          title: Plan agosto
+        sep_quantity:
+          type: number
+          format: double
+          title: Plan septiembre
+        oct_quantity:
+          type: number
+          format: double
+          title: Plan octubre
+        nov_quantity:
+          type: number
+          format: double
+          title: Plan noviembre
+        dec_quantity:
+          type: number
+          format: double
+          title: Plan diciembre
+        measurement_unit:
+          type: integer
+          title: Unidad de medida
+        total:
+          type: number
+          format: double
+          readOnly: true
+        extra_plan:
+          type: boolean
+          readOnly: true
+          title: Plan extra
+      required:
+      - created_timestamp
+      - deleted_by
+      - deletion_cause
+      - deletion_timestamp
+      - extra_plan
+      - historical_vault
+      - id
+      - measurement_unit
+      - name
+      - product_kind
+      - total
+      - updated_timestamp
+      - year
+    PlanRead:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          title: Nombre
+          maxLength: 256
+        ueb:
+          $ref: '#/components/schemas/Entity'
+        destiny:
+          $ref: '#/components/schemas/Destination'
+        product_kind:
+          $ref: '#/components/schemas/Classification'
+        year:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Año
+        jan_quantity:
+          type: number
+          format: double
+          title: Plan enero
+        feb_quantity:
+          type: number
+          format: double
+          title: Plan febrero
+        mar_quantity:
+          type: number
+          format: double
+          title: Plan marzo
+        apr_quantity:
+          type: number
+          format: double
+          title: Plan abril
+        may_quantity:
+          type: number
+          format: double
+          title: Plan mayo
+        jun_quantity:
+          type: number
+          format: double
+          title: Plan junio
+        jul_quantity:
+          type: number
+          format: double
+          title: Plan julio
+        aug_quantity:
+          type: number
+          format: double
+          title: Plan agosto
+        sep_quantity:
+          type: number
+          format: double
+          title: Plan septiembre
+        oct_quantity:
+          type: number
+          format: double
+          title: Plan octubre
+        nov_quantity:
+          type: number
+          format: double
+          title: Plan noviembre
+        dec_quantity:
+          type: number
+          format: double
+          title: Plan diciembre
+        measurement_unit:
+          $ref: '#/components/schemas/MeasurementUnit'
+        total:
+          type: number
+          format: double
+          readOnly: true
+        extra_plan:
+          type: boolean
+          readOnly: true
+          title: Plan extra
+      required:
+      - created_timestamp
+      - deleted_by
+      - deletion_cause
+      - deletion_timestamp
+      - destiny
+      - extra_plan
+      - historical_vault
+      - id
+      - measurement_unit
+      - name
+      - product_kind
+      - total
+      - ueb
+      - updated_timestamp
+      - year
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        classification:
+          type: integer
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+        format:
+          type: integer
+          readOnly: true
+          nullable: true
+      required:
+      - classification
+      - created_timestamp
+      - deleted_by
+      - deletion_cause
+      - deletion_timestamp
+      - format
+      - historical_vault
+      - id
+      - name
+      - updated_timestamp
+    ProductRead:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        classification:
+          $ref: '#/components/schemas/Classification'
+        description:
+          type: string
+          nullable: true
+          maxLength: 256
+        format:
+          allOf:
+          - $ref: '#/components/schemas/Format'
+          readOnly: true
+      required:
+      - classification
+      - created_timestamp
+      - deleted_by
+      - deletion_cause
+      - deletion_timestamp
+      - format
+      - historical_vault
+      - id
+      - name
+      - updated_timestamp
+    Production:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        plan:
+          type: integer
+          nullable: true
+        name:
+          type: string
+          title: Nombre
+          maxLength: 30
+        product:
+          type: integer
+          title: Producciones
+        distribution_format:
+          type: integer
+          title: Formato de distribución
+        wholesale_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+          title: Precio al por mayor
+        quantity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Cantidad
+        cost:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+          nullable: true
+          title: Costo
+        extra_info:
+          type: string
+          nullable: true
+          title: Información Extra
+          maxLength: 256
+        active:
+          type: boolean
+          title: Activo
+        production_date:
+          type: string
+          format: date
+          nullable: true
+          title: Fecha de producción
+      required:
+      - created_timestamp
+      - deleted_by
+      - deletion_cause
+      - deletion_timestamp
+      - distribution_format
+      - historical_vault
+      - id
+      - name
+      - product
+      - quantity
+      - updated_timestamp
+      - wholesale_price
+    ProductionRead:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        plan:
+          allOf:
+          - $ref: '#/components/schemas/PlanRead'
+          readOnly: true
+        name:
+          type: string
+          title: Nombre
+          maxLength: 30
+        product:
+          allOf:
+          - $ref: '#/components/schemas/ProductRead'
+          readOnly: true
+        distribution_format:
+          allOf:
+          - $ref: '#/components/schemas/GroupingPackagingRead'
+          readOnly: true
+        wholesale_price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+          title: Precio al por mayor
+        quantity:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Cantidad
+        cost:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+          nullable: true
+          title: Costo
+        extra_info:
+          type: string
+          nullable: true
+          title: Información Extra
+          maxLength: 256
+        active:
+          type: boolean
+          title: Activo
+        production_date:
+          type: string
+          format: date
+          nullable: true
+          title: Fecha de producción
+        format:
+          allOf:
+          - $ref: '#/components/schemas/Format'
+          readOnly: true
+      required:
+      - created_timestamp
+      - deleted_by
+      - deletion_cause
+      - deletion_timestamp
+      - distribution_format
+      - format
+      - historical_vault
+      - id
+      - name
+      - plan
+      - product
+      - quantity
+      - updated_timestamp
+      - wholesale_price
+    SystemEmail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        user:
+          type: integer
+        topic:
+          type: string
+          maxLength: 30
+        text:
+          type: string
+          nullable: true
+        sent_date:
+          type: string
+          format: date-time
+          readOnly: true
+          title: Date
+        attachment:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - created_timestamp
+      - deleted_by
+      - deletion_cause
+      - deletion_timestamp
+      - historical_vault
+      - id
+      - sent_date
+      - topic
+      - updated_timestamp
+      - user
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        created_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        historical_vault:
+          type: integer
+          readOnly: true
+        deletion_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+        deletion_cause:
+          type: string
+          readOnly: true
+        deleted_by:
+          type: string
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        get_full_name:
+          type: string
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        is_staff:
+          type: boolean
+          writeOnly: true
+          title: Staff status
+          description: Designates whether the user can log into this admin site.
+        ci:
+          type: string
+          title: Identification number
+          maxLength: 11
+        photo:
+          type: string
+          format: uri
+          nullable: true
+        gender:
+          $ref: '#/components/schemas/GenderEnum'
+        password:
+          type: string
+          writeOnly: true
+          maxLength: 128
+        area:
+          type: integer
+          nullable: true
+          title: Area or department
+        responsability:
+          type: integer
+          nullable: true
+          title: Responsability or main tasks
+      required:
+      - ci
+      - created_timestamp
+      - deleted_by
+      - deletion_cause
+      - deletion_timestamp
+      - get_full_name
+      - historical_vault
+      - id
+      - password
+      - updated_timestamp
+      - username
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

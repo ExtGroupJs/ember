@@ -224,7 +224,27 @@ $(function () {
 
 // crear usuario
 let form = document.getElementById("form-create-elemento");
+
+function setSubmitButtonLoadingState(button, isLoading) {
+  if (!button) {
+    return;
+  }
+
+  if (!button.dataset.originalText) {
+    button.dataset.originalText = button.innerHTML;
+  }
+
+  button.disabled = isLoading;
+  button.innerHTML = isLoading
+    ? '<span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>Cargando...'
+    : button.dataset.originalText;
+}
+
 form.addEventListener("submit", function (event) {
+  if (!$("#form-create-elemento").valid()) return;
+
+  const submitBtn = form.querySelector('button[type="submit"]');
+  setSubmitButtonLoadingState(submitBtn, true);
   event.preventDefault();
   var table = $("#tabla-de-Datos").DataTable();
   axios.defaults.headers.common["X-CSRFToken"] = csrfToken;
@@ -266,6 +286,9 @@ form.addEventListener("submit", function (event) {
           showConfirmButton: false,
           timer: 50 * textError.length,
         });
+      })
+      .finally(() => {
+        setSubmitButtonLoadingState(submitBtn, false);
       });
   } else {
     axios
@@ -276,7 +299,7 @@ form.addEventListener("submit", function (event) {
             icon: "success",
             title: "Entidad creado con éxito",
             showConfirmButton: false,
-            timer: 50 * 2000,
+            timer:1000,
           });
 
           table.ajax.reload();
@@ -297,6 +320,9 @@ form.addEventListener("submit", function (event) {
           showConfirmButton: false,
           timer: 50 * textError.length,
         });
+      })
+      .finally(() => {
+        setSubmitButtonLoadingState(submitBtn, false);
       });
   }
 });
