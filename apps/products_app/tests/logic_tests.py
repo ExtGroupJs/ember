@@ -1,6 +1,7 @@
 import random
 
 import pytest
+from django.core.exceptions import ValidationError
 from django.urls import reverse
 from model_bakery import baker
 from rest_framework import status
@@ -128,3 +129,105 @@ def test_creating_clasification(client):
     results = response.json()["results"]
     assert clasifications_with_parents + 1 == len(results)
     # the new classification is inserted in de db and correctly retrieved in the list
+
+
+@pytest.mark.django_db
+def test_classification_cannot_be_its_own_parent():
+    classification = baker.make(Classification)
+    classification.parent = classification
+    with pytest.raises(ValidationError):
+        classification.full_clean()
+
+
+@pytest.mark.django_db
+def test_classification_cannot_be_child_of_its_own_child():
+    grandparent = baker.make(Classification)
+    parent = baker.make(Classification, parent=grandparent)
+    child = baker.make(Classification, parent=parent)
+
+    grandparent.parent = child
+    with pytest.raises(ValidationError):
+        grandparent.full_clean()
+
+
+@pytest.mark.django_db
+def test_classification_allows_sibling_and_deeper_descendants():
+    root = baker.make(Classification)
+    other = baker.make(Classification)
+    child = baker.make(Classification, parent=root)
+
+    # a sibling is a valid parent
+    other.parent = root
+    other.full_clean()
+    other.save()
+    assert other.parent == root
+
+    # a deeper descendant of another branch is still a cycle
+    root.parent = child
+    with pytest.raises(ValidationError):
+        root.full_clean()
+
+
+def _make_cycle():
+    """Persist an A -> B -> A cycle, bypassing full_clean on purpose.
+
+    Cycles predating the model validation can only be reproduced by writing
+    parent_id directly, which is exactly how the bad data reached production.
+    """
+    first = baker.make(Classification, name="cycle_a")
+    second = baker.make(Classification, name="cycle_b")
+    Classification.objects.filter(pk=first.pk).update(parent=second)
+    Classification.objects.filter(pk=second.pk).update(parent=first)
+    return first, second
+
+
+@pytest.mark.django_db
+def test_str_does_not_recurse_on_cyclic_parent():
+    first, _ = _make_cycle()
+    first.refresh_from_db()
+
+    # only guards the crash: a cycle has no meaningful hierarchy to render
+    assert first.name in str(first)
+    assert isinstance(str(first), str)
+
+
+@pytest.mark.django_db
+def test_str_full_hierarchy_does_not_recurse_on_cyclic_parent():
+    first, _ = _make_cycle()
+    first.refresh_from_db()
+
+    assert first.name in first._str_full_hierarchy()
+
+
+@pytest.mark.django_db
+def test_get_all_children_recursively_terminates_on_cyclic_parent():
+    first, second = _make_cycle()
+    first.refresh_from_db()
+
+    children = first.get_all_children_recursively()
+
+    # the cycle must not produce duplicates nor an infinite walk
+    assert len(children) == len({child.pk for child in children})
+    assert {first.pk, second.pk} <= {child.pk for child in children}
+
+
+@pytest.mark.django_db
+def test_deep_hierarchy_is_still_rendered():
+    root = baker.make(Classification, name="root")
+    current = root
+    for level in range(1, 5):
+        current = baker.make(Classification, name=f"level_{level}", parent=current)
+
+    assert str(current) == "----level_4"
+    assert current._str_full_hierarchy() == "level_4 (root)"
+
+
+@pytest.mark.django_db
+def test_get_all_children_recursively_returns_full_branch():
+    root = baker.make(Classification)
+    first_child = baker.make(Classification, parent=root)
+    second_child = baker.make(Classification, parent=root)
+    grandchild = baker.make(Classification, parent=first_child)
+
+    result = root.get_all_children_recursively()
+    assert set(result) == {root, first_child, second_child, grandchild}
