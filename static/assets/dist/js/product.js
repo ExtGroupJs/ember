@@ -8,6 +8,42 @@ const csrfToken = document.cookie
   ?.split("=")[1];
 // url del endpoint principal
 const url = "/product-gestion/product/";
+const archivedProductsStorageKey = "product-show-archived";
+const archivedToggleButtonSelector = ".toggle-archived-products-button";
+
+function readArchivedProductsPreference() {
+  try {
+    return window.localStorage.getItem(archivedProductsStorageKey) === "true";
+  } catch (error) {
+    return false;
+  }
+}
+
+function saveArchivedProductsPreference(value) {
+  try {
+    window.localStorage.setItem(archivedProductsStorageKey, value ? "true" : "false");
+  } catch (error) {
+    return;
+  }
+}
+
+let showArchivedProducts = readArchivedProductsPreference();
+
+function updateArchivedButtonLabel() {
+  const toggleButton = document.querySelector(archivedToggleButtonSelector);
+  if (!toggleButton) {
+    return;
+  }
+
+  toggleButton.classList.toggle("active", showArchivedProducts);
+  toggleButton.innerHTML = showArchivedProducts
+    ? '<i class="fas fa-box-open"></i><span class="ml-1">Ocultar</span>'
+    : '<i class="fas fa-archive"></i><span class="ml-1">Mostrar</span>';
+  toggleButton.setAttribute(
+    "title",
+    showArchivedProducts ? "Ocultar archivados" : "Mostrar archivados"
+  );
+}
 
 $(document).ready(function () {
   // var texto = prompt('Entra algo:');
@@ -17,6 +53,16 @@ $(document).ready(function () {
     .DataTable({
       dom: '<"top"l>Bfrtip',
       buttons: [
+        {
+          text: '<i class="fas fa-archive"></i><span class="ml-1">Mostrar archivados</span>',
+          className: "btn bg-olive btn-sm toggle-archived-products-button",
+          action: function () {
+            showArchivedProducts = !showArchivedProducts;
+            saveArchivedProductsPreference(showArchivedProducts);
+            updateArchivedButtonLabel();
+            $("#tabla-de-Datos").DataTable().ajax.reload();
+          },
+        },
         {
           text: " Agregar",
           className: " btn btn-primary btn-info",
@@ -37,6 +83,9 @@ $(document).ready(function () {
           text: "Imprimir",
         },
       ],
+      initComplete: function () {
+        updateArchivedButtonLabel();
+      },
       //Adding server-side processing
       serverSide: true,
       search: {
@@ -49,14 +98,19 @@ $(document).ready(function () {
           dir = "-";
         }
         console.log(data.length);
+        const params = {
+          page_size: data.length,
+          page: data.start / data.length + 1,
+          search: data.search.value,
+          ordering: dir + data.columns[data.order[0].column].data,
+        };
+
+        if (!showArchivedProducts) {
+          params.is_active = true;
+        }
         axios
           .get(url, {
-            params: {
-              page_size: data.length,
-              page: data.start / data.length + 1,
-              search: data.search.value,
-              ordering: dir + data.columns[data.order[0].column].data,
-            },
+            params,
           })
           .then((res) => {
             callback({
@@ -119,6 +173,13 @@ $(document).ready(function () {
     });
 
   poblarListas();
+});
+
+$(document).on("click", "#toggle-archived-products", function () {
+  showArchivedProducts = !showArchivedProducts;
+  saveArchivedProductsPreference(showArchivedProducts);
+  updateArchivedButtonLabel();
+  $("#tabla-de-Datos").DataTable().ajax.reload();
 });
 
 $("#modal-eliminar-elemento").on("hide.bs.modal", (event) => {
