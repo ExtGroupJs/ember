@@ -71,7 +71,7 @@ $(document).ready(function () {
       columns: [
         { data: "name", title: "Nombre" },
         { data: "plan.name", title: "Plan" },
-        // { data: "product.name", "title": "Producto" },
+        { data: "product.name", title: "Producto" },
         // { data: "product.format.name", "title": "Formato" },
         // { data: "wholesale_price", "title": "Precio" },
         // { data: "plan.destiny.name", "title": "Destino" },
